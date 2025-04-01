@@ -2,7 +2,7 @@
     "questions": [
       {
         "question": "What services are provided by Bizowl?",
-        "answer": "XYZ Company offers a wide range of services across multiple domains to help businesses grow and succeed. These include:",
+        "answer": "Bizowl Company offers a wide range of services across multiple domains to help businesses grow and succeed. These include:",
         "services": {
           "Business Planning & Strategy": [
             "Idea Validation",
