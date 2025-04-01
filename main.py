@@ -6,11 +6,11 @@ import google.generativeai as genai
 app = Flask(__name__)
 
 #menu data
-with open('temp_data.json', 'r') as f:
+with open('Data/temp_data.json', 'r') as f:
     menu_data = json.load(f)
 
 #bizzowl info
-with open('data.json', 'r') as f:
+with open('Data/data.json', 'r') as f:
     company_data = json.load(f)
 
 api_key = os.environ.get('GEMINI_API_KEY')
