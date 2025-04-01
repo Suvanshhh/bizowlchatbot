@@ -61,9 +61,22 @@ def get_initial_menu_options():
 def get_next_menu_options(path):
     """Get the next menu options based on the selected path."""
     try:
+        # Start navigation from the greeting level
+        current = menu_data.get('menu', {}).get('greeting', {})
+        
+        # Navigate through the path
         for step in path:
-            current = current.get('options', {}).get(step, {})
-
+            # Get available options at this level
+            options = current.get('options', {})
+            
+            # Move to the next level based on the step
+            if step in options:
+                current = options[step]
+            else:
+                # If step not found, break the traversal
+                break
+        
+        # Get options from the current node
         options_dict = current.get('options', {})
         
         menu_options = []
