@@ -1,0 +1,552 @@
+{
+    "menu": {
+        "greeting": {
+            "message": "Welcome to Bizowl! How can I assist you today?",
+            "options": {
+                "Services": {
+                    "message": "What services are you interested in?",
+                    "options": {
+                        "Business Planning & Strategy": {
+                            "message": "We offer business planning services. Choose one:",
+                            "options": {
+                                "Idea Validation": {
+                                    "message": "Idea validation is like a reality check for your business idea. Before you dive in and spend time, money, and energy, you want to make sure there's actually a need for what you're planning to offer.\n\nIt's about testing your idea with real people to see if they're interested and willing to pay for it. Think of it as a way to ensure you're not building something that no one wants.",
+                                    "options": {
+                                        "Process": {
+                                            "message": "1. Market Research & Feedback Collection\n\nWe conduct market research and gather insights from potential customers using surveys and interviews.\n\n2. Data Analysis & Recommendations\n\nWe analyze the feedback, identify key trends, and prepare actionable recommendations for your idea.\n\n3. Initial Consultation & Planning\n\nWe discuss your idea, goals, and define the key objectives of validation.\n\n4. Results & Next Steps Consultation\n\nWe present a detailed report, discuss the findings, and guide you on the next steps.",
+                                            "options": {
+                                                "Features and Benefits": {
+                                                    "message": "1. Startup Feasibility Check\n2. Product-Market Fit Analysis\n3. Investor Pitch Preparation\n4. Market Expansion Strategy\n5. Pivot & Refinement Decisions",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "Schedule a Call": {
+                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                    "options": {}
+                                                },
+                                                "Buy Service": {
+                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                    "options": {}
+                                                }
+                                            }
+                                        },
+                                        "Features and Benefits": {
+                                            "message": "1. Startup Feasibility Check\n2. Product-Market Fit Analysis\n3. Investor Pitch Preparation\n4. Market Expansion Strategy\n5. Pivot & Refinement Decisions",
+                                            "options": {
+                                                "Process": {
+                                                    "message": "1. Market Research & Feedback Collection\n\nWe conduct market research and gather insights from potential customers using surveys and interviews.\n\n2. Data Analysis & Recommendations\n\nWe analyze the feedback, identify key trends, and prepare actionable recommendations for your idea.\n\n3. Initial Consultation & Planning\n\nWe discuss your idea, goals, and define the key objectives of validation.\n\n4. Results & Next Steps Consultation\n\nWe present a detailed report, discuss the findings, and guide you on the next steps.",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "Business Consulting Service": {
+                                    "message": "Our Business Consultation service is aimed at startups and entrepreneurs who need expert guidance in refining their business models, operations, and overall strategy.\n\nWith a focus on long-term success, we provide actionable insights and strategic advice tailored to your specific needs.",
+                                    "options": {
+                                        "Features and Benefits": {
+                                            "message": "1. Expert Strategic Guidance & Risk Management\n2. Optimized Business Operations & Efficiency\n3. Sustainable Business Model Development\n4. Custom-Tailored Solutions & Advisory Support\n5. Long-Term Growth & Networking Opportunities",
+                                            "options": {
+                                                "Process": {
+                                                    "message": "1. Initial Consultation\n2. Strategic Review\n3. Customised Consultation\n4. Ongoing Support",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "Process": {
+                                            "message": "1. Initial Consultation\n2. Strategic Review\n3. Customised Consultation\n4. Ongoing Support",
+                                            "options": {
+                                                "Features and Benefits": {
+                                                    "message": "1. Expert Strategic Guidance & Risk Management\n2. Optimized Business Operations & Efficiency\n3. Sustainable Business Model Development\n4. Custom-Tailored Solutions & Advisory Support\n5. Long-Term Growth & Networking Opportunities",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "Schedule a Call": {
+                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                    "options": {}
+                                                },
+                                                "Buy Service": {
+                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                    "options": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "SWOT Analysis": {
+                                    "message": "Our SWOT Analysis service is designed to empower entrepreneurs, small business owners, and startups with a structured approach to evaluating their internal and external environments.\n\nBy identifying strengths, weaknesses, opportunities, and threats, we provide a comprehensive view that informs strategic planning and helps you make informed business decisions. With our expertise, you will develop a clear roadmap for growth and sustainability.",
+                                    "options": {
+                                        "Features and Benefits": {
+                                            "message": "1. Strategic Clarity & Informed Decision-Making\n2. Opportunity Identification & Competitive Insights\n3. Risk Management & Threat Mitigation\n4. Resource Optimization & Market Position Analysis\n5. Customized SWOT Reports & Ongoing Consultation",
+                                            "options": {
+                                                "Process": {
+                                                    "message": "1. Initial Consultation\n2. Data Collection\n3. SWOT Analysis Development\n4. Action Plan Creation",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "Process": {
+                                            "message": "1. Initial Consultation\n2. Data Collection\n3. SWOT Analysis Development\n4. Action Plan Creation",
+                                            "options": {
+                                                "Features and Benefits": {
+                                                    "message": "1. Strategic Clarity & Informed Decision-Making\n2. Opportunity Identification & Competitive Insights\n3. Risk Management & Threat Mitigation\n4. Resource Optimization & Market Position Analysis\n5. Customized SWOT Reports & Ongoing Consultation",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "Schedule a Call": {
+                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                    "options": {}
+                                                },
+                                                "Buy Service": {
+                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                    "options": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "Business Canvas Model": {
+                                    "message": "Strategic business model development.",
+                                    "options": {}
+                                },
+                                "Market Entry Strategy": {
+                                    "message": "Welcome to Bizowl's Market Entry Strategy services! How can we assist you today?",
+                                    "options": {
+                                        "Tell me about your Market Entry Strategy services.": {
+                                            "message": "Our Market Entry Strategy service is designed to help startups and new businesses establish themselves in competitive markets.\n\nBy understanding the market landscape, overcoming entry barriers, and positioning your business effectively, we ensure you can confidently navigate your entry into new markets.",
+                                            "options": {
+                                                "What Specific services do you offer in this strategy": {
+                                                    "message": "Our Service include\n\n1. In-depth market research\n2. Competitor analysis\n3. Identification of entry barriers\n4. Development of tailored entry strategies\n5. Ongoing support and consultation.",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "How does the process work?": {
+                                                    "message": "Our process involves:\n\n1. Initial consultation to understand your business goals\n2. Comprehensive market analysis\n3. Strategy development tailored to your needs\n4. Implementation support\n5. Continuous monitoring and adjustment",
+                                                    "options": {
+                                                        "How involved will my team be in this process": {
+                                                            "message": "We follow a collaborative approach:\n\n1. Your team will be actively involved in strategy discussions and approvals\n2. Dedicated project managers ensure smooth communication\n3. Training and knowledge transfer sessions help integrate your team into the process\n\nThe level of involvement can be adjusted based on your preferences.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "What deliverables can we expect at each stage?": {
+                                                            "message": "We provide:\n\n1. Market Research Reports (competitor analysis, customer insights)\n2. Entry Strategy Documents (business models, financial projections)\n3. Risk Assessment Reports (mitigation plans)\n4. Go-to-Market Plans (branding, marketing, and sales strategies)\n5. Implementation Roadmap (timelines, resource allocation)\n\nEach deliverable is customized to the company's needs.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "How do you measure the success of the strategy": {
+                                                            "message": "We track key metrics, including:\n\n1. Market penetration rate (growth in customer base)\n2. Revenue growth & profitability\n3. Brand awareness & customer engagement\n4. Competitive positioning\n5. Return on investment (ROI)\n\nPerformance is evaluated regularly to ensure continuous improvement",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "Can you provide example of successful market entries you've facilitated?": {
+                                                    "message": "While we respect client confidentiality, we can share that we've assisted numerous startups and businesses in various industries to successfully enter new markets by leveraging our tailored strategies and in-depth market insights.",
+                                                    "options": {
+                                                        "can you provide case studies or anonymized success stories?": {
+                                                            "message": "Yes! We have successfully helped multiple companies enter new markets:\n\n1. Tech Startup: Expanded into Southeast Asia, achieving 30% revenue growth in 6 months\n2. E-commerce Brand: Launched in Europe with a customized logistics & marketing strategy\n3. Healthcare Company: Navigated regulatory approvals and entered the Middle Eastern market\n\nMore case studies are available upon request.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "What challenges have you helped businesses overcome?": {
+                                                            "message": "We have tackled:\n\n1. Regulatory & compliance issues (licensing, legal approvals)\n2. Competitive market saturation (differentiation strategies)\n3. Cultural & consumer behavior differences\n4. Pricing & supply chain challenges\n5. Brand positioning & customer trust building\n\nEach challenge is handled with a data-driven, strategic approach.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "How do you tailor strategies for different industries?": {
+                                                            "message": "We take a customized approach for each industry:\n\n1. Tech & SaaS → Focus on digital growth & partnerships\n2. Healthcare → Emphasis on regulatory compliance & trust-building\n3. Retail & E-commerce → Strategies for customer acquisition & logistics\n4. Financial Services → Compliance with regional financial laws\n5. Consumer Goods → Building brand awareness & distribution channels\n\nEvery strategy is backed by market research, competitor analysis, and industry best practices.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "Schedule a Call": {
+                                                "message": "Your call has been scheduled. We will notify you shortly.",
+                                                "options": {}
+                                            },
+                                            "Buy Service": {
+                                                "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                "options": {}
+                                            }
+                                        },
+                                        "How can Bizowl help my startup enter a new market?": {
+                                            "message": "We assist startups by providing tailored strategies that include market research, competitor analysis, and effective positioning to overcome entry barriers and establish a strong presence in new markets.",
+                                            "options": {
+                                                "What industries do you specialize in?": {
+                                                    "message": "We Specialize in Multiple industries such as:\n\n1. Technology and SAAS\n2. E-Commerce and Retail\n3. Healthcare and Pharmaceuticals\n4. Financial Services\n5. Manufacturing and Supply Chain\n6. Consumer Goods\n\nEach strategy is customized based on the industry's specific market trends and challenges.",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "How Long does the market entry process typically take?": {
+                                                    "message": "The timeline varies based on factors like industry, market size, and regulatory requirements.\n\nHowever, a typical market entry strategy takes between 3 to 6 months:\n\n1. Market Research & Analysis → 4-6 weeks\n2. Strategy Development → 6-8 weeks\n3. Execution & Implementation → 8-12 weeks\n\nFaster timelines may be possible depending on the business model and market complexity.",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "What are the costs associated with your service?": {
+                                                    "message": "The cost depends on:\n\n1. The scope of the market research & strategy\n2. The complexity of the target market\n3. The level of support needed for execution\n\nWe offers custom pricing plans, and businesses can request a quote based on their specific needs.",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "What are the benefits of using Bizowl's Service": {
+                                            "message": "By partnering with Bizowl, you gain access to expert guidance, comprehensive market analysis, and strategies tailored to your business needs, ensuring a smoother and more successful market entry.",
+                                            "options": {
+                                                "How do you customize strategies for different businesses": {
+                                                    "message": "We take the time to understand each client's unique goals, challenges, and industry dynamics. This personalized approach allows us to develop strategies that are specifically tailored to each business's needs.",
+                                                    "options": {
+                                                        "What information do you need from us to start the process?": {
+                                                            "message": "To begin, you require:\n\n1. Business objectives & expansion goals\n2. Target market(s) of interest\n3. Current market presence & competition\n4. Budget considerations\n5. Key challenges & concerns\n\nThis Information helps in crafting a tailored market entry strategy.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "How do you ensure the strategy aligns with our company culture?": {
+                                                            "message": "We Conduct in-depth consultations to understand:\n\n1. Company values, mission, and goals\n2. Leadership style and decision-making processes\n3. Work culture and operational preferences\n\nThis ensures that the market entry strategy is aligned with the company's identity and internal dynamics.",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        },
+                                                        "Can the strategy be adjusted if market conditions change?": {
+                                                            "message": "Yes! Our strategies are dynamic and adaptable:\n\n1. Regular market monitoring is conducted\n2. Adjustments are made based on economic shifts, regulatory changes, or competition\n3. Pivot strategies are recommended if unexpected challenges arise\n\nThis ensures flexibility in achieving long term success",
+                                                            "options": {
+                                                                "Schedule a Call": {
+                                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                                    "options": {}
+                                                                },
+                                                                "Buy Service": {
+                                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                                    "options": {}
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "Can you share testimonials from past clients?": {
+                                                    "message": "Certainly! Here's feedback from one of our satisfied clients: 'Great! We got BIZOWL's services for digitalization of our company INDUS OVERSEAS. BIZOWL made it easy to explore our business internationally. Thanks Indus Overseas' ",
+                                                    "options": {
+                                                        "Schedule a Call": {
+                                                            "message": "Your call has been scheduled. We will notify you shortly.",
+                                                            "options": {}
+                                                        },
+                                                        "Buy Service": {
+                                                            "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                            "options": {}
+                                                        }
+                                                    }
+                                                },
+                                                "What makes Bizowl different from other consultancy services?": {
+                                                    "message": "Coming Soon",
+                                                    "options": {}
+                                                },
+                                                "Schedule a Call": {
+                                                    "message": "Your call has been scheduled. We will notify you shortly.",
+                                                    "options": {}
+                                                },
+                                                "Buy Service": {
+                                                    "message": "Thank You for Choosing Bizowl.\n\nYou will be Re-directed Soon.",
+                                                    "options": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "Branding Strategy": {
+                                    "message": "Develop strong brand strategies.",
+                                    "options": {}
+                                },
+                                "Business Feasibility": {
+                                    "message": "Analyze the feasibility of your business.",
+                                    "options": {}
+                                }
+                            }
+                        },
+                        "Marketing": {
+                            "message": "Choose a marketing service:",
+                            "options": {
+                                "SEO": {
+                                    "message": "Improve your search engine ranking.",
+                                    "options": {}
+                                },
+                                "Go-To-Market": {
+                                    "message": "Create a successful market launch strategy.",
+                                    "options": {}
+                                },
+                                "Email Marketing": {
+                                    "message": "Boost business with email campaigns.",
+                                    "options": {}
+                                },
+                                "Social Media Marketing": {
+                                    "message": "Leverage social platforms for growth.",
+                                    "options": {}
+                                },
+                                "Influencer Marketing": {
+                                    "message": "Promote your brand via influencers.",
+                                    "options": {}
+                                },
+                                "SMS Marketing": {
+                                    "message": "Reach customers via SMS campaigns.",
+                                    "options": {}
+                                },
+                                "Video Marketing": {
+                                    "message": "Create engaging video content for marketing.",
+                                    "options": {}
+                                }
+                            }
+                        },
+                        "Web Development": {
+                            "message": "Choose a web development service:",
+                            "options": {
+                                "Website Development": {
+                                    "message": "Get a custom-built website.",
+                                    "options": {}
+                                },
+                                "Mobile App Development": {
+                                    "message": "Develop a mobile application.",
+                                    "options": {}
+                                },
+                                "Shopify Development": {
+                                    "message": "Set up an online store using Shopify.",
+                                    "options": {}
+                                },
+                                "E-commerce Development": {
+                                    "message": "Build a complete e-commerce solution.",
+                                    "options": {}
+                                },
+                                "Maintenance/Update": {
+                                    "message": "Keep your website up to date.",
+                                    "options": {}
+                                },
+                                "Other": {
+                                    "message": "Other web development-related services.",
+                                    "options": {}
+                                }
+                            }
+                        },
+                        "Advertising": {
+                            "message": "Choose an advertising service:",
+                            "options": {
+                                "PPC": {
+                                    "message": "Run pay-per-click advertising campaigns.",
+                                    "options": {}
+                                },
+                                "Meta": {
+                                    "message": "Advertise on Facebook and Instagram.",
+                                    "options": {}
+                                },
+                                "LinkedIn": {
+                                    "message": "Run ads on LinkedIn.",
+                                    "options": {}
+                                },
+                                "Twitter (X)": {
+                                    "message": "Promote content on Twitter (X).",
+                                    "options": {}
+                                },
+                                "Radio Advertisement": {
+                                    "message": "Run radio advertisements.",
+                                    "options": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "F&Q": {
+                    "message": "Here are some frequently asked questions. Choose one:",
+                    "options": {
+                        "What does Bizowl do?": {
+                            "message": "Bizowl is a B2B service marketplace where users can find and compare digital business solutions.",
+                            "options": {}
+                        },
+                        "What is Bizowl's refund policy?": {
+                            "message": "Bizowl generally does not offer refunds for digital services. However, refunds may be granted under specific conditions.",
+                            "options": {}
+                        },
+                        "How can I request a refund?": {
+                            "message": "Email info@bizowl.com or call +91 9354651433 to request a refund.",
+                            "options": {}
+                        },
+                        "What are Bizowl's customer support hours?": {
+                            "message": "Support is available Monday to Friday from 10 AM to 8 PM, and on weekends from 10 AM to 6 PM.",
+                            "options": {}
+                        },
+                        "How can I contact the sales team?": {
+                            "message": "Email sales@bizowl.com for sales inquiries.",
+                            "options": {}
+                        }
+                    }
+                },
+                "Contact Support": {
+                    "message": "For support, call 1800-123-456 or email support@bizowl.com.",
+                    "options": {
+                        "Schedule a Call": {
+                            "message": "Your call has been scheduled. We will notify you shortly.",
+                            "options": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

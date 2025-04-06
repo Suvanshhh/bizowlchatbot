@@ -1,0 +1,127 @@
+{
+    "questions": [
+      {
+        "question": "What services are provided by Bizowl?",
+        "answer": "Bizowl Company offers a wide range of services across multiple domains to help businesses grow and succeed. These include:",
+        "services": {
+          "Business Planning & Strategy": [
+            "Idea Validation",
+            "Business Consulting Service",
+            "SWOT Analysis",
+            "Business Canvas Model",
+            "Market Entry Strategy",
+            "Branding Strategy",
+            "Business Feasibility"
+          ],
+          "Marketing": [
+            "SEO",
+            "Go-To-Market",
+            "Email Marketing",
+            "Social Media Marketing",
+            "Influencer Marketing",
+            "SMS Marketing",
+            "Video Marketing"
+          ],
+          "Web Development": [
+            "Website Development",
+            "Mobile App Development",
+            "Shopify Development",
+            "E-commerce Development",
+            "Maintenance/Update",
+            "Other"
+          ],
+          "Advertising": [
+            "PPC",
+            "Meta",
+            "LinkedIn",
+            "X",
+            "Radio Advertisement"
+          ],
+          "Market Research": [
+            "Market Analysis",
+            "Target Audience Analysis",
+            "Competitor Analysis",
+            "Trend Analysis"
+          ],
+          "Design": [
+            "Logo Design",
+            "UI/UX",
+            "Social Creatives"
+          ],
+          "Public Relations": [
+            "Press Release",
+            "Product Development",
+            "MVP Development"
+          ]
+        }
+      },
+      {
+        "question": "What does Bizowl do?",
+        "answer": "Bizowl is an aggregator and B2B service marketplace, a platform where users can visit to search for any digital business solution they need for their businesses. On our website, users may compare prices, features, and other aspects to determine which service provider best suits their needs. A to Z services are provided by Bizowl under one roof. In addition, we also provide free business consultation. We also offer our users the option to tell us what they want as a result and their budget, and we will do all the hard work on their behalf if they don't have the time or don't want the inconvenience of having to keep an eye out for this. Users on our platform can avail all business services such as web development, digital marketing, advertising, all designing services, media and content productions, and other required services."
+      },
+      {
+        "question" : "What is Bizowl's general policy on refunds for digital services?",
+        "answer" : "Bizowl generally does not offer refunds for digital services due to their nature. However, refunds may be granted under specific conditions, such as when work has not started or if there's a missed start date."
+      },
+      {
+        "question" : "Under what conditions might a customer be eligible for a refund?",
+        "answer" : "Customers may be eligible for a refund if: 1) Work has not yet started on your request or order, or 2) The work is not completed as per the promised starting date."
+      },
+      {
+        "question": "What is the timeframe for requesting a refund at Bizowl?",
+        "answer": "Refund requests must be made before Bizowl starts working on the request or order. Requests made after work has commenced are not eligible for a refund."
+      },
+      {
+        "question": "How can a customer request a refund from Bizowl?",
+        "answer": "To request a refund, customers should email us at info@bizzowl.com or contact@bizzowl.com, or call +919354651433. They need to provide the email and phone number used when booking the services."
+
+      },
+      {
+        "question": "How long does it take for Bizowl to process a refund?",
+        "answer": "Bizowl will credit the refund amount within 5-7 working days to the original payment source, with payment gateway charges deducted."
+      },
+      {
+        "question": "Does Bizowl offer partial refunds for unsatisfactory work?",
+        "answer": "Bizowl does not offer partial refunds for unsatisfactory work due to upfront payments made to their partners."
+      },
+      {
+        "question": "What are Bizowl's customer support hours?",
+        "answer": "Bizowl's customer support is available Monday to Friday from 10 AM to 8 PM, and on weekends from 10 AM to 6 PM."
+      },
+      {
+        "question": "How can customers contact Bizowl for refund inquiries?",
+        "answer": "Customers can contact Bizowl for refund inquiries by emailing info@bizzowl.com or contact@bizzowl.com, or by calling +919354651433."
+      },
+      {
+        "question": "What types of personal information does Bizzowl.com collect?",
+        "answer": "When you use Bizzowl.com, we may collect the following types of personal information:",
+        "Personal information" : {
+          "Contact Information": [
+            "Your name", 
+            "email address", 
+            "phone number", 
+            "any other contact details you provide us with"
+          ],
+          "User Data": [
+            "Information about how you use Bizzowl.com, such as your browsing history and search queries."
+          ],
+          "Payment Information": [
+            "Credit card numbers", 
+            "billing addresses", 
+            "other payment details if you choose to make a purchase through our platform."
+          ],
+          "Cookies and Other Tracking Technologies": [
+            "Bizzowl.com uses cookies and other tracking technologies to collect information about your usage of the platform and to personalize your experience"]
+        } 
+      }, 
+      {
+         "question": "How does Bizzowl.com use the collected personal information?",
+        "answer": "Bizzowl.com uses the information to provide and improve services, communicate with users, process payments, and comply with legal requirements when necessary."
+      },
+      {
+        "question" : "How can we contact the sales team?",
+        "answer" : "For sales queries, you can contact our sales team at sales@bizzowl.com"
+      }
+    ]
+  }
+  
