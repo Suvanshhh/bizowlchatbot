@@ -19,12 +19,12 @@ file_map = {
 
 # Default messages for each service
 default_messages = {
-    "business_planning_and_strategy": "Welcome to Business Planning and Strategy! Let’s build your business foundation.",
+    "business_planning_and_strategy": "Welcome to Business Planning and Strategy! Let's build your business foundation.",
     "business_consultancy": "Welcome to Business Consultancy! Explore our FAQs to grow your business.",
-    "idea_validation": "Welcome to Idea Validation! Let’s dive into assessing your business idea.",
+    "idea_validation": "Welcome to Idea Validation! Let's dive into assessing your business idea.",
     "business_branding": "Welcome to Business Branding! Discover FAQs to enhance your brand.",
     "business_feasibility": "Welcome to Business Feasibility! Explore FAQs to evaluate your business.",
-    "SWOT_analysis": "Welcome to SWOT Analysis! Let’s analyze your business strengths and weaknesses.",
+    "SWOT_analysis": "Welcome to SWOT Analysis! Let's analyze your business strengths and weaknesses.",
     "business_model_canvas": "Welcome to Business Model Canvas! FAQs to design your business model.",
     "web_development": "Building a professional website is crucial for any business. Explore our FAQs to learn more about our website development services."
 }
