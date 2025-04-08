@@ -13,7 +13,8 @@ file_map = {
     "business_branding": os.path.join(DATA_FOLDER, "business_branding.json"),
     "business_feasibility": os.path.join(DATA_FOLDER, "business_feasibility.json"),
     "SWOT_analysis": os.path.join(DATA_FOLDER, "SWOT.json"),
-    "business_model_canvas": os.path.join(DATA_FOLDER, "business_model_canvas.json")
+    "business_model_canvas": os.path.join(DATA_FOLDER, "business_model_canvas.json"),
+    "web_development": os.path.join(DATA_FOLDER, "web_dev.json")
 }
 
 # Default messages for each service
@@ -25,7 +26,7 @@ default_messages = {
     "business_feasibility": "Welcome to Business Feasibility! Explore FAQs to evaluate your business.",
     "SWOT_analysis": "Welcome to SWOT Analysis! Let’s analyze your business strengths and weaknesses.",
     "business_model_canvas": "Welcome to Business Model Canvas! FAQs to design your business model.",
-    "web_development": "Welcome to Web Development! Filter your project requirements below."
+    "web_development": "Building a professional website is crucial for any business. Explore our FAQs to learn more about our website development services."
 }
 
 # Load JSON data for FAQs
@@ -121,10 +122,20 @@ def get_menu_options():
             })
         elif selected_option == "web_development":
             session_state["level"] = "service"
-            session_state["selected_option"] = "web_development"
+            session_state["selected_option"] = selected_option
+            session_state["faqs"] = load_json_data(selected_option)
+            if "error" in session_state["faqs"]:
+                return jsonify({
+                    "options": [{"id": "back", "text": "Back to Main Menu"}],
+                    "bot_response": session_state["faqs"]["error"],
+                    "path": current_path + [selected_option]
+                })
+            available_faqs = [faq for faq in session_state["faqs"] if faq["question"] not in session_state["selected_questions"]]
+            options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
+            options.append({"id": "back", "text": "Back to Main Menu"})
             return jsonify({
-                "options": [{"id": "back", "text": "Back to Main Menu"}],
-                "bot_response": default_messages["web_development"] + " (Use /filter to set preferences)",
+                "options": options,
+                "bot_response": default_messages["web_development"],
                 "path": current_path + [selected_option]
             })
 
@@ -167,11 +178,6 @@ def get_menu_options():
                     {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
                     {"id": "web_development", "text": "Web Development"}
                 ]
-                return jsonify({
-                    "options": menu_options,
-                    "bot_response": "Hello! How can I assist you today?",
-                    "path": []
-                })
             else:
                 session_state["level"] = "business_planning_and_strategy"
                 menu_options = [
@@ -183,20 +189,20 @@ def get_menu_options():
                     {"id": "business_model_canvas", "text": "Business Model Canvas"},
                     {"id": "back", "text": "Back to Main Menu"}
                 ]
-                return jsonify({
-                    "options": menu_options,
-                    "bot_response": default_messages["business_planning_and_strategy"],
-                    "path": current_path[:-1]
-                })
-        elif session_state["selected_option"] != "web_development":
+            return jsonify({
+                "options": menu_options,
+                "bot_response": "Hello! How can I assist you today?" if session_state["level"] == "main" else default_messages["business_planning_and_strategy"],
+                "path": [] if session_state["level"] == "main" else current_path[:-1]
+            })
+        else:
             faq = next((f for f in session_state["faqs"] if f["question"] == selected_option), None)
             if faq:
                 session_state["selected_questions"].append(faq["question"])
-                session_state["answers"].append({"question": faq["question"], "answer": f["answer"]})
+                session_state["answers"].append({"question": faq["question"], "answer": faq["answer"]})
                 available_faqs = [f for f in session_state["faqs"] if f["question"] not in session_state["selected_questions"]]
                 options = [{"id": f["question"], "text": f["question"]} for f in available_faqs]
                 options.append({"id": "back", "text": "Back to Main Menu"})
-                response = f"**Question:** {faq['question']}\n**Answer:** {faq['answer']}"
+                response = faq["answer"]  # Only the answer text, no "Question:" or "Answer:"
                 if not available_faqs:
                     response += "\nNo more questions available in this category."
                 return jsonify({
@@ -212,17 +218,7 @@ def process_custom_input():
     """Process custom user input using Gemini API and company data."""
     user_input = request.json.get('input', '')
     
-    # Handle web development filter
-    if session_state["selected_option"] == "web_development" and user_input.startswith("/filter"):
-        try:
-            _, type_budget = user_input.split(" ", 1)
-            website_type, budget = type_budget.split(" $")
-            response = f"Filtered: {website_type} website with ${budget} budget."
-        except ValueError:
-            response = "Please use format: /filter [type] $[budget] (e.g., /filter E-commerce $1000)"
-        return jsonify({"response": response})
-    
-    # Use Gemini API for other inputs
+    # Use Gemini API for all inputs
     try:
         prompt = create_gemini_prompt(user_input)
         gemini_response = model.generate_content(prompt)
