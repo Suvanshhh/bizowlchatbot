@@ -40,7 +40,6 @@ idna==3.10  # Internationalized domain names support (required by requests)
 itsdangerous==2.2  # Required by Flask for secure cookies and tokens
 Jinja2==3.1.6  # Template engine used by Flask
 joblib==1.4  # Utility for parallel processing (if needed)
-jsonschema-specifications>=2024.<latest>
-llama-index-core>=<latest>
-llama-index-embeddings-gemini>=<latest>
-llama-index-llms-gemini
+
+
+
