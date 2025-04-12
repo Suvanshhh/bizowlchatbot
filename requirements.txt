@@ -1,4 +1,3 @@
-aiohappyeyeballs==2.6.1
 aiohttp==3.11.14
 aiosignal==1.3.2
 altair==5.5.0
@@ -6,40 +5,21 @@ annotated-types==0.7.0
 anyio==4.9.0
 attrs==25.3.0
 blinker==1.9.0
-cachetools==5.5.2
+cachetools==5.3.0
 certifi==2025.1.31
 charset-normalizer==3.4.1
 click==8.1.8
 colorama==0.4.6
 dataclasses-json==0.6.7
-Deprecated==1.2.18
-dirtyjson==1.0.8
+Deprecated==1.2.13
 dotenv==0.9.9
-filetype==1.2.0
-Flask==3.1.0
-firebase-admin==6.2.0  # Firebase Admin SDK for Firestore integration
-frozenlist==1.5.0
-fsspec==2025.3.0
-gitdb==4.0.12
-GitPython==3.1.44  # GitPython for version control (if needed)
-google-ai-generativelanguage==0.6.15  # Gemini API integration
-google-api-core==2.24.2  # Google API Core for Google services
-google-api-python-client==2.165.0  # Google API Python Client for Google services
-google-auth==2.38.0  # Google authentication library
-google-auth-httplib2==0.2.0  # HTTP client for Google Auth
-google-generativeai==0.8.4  # Generative AI library for Gemini integration
-googleapis-common-protos==1.69.2  # Common protobufs for Google APIs
-greenlet==3.1.1  # Required by SQLAlchemy or other async libraries
-grpcio==1.71.0  # gRPC library for communication with Google services
-grpcio-status==1.71.0  # gRPC status handling library
-h11==0.14.0  # HTTP/1 client library (for ASGI servers)
-httpcore==1.0.7  # Core HTTP library (used by httpx)
-httplib2==0.22.0  # HTTP client library (used by Google APIs)
-httpx==0.28.1  # HTTP client library (used by some integrations)
-idna==3.10  # Internationalized domain names support (required by requests)
-itsdangerous==2.2  # Required by Flask for secure cookies and tokens
-Jinja2==3.1.6  # Template engine used by Flask
-joblib==1.4  # Utility for parallel processing (if needed)
-
-
-
+firebase-admin==6.2.0
+Flask==2.3.3
+google-generativeai==0.8.4
+google-api-core==2.24.2
+google-auth==2.22
+grpcio==1.57
+httplib2==0.22
+itsdangerous==2.1
+Jinja2==3.1
+waitress==2.1
