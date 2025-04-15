@@ -1,12 +1,11 @@
 import os
 import json
-import uuid
 from datetime import datetime
 from flask import Flask, request, render_template, jsonify, session
 import google.generativeai as genai
 import firebase_admin
 from firebase_admin import credentials, firestore
-from waitress import serve  # Import Waitress
+from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # ✅ Added this line
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET', 'default-secret-key')
@@ -25,39 +24,42 @@ with open('Data/data.json', 'r') as f:
 
 # Configure Gemini
 api_key = os.environ.get('GEMINI_API_KEY')
+if not api_key:
+    print("❌ Gemini API key not found in environment variables.")
+else:
+    print("✅ Gemini API key found.")
+
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
+print("✅ Gemini model loaded:", model)
 
-# Firebase Helper Functions
+# ✅ Firebase Helper Functions (Updated)
 def create_chat_session():
-    """Create a new chat session in Firestore"""
     chat_ref = db.collection('chats').document()
     chat_data = {
-        'created_at': datetime.now(),
-        'updated_at': datetime.now(),
+        'created_at': SERVER_TIMESTAMP,
+        'updated_at': SERVER_TIMESTAMP,
         'status': 'active'
     }
     chat_ref.set(chat_data)
     return chat_ref.id
 
 def save_message(chat_id, message, is_user=True):
-    """Save message to Firestore"""
     messages_ref = db.collection('chats').document(chat_id).collection('messages')
     messages_ref.add({
         'content': message,
         'sender': 'user' if is_user else 'bot',
-        'timestamp': datetime.now()
+        'timestamp': SERVER_TIMESTAMP
     })
 
 def save_contact_info(chat_id, contact_data):
-    """Save contact information to Firestore"""
     chat_ref = db.collection('chats').document(chat_id)
     chat_ref.update({
         'contact_info': contact_data,
-        'updated_at': datetime.now()
+        'updated_at': SERVER_TIMESTAMP
     })
 
-# Existing Chat Functions (modified for Firebase)
+# Gemini Prompt Creation
 def create_gemini_prompt(user_query):
     prompt = f"""
 You are a customer support AI assistant for a company. You must ONLY answer questions using the information provided below.
@@ -98,10 +100,9 @@ def get_next_menu_options(path):
         print(f"Error getting next menu options: {e}")
         return [], ""
 
-# Routes with Firebase Integration
+# Routes
 @app.route('/')
 def index():
-    """Initialize chat session"""
     if 'chat_id' not in session:
         session['chat_id'] = create_chat_session()
     return render_template('index1.html', menu_options=get_initial_menu_options())
@@ -112,13 +113,11 @@ def get_menu_options():
     selected_option = data.get('option')
     path = data.get('path', [])
     
-    # Save user selection to Firebase
     save_message(session['chat_id'], selected_option, is_user=True)
     
     current_path = path + [selected_option]
     next_options, bot_response = get_next_menu_options(current_path)
     
-    # Save bot response to Firebase
     if bot_response:
         save_message(session['chat_id'], bot_response, is_user=False)
     
@@ -131,20 +130,24 @@ def get_menu_options():
 @app.route('/process_custom_input', methods=['POST'])
 def process_custom_input():
     user_input = request.json.get('input', '')
-    
-    # Save user input to Firebase
+
     save_message(session['chat_id'], user_input, is_user=True)
-    
+
     try:
         prompt = create_gemini_prompt(user_input)
-        response = model.generate_content(prompt).text
+        print("\n🔹 Prompt sent to Gemini:\n", prompt)
+
+        response_obj = model.generate_content(prompt)
+        print("\n🔸 Gemini Response Object:\n", response_obj)
+
+        response_text = response_obj.text
     except Exception as e:
-        response = "I apologize, but our system is experiencing technical difficulties."
-    
-    # Save bot response to Firebase
-    save_message(session['chat_id'], response, is_user=False)
-    
-    return jsonify({'response': response})
+        print("❌ Error in Gemini API call:", e)
+        response_text = "I apologize, but our system is experiencing technical difficulties."
+
+    save_message(session['chat_id'], response_text, is_user=False)
+
+    return jsonify({'response': response_text})
 
 @app.route('/save_contact', methods=['POST'])
 def save_contact():
@@ -157,11 +160,9 @@ def save_contact():
 
 @app.route('/reset', methods=['POST'])
 def reset():
-    """Create new chat session on reset"""
     session.pop('chat_id', None)
     session['chat_id'] = create_chat_session()
     return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
-    # Use Waitress instead of Flask's development server for production-ready deployment
-    serve(app, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
