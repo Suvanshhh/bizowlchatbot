@@ -1,4 +1,1 @@
 /.env
-.vercel
-firebase-credentials.json
-*.json
