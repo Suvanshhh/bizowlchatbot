@@ -1,17 +1,9 @@
 {
+  "version": 2,
   "builds": [
-    {
-      "src": "start.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "."
-      }
-    }
+    { "src": "app.py", "use": "@vercel/python" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/start.sh"
-    }
+    { "src": "/(.*)", "dest": "app.py" }
   ]
 }
