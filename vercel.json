@@ -5,12 +5,6 @@
       "maxDuration": 10
     }
   },
-  "builds": [
-    {
-      "src": "main.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/(.*)",
