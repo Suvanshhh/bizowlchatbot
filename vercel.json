@@ -1,14 +1,14 @@
 {
-  "functions": {
-    "api/main.py": {
-      "memory": 1024,
-      "maxDuration": 10
+  "builds": [
+    {
+      "src": "start.sh",
+      "use": "@vercel/static-build"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/main.py"
+      "dest": "app.py"
     }
   ]
 }

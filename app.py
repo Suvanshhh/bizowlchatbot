@@ -164,5 +164,4 @@ def reset():
     session['chat_id'] = create_chat_session()
     return jsonify({'options': get_initial_menu_options()})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# Running via Gunicorn in production (no need to use Flask dev server)
