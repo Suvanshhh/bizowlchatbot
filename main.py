@@ -5,7 +5,8 @@ from flask import Flask, request, render_template, jsonify, session
 import google.generativeai as genai
 import firebase_admin
 from firebase_admin import credentials, firestore
-from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # ✅ Added this line
+from google.api_core.exceptions import DeadlineExceeded
+from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET', 'default-secret-key')
@@ -33,7 +34,7 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 print("✅ Gemini model loaded:", model)
 
-# ✅ Firebase Helper Functions (Updated)
+# ✅ Firebase Helper Functions (Upgraded)
 def create_chat_session():
     chat_ref = db.collection('chats').document()
     chat_data = {
@@ -41,23 +42,47 @@ def create_chat_session():
         'updated_at': SERVER_TIMESTAMP,
         'status': 'active'
     }
-    chat_ref.set(chat_data)
-    return chat_ref.id
+    try:
+        chat_ref.set(chat_data, timeout=30)  # Increased timeout
+        return chat_ref.id
+    except DeadlineExceeded:
+        print("⚠️ Firestore DeadlineExceeded while creating chat session. Retrying once...")
+        try:
+            chat_ref.set(chat_data, timeout=30)
+            return chat_ref.id
+        except Exception as e:
+            print(f"❌ Failed to create chat session after retry: {e}")
+            return None
+    except Exception as e:
+        print(f"❌ Unexpected error while creating chat session: {e}")
+        return None
 
 def save_message(chat_id, message, is_user=True):
-    messages_ref = db.collection('chats').document(chat_id).collection('messages')
-    messages_ref.add({
-        'content': message,
-        'sender': 'user' if is_user else 'bot',
-        'timestamp': SERVER_TIMESTAMP
-    })
+    try:
+        if not chat_id:
+            print("⚠️ No chat_id provided, skipping save_message.")
+            return
+        messages_ref = db.collection('chats').document(chat_id).collection('messages')
+        messages_ref.add({
+            'content': message,
+            'sender': 'user' if is_user else 'bot',
+            'timestamp': SERVER_TIMESTAMP
+        }, timeout=30)
+    except Exception as e:
+        print(f"❌ Error saving message: {e}")
 
 def save_contact_info(chat_id, contact_data):
-    chat_ref = db.collection('chats').document(chat_id)
-    chat_ref.update({
-        'contact_info': contact_data,
-        'updated_at': SERVER_TIMESTAMP
-    })
+    try:
+        if not chat_id:
+            print("⚠️ No chat_id provided, skipping save_contact_info.")
+            return
+        chat_ref = db.collection('chats').document(chat_id)
+        chat_ref.update({
+            'contact_info': contact_data,
+            'updated_at': SERVER_TIMESTAMP
+        }, timeout=30)
+    except Exception as e:
+        print(f"❌ Error saving contact info: {e}")
 
 # Gemini Prompt Creation
 def create_gemini_prompt(user_query):
@@ -84,7 +109,7 @@ def get_initial_menu_options():
     try:
         return [{'id': k, 'text': k} for k in menu_data.get('menu', {}).get('greeting', {}).get('options', {}).keys()]
     except Exception as e:
-        print(f"Error getting initial menu options: {e}")
+        print(f"❌ Error getting initial menu options: {e}")
         return []
 
 def get_next_menu_options(path):
@@ -97,14 +122,17 @@ def get_next_menu_options(path):
             for k in current.get('options', {}).keys()
         ], current.get('message', '')
     except Exception as e:
-        print(f"Error getting next menu options: {e}")
+        print(f"❌ Error getting next menu options: {e}")
         return [], ""
 
 # Routes
 @app.route('/')
 def index():
     if 'chat_id' not in session:
-        session['chat_id'] = create_chat_session()
+        chat_id = create_chat_session()
+        if not chat_id:
+            print("⚠️ Failed to create chat session. Proceeding without chat_id.")
+        session['chat_id'] = chat_id
     return render_template('index1.html', menu_options=get_initial_menu_options())
 
 @app.route('/get_menu_options', methods=['POST'])
@@ -112,15 +140,15 @@ def get_menu_options():
     data = request.json
     selected_option = data.get('option')
     path = data.get('path', [])
-    
-    save_message(session['chat_id'], selected_option, is_user=True)
-    
+
+    save_message(session.get('chat_id'), selected_option, is_user=True)
+
     current_path = path + [selected_option]
     next_options, bot_response = get_next_menu_options(current_path)
-    
+
     if bot_response:
-        save_message(session['chat_id'], bot_response, is_user=False)
-    
+        save_message(session.get('chat_id'), bot_response, is_user=False)
+
     return jsonify({
         'options': next_options,
         'bot_response': bot_response,
@@ -131,7 +159,7 @@ def get_menu_options():
 def process_custom_input():
     user_input = request.json.get('input', '')
 
-    save_message(session['chat_id'], user_input, is_user=True)
+    save_message(session.get('chat_id'), user_input, is_user=True)
 
     try:
         prompt = create_gemini_prompt(user_input)
@@ -145,14 +173,14 @@ def process_custom_input():
         print("❌ Error in Gemini API call:", e)
         response_text = "I apologize, but our system is experiencing technical difficulties."
 
-    save_message(session['chat_id'], response_text, is_user=False)
+    save_message(session.get('chat_id'), response_text, is_user=False)
 
     return jsonify({'response': response_text})
 
 @app.route('/save_contact', methods=['POST'])
 def save_contact():
     contact_info = request.json
-    save_contact_info(session['chat_id'], contact_info)
+    save_contact_info(session.get('chat_id'), contact_info)
     return jsonify({
         'success': True,
         'message': "Thank you! Our customer support team will contact you shortly."
@@ -161,7 +189,10 @@ def save_contact():
 @app.route('/reset', methods=['POST'])
 def reset():
     session.pop('chat_id', None)
-    session['chat_id'] = create_chat_session()
+    chat_id = create_chat_session()
+    if not chat_id:
+        print("⚠️ Failed to create new chat session during reset.")
+    session['chat_id'] = chat_id
     return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
