@@ -11,17 +11,34 @@ from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET', 'default-secret-key')
 
-# Initialize Firebase
-cred = credentials.Certificate("firebase-credentials.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+# ✅ Initialize Firebase using credentials from .env
+firebase_credentials_str = os.getenv("FIREBASE_CREDENTIALS_JSON")  # Corrected the variable name
+if not firebase_credentials_str:
+    print("❌ Firebase credentials not found in environment variables!")
+else:
+    try:
+        firebase_credentials_dict = json.loads(firebase_credentials_str)
+        cred = credentials.Certificate(firebase_credentials_dict)
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        print("✅ Firebase initialized successfully.")
+    except json.JSONDecodeError as e:
+        print(f"❌ Failed to decode Firebase credentials JSON: {e}")
+        exit(1)  # Exit the program if Firebase initialization fails
+    except Exception as e:
+        print(f"❌ Error initializing Firebase: {e}")
+        exit(1)  # Exit the program if Firebase initialization fails
 
 # Load data files
-with open('Data/temp_data.json', 'r') as f:
-    menu_data = json.load(f)
-
-with open('Data/data.json', 'r') as f:
-    company_data = json.load(f)
+try:
+    with open('Data/temp_data.json', 'r') as f:
+        menu_data = json.load(f)
+    with open('Data/data.json', 'r') as f:
+        company_data = json.load(f)
+    print("✅ Data files loaded successfully.")
+except Exception as e:
+    print(f"❌ Error loading data files: {e}")
+    exit(1)
 
 # Configure Gemini
 api_key = os.environ.get('GEMINI_API_KEY')
@@ -29,10 +46,9 @@ if not api_key:
     print("❌ Gemini API key not found in environment variables.")
 else:
     print("✅ Gemini API key found.")
-
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
-print("✅ Gemini model loaded:", model)
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    print("✅ Gemini model loaded:", model)
 
 # ✅ Firebase Helper Functions (Upgraded)
 def create_chat_session():
@@ -43,7 +59,7 @@ def create_chat_session():
         'status': 'active'
     }
     try:
-        chat_ref.set(chat_data, timeout=30)  # Increased timeout
+        chat_ref.set(chat_data, timeout=30)
         return chat_ref.id
     except DeadlineExceeded:
         print("⚠️ Firestore DeadlineExceeded while creating chat session. Retrying once...")
@@ -196,4 +212,4 @@ def reset():
     return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)
