@@ -12,24 +12,24 @@
         <div class="chat-header">
             <h1>Chat with OWL! 🦉</h1>
         </div>
-        
+
         <div class="chat-messages" id="chatMessages">
             <div class="message bot-message">
                 <p>Hello! Welcome to our customer support. How can our OWL🦉help you today?</p>
             </div>
         </div>
-        
+
         <div class="menu-options" id="menuOptions">
             {% for option in menu_options %}
             <button class="menu-button" onclick="selectMenuOption('{{ option.id }}', '{{ option.text }}')">{{ option.text }}</button>
             {% endfor %}
             <div class="custom-input-container">
                 <input type="text" id="customInput" placeholder="Or ask your own question...">
-                <button onclick="sendCustomInput()">Send</button>
+                <button id="sendButton" onclick="sendCustomInput()" disabled>Send</button>
             </div>
         </div>
-        
-        <!-- Contact Form (Hidden by default) -->
+
+        <!-- Contact Form -->
         <div class="contact-form" id="contactForm" style="display: none;">
             <h3>Leave your contact information</h3>
             <div class="form-group">
@@ -53,124 +53,119 @@
                 <button class="cancel-button" onclick="hideContactForm()">Cancel</button>
             </div>
         </div>
-        
+
         <button class="reset-button" onclick="resetChat()">Reset Chat</button>
     </div>
 
     <script>
-        // Initialize the navigation path
         let currentPath = [];
-        
+
+        document.getElementById('customInput').addEventListener('input', function () {
+            const sendBtn = document.getElementById('sendButton');
+            sendBtn.disabled = this.value.trim() === '';
+        });
+
         function selectMenuOption(optionId, optionText) {
-            // Add user selection to chat
             addMessage('user', optionText);
-            
-            // Get next menu options
             fetch('/get_menu_options', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    option: optionId, 
-                    text: optionText,
-                    path: currentPath 
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ option: optionId, text: optionText, path: currentPath }),
             })
             .then(response => response.json())
             .then(data => {
-                // Update current path
                 currentPath = data.path;
-                
-                // Update menu options
                 updateMenuOptions(data.options);
-                
-                // If there's a bot response for this menu option, display it
                 if (data.bot_response) {
                     addMessage('bot', data.bot_response);
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('bot', "Oops! Something went wrong. Please try again later.");
             });
         }
-        
+
         function sendCustomInput() {
-            const userInput = document.getElementById('customInput').value.trim();
+            const inputField = document.getElementById('customInput');
+            const userInput = inputField.value.trim();
             if (userInput === '') return;
-            
+
             addMessage('user', userInput);
-            document.getElementById('customInput').value = '';
-            
-            // Process custom input
+            inputField.value = '';
+            document.getElementById('sendButton').disabled = true;
+
             fetch('/process_custom_input', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ input: userInput }),
             })
             .then(response => response.json())
             .then(data => {
                 addMessage('bot', data.response);
-                
-                // Check if the response contains the "don't have that information" message
                 if (data.response.includes("I don't have that information in my database") || 
                     data.response.includes("Our customer support team will contact you soon")) {
-                    // Show the contact form after a short delay
-                    setTimeout(() => {
-                        showContactForm();
-                    }, 1000);
+                    setTimeout(() => showContactForm(), 1000);
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('bot', "Oops! Something went wrong. Please try again later.");
             });
         }
-        
+
         function addMessage(sender, text) {
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            
-            // Replace \n\n with <br> for proper display
+
             const formattedText = text.replace(/\n\n/g, '<br><br>');
-            
             const paragraph = document.createElement('p');
             paragraph.innerHTML = formattedText;
+
             messageDiv.appendChild(paragraph);
-            
             messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
+
+            const input = document.getElementById('customInput');
+            if (input) input.focus();
         }
-        
+
         function updateMenuOptions(options) {
             const menuDiv = document.getElementById('menuOptions');
             menuDiv.innerHTML = '';
-            
-            // Add new menu buttons
+
             options.forEach(option => {
                 const button = document.createElement('button');
                 button.className = 'menu-button';
                 button.textContent = option.text;
-                button.onclick = function() { selectMenuOption(option.id, option.text); };
+                button.onclick = function () { selectMenuOption(option.id, option.text); };
                 menuDiv.appendChild(button);
             });
-            
-            // Always add custom input option
+
             const customInputContainer = document.createElement('div');
             customInputContainer.className = 'custom-input-container';
             customInputContainer.innerHTML = `
                 <input type="text" id="customInput" placeholder="Or ask your own question...">
-                <button onclick="sendCustomInput()">Send</button>
+                <button id="sendButton" onclick="sendCustomInput()" disabled>Send</button>
             `;
             menuDiv.appendChild(customInputContainer);
+
+            document.getElementById('customInput').addEventListener('input', function () {
+                document.getElementById('sendButton').disabled = this.value.trim() === '';
+            });
         }
-        
+
         function showContactForm() {
             document.getElementById('menuOptions').style.display = 'none';
             document.getElementById('contactForm').style.display = 'block';
         }
-        
+
         function hideContactForm() {
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('menuOptions').style.display = 'flex';
         }
-        
+
         function submitContactForm() {
             const contactInfo = {
                 name: document.getElementById('contactName').value,
@@ -178,62 +173,31 @@
                 phone: document.getElementById('contactPhone').value,
                 issue: document.getElementById('contactIssue').value
             };
-            
+
             fetch('/save_contact', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(contactInfo),
             })
             .then(response => response.json())
             .then(data => {
                 addMessage('bot', data.message);
                 hideContactForm();
-                
-                // Clear the form
+
                 document.getElementById('contactName').value = '';
                 document.getElementById('contactEmail').value = '';
                 document.getElementById('contactPhone').value = '';
                 document.getElementById('contactIssue').value = '';
-            });
-        }
-        
-        function resetChat() {
-            // Reset the path
-            currentPath = [];
-            
-            // Clear chat messages except the first one
-            const messagesDiv = document.getElementById('chatMessages');
-            messagesDiv.innerHTML = `
-                <div class="message bot-message">
-                    <p>Hello! Welcome to our customer support. How can I help you today?</p>
-                </div>
-            `;
-            
-            // Hide contact form if visible
-            hideContactForm();
-            
-            // Reset menu options to initial state
-            fetch('/reset', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
             })
-            .then(response => response.json())
-            .then(data => {
-                updateMenuOptions(data.options);
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('bot', "Failed to submit the form. Please try again later.");
             });
         }
-        
-        // Add event listener for Enter key in custom input
-        document.getElementById('customInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendCustomInput();
-            }
-        });
+
+        function resetChat() {
+            location.reload();
+        }
     </script>
 </body>
 </html>
