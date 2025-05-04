@@ -146,142 +146,138 @@
         "services": {
           "Product Development" : [
             {
-              "intents": [
-                {
-                  "tag": "service_overview",
-                  "patterns": [
-                    "What is product development?",
-                    "Tell me about your product development service",
-                    "Explain product development",
-                    "What do you offer in product development?"
-                  ],
-                  "responses": [
-                    "Our Product Development Service is a full-cycle solution designed to take your product idea from initial concept to successful market launch. We assist you at every stage including ideation, strategic planning, design, software or hardware development, testing, validation, and post-launch support. Whether you're a startup or a growing business, our service helps bring your vision to life while aligning with your business objectives and market needs."
-                  ]
-                },
-                {
-                  "tag": "features",
-                  "patterns": [
-                    "What features does the service include?",
-                    "Tell me the key features of your product development service",
-                    "What do I get in this service?"
-                  ],
-                  "responses": [
-                    "Our Product Development Service includes a comprehensive set of features: \n1. Detailed Product Design tailored for functionality and market appeal.\n2. Full End-to-End Development, covering both frontend and backend systems.\n3. User Experience Optimization to ensure your product is intuitive and customer-friendly.\n4. Agile & Iterative Development methodology for continuous improvement.\n5. Expert Consultation for selecting the right technology stack.\n6. Rigorous Market Testing & Validation to reduce risks.\n7. Customized Product Roadmap for clear, goal-oriented development.\n8. Future Scalability Strategy to help you grow.\n9. Ongoing Maintenance & Technical Support post-launch.\n10. Strategic Consulting to align development with your long-term goals."
-                  ]
-                },
-                {
-                  "tag": "benefits",
-                  "patterns": [
-                    "What are the benefits of this service?",
-                    "Why should I choose your product development service?",
-                    "How will this service help my business?"
-                  ],
-                  "responses": [
-                    "By choosing our Product Development Service, you unlock numerous advantages: \n• A streamlined, end-to-end development solution that covers all technical and strategic needs.\n• A user-first approach that ensures the product solves real-world problems.\n• Agile processes that allow flexibility and fast pivots based on feedback.\n• A clear, strategic roadmap to keep your development on track and business-focused.\n• Faster time-to-market, which gives you a competitive edge.\n• Built-in scalability, so your product grows with your business.\nOverall, we reduce your development risks while maximizing innovation and impact."
-                  ]
-                },
-                {
-                  "tag": "how_it_works",
-                  "patterns": [
-                    "How does this work?",
-                    "Explain the process",
-                    "What are the steps in your service?"
-                  ],
-                  "responses": [
-                    "Our process follows four strategic phases: \n1. **Initial Consultation** – We begin with a discovery session to understand your product idea, target audience, and business objectives.\n2. **Product Strategy & Roadmap** – We create a customized roadmap, breaking down the development journey into clear milestones aligned with your goals.\n3. **Design & Development** – Our team designs the UI/UX, builds the backend and frontend, and iterates based on feedback.\n4. **Launch & Ongoing Support** – Once ready, we launch your product and continue to provide post-launch updates, maintenance, and user support to ensure long-term success."
-                  ]
-                },
-                {
-                  "tag": "who_is_it_for",
-                  "patterns": [
-                    "Who can use this service?",
-                    "Is this right for startups?",
-                    "Who should opt for this?"
-                  ],
-                  "responses": [
-                    "This service is perfect for:\n• **Early-stage businesses** looking to transform a great idea into a tangible product.\n• **Small businesses** aiming to add new products or enter new markets.\n• **Startups** wanting to bring a fully functional and tested product to market quickly.\n• **Product managers** who need expert guidance and development support to manage the entire lifecycle. \nIf you’re looking to build something meaningful with minimal risk and maximum efficiency, this service is for you."
-                  ]
-                },
-                {
-                  "tag": "timeline",
-                  "patterns": [
-                    "How long does product development take?",
-                    "What is the timeline for development?",
-                    "Development duration?"
-                  ],
-                  "responses": [
-                    "The duration of product development varies significantly depending on the product’s complexity, features, and scope. For simpler projects or MVPs (Minimum Viable Products), it might take a few months. However, more complex or large-scale products may require up to a year or more. We follow an agile, iterative approach that allows for flexibility and progress tracking throughout the process, ensuring that quality is never compromised while maintaining reasonable timelines."
-                  ]
-                },
-                {
-                  "tag": "roadmap_importance",
-                  "patterns": [
-                    "Why is a product roadmap important?",
-                    "Do I really need a product roadmap?",
-                    "What's the use of a product roadmap?"
-                  ],
-                  "responses": [
-                    "A product roadmap is essential because it provides a clear, strategic overview of your product’s development journey. It breaks down the work into phases, helps prioritize features, sets deadlines, and ensures that the entire team stays aligned with your business goals. With a roadmap, you can track progress, make informed decisions, and reduce the risk of scope creep or delays. It also keeps stakeholders, investors, and team members aligned on what to expect and when."
-                  ]
-                },
-                {
-                  "tag": "post_launch_support",
-                  "patterns": [
-                    "Do you offer post-launch support?",
-                    "What happens after the launch?",
-                    "Is maintenance included?"
-                  ],
-                  "responses": [
-                    "Yes, we provide comprehensive post-launch support to ensure your product remains functional, up-to-date, and aligned with user needs. This includes ongoing maintenance, performance monitoring, bug fixes, feature enhancements, and technical assistance. Our team stays involved even after launch to help you adapt to user feedback, fix emerging issues, and ensure your product continues to deliver value over time."
-                  ]
-                },
-                {
-                  "tag": "digital_physical_products",
-                  "patterns": [
-                    "Can you help with both digital and physical products?",
-                    "Do you develop physical products too?",
-                    "Is this only for digital products?"
-                  ],
-                  "responses": [
-                    "Absolutely, we support both digital and physical product development. For digital products, we specialize in software, mobile apps, and web platforms. For physical products, we offer design, prototyping, and development services, especially where hardware integrates with software (such as IoT or smart devices). Our team tailors the development approach based on the nature of your product, ensuring it meets market standards and user expectations regardless of type."
-                  ]
-                },
-                {
-                  "tag": "pricing",
-                  "patterns": [
-                    "What is the price?",
-                    "How much does it cost?",
-                    "Tell me the payment details"
-                  ],
-                  "responses": [
-                    "The total cost for our Product Development Service is ₹6149. This includes ₹5211 for the service itself and ₹937 as GST (18%). However cost may very based on the complexity of the product."
-                  ]
-                },
-                {
-                  "tag": "proceed_to_payment",
-                  "patterns": [
-                    "How do I pay?",
-                    "Proceed to payment",
-                    "I want to pay now"
-                  ],
-                  "responses": [
-                    "To proceed with the payment, simply click the 'Proceed' button on the payment section of our website. This will take you to a secure checkout where you can complete your transaction and begin your product journey with us. [Click here to continue to the next step](https://www.bizzowl.com/services/new-product-development-service)"
-                  ]
-                },
-                {
-                  "tag": "payment_proceed_steps",
-                  "patterns": [
-                    "What happens after I click proceed?",
-                    "What's the next step after payment?",
-                    "What do I need to do after payment?",
-                    "Explain the steps after proceeding"
-                  ],
-                  "responses": [
-                    "After you click on 'Proceed' for payment, there are two more steps:\n\n**Step 1: Idea Details**\nYou’ll fill out a form detailing your product idea, stage, target customers, market research, and budget.\n\n**Step 2: Personal Details**\nWe’ll collect your contact information including name, phone, email, and location.\n\n [Click here to continue to the next step](https://www.bizzowl.com/booking-self/Product%20Development)"
-                  ]
-                }                
-              ]
+              "intro": {
+                "short": "Our comprehensive Product Development Service helps you take your product from concept to market launch. We offer design, development, testing, and strategy consultation to ensure your product's success. Build smarter, launch faster, and scale confidently.",
+                "url": "https://www.bizzowl.com/services/new-product-development-service"
+              },
+              "process": {
+                "steps": [
+                  "Start with an initial consultation to discuss your product idea and business goals.",
+                  "Develop a custom product roadmap aligned with your business strategy.",
+                  "Design and develop your product through iterative cycles, ensuring continuous improvement.",
+                  "Test the product under real market conditions for validation.",
+                  "Launch the product with a strong strategy and ongoing support."
+                ]
+              },
+              "features": {
+                "list": [
+                  "Comprehensive product design tailored to market needs.",
+                  "End-to-end development support from concept to market launch.",
+                  "User experience optimization for intuitive design.",
+                  "Agile development process with iterative feedback.",
+                  "Technology stack consultation for scalability and innovation.",
+                  "Product testing and validation to ensure market readiness."
+                ]
+              },
+              "benefits": {
+                "list": [
+                  "Complete product solution from concept to launch.",
+                  "User-centric design that solves real problems.",
+                  "Agile approach to reduce risks and adapt to changes.",
+                  "Faster time-to-market to stay competitive.",
+                  "Scalable solutions to support future growth."
+                ]
+              },
+              "when_to_use": {
+                "list": [
+                  "When launching a new product or service.",
+                  "When expanding your product line or entering new markets.",
+                  "When looking for expert guidance in product development.",
+                  "When you need to optimize your product for user experience."
+                ]
+              },
+              "how_to_use": {
+                "steps": [
+                  "Fill out the consultation form to discuss your product idea.",
+                  "Review and approve the custom product roadmap.",
+                  "Collaborate on design and development iterations.",
+                  "Validate the product through rigorous testing.",
+                  "Launch the product with ongoing support and maintenance."
+                ]
+              },
+              "best_practices": {
+                "list": [
+                  "Clearly define your product's target market and user needs.",
+                  "Ensure regular feedback and collaboration during the design and development stages.",
+                  "Test your product thoroughly before launch to minimize risks.",
+                  "Plan for scalability to accommodate future growth."
+                ]
+              },
+              "common_doubts": {
+                "schedule_call_option": "If you have any specific questions, schedule a call with our expert."
+              },
+              "general_questions": {
+                "faq": [
+                  {
+                    "question": "What is product development?",
+                    "answer": "Product development is the process of bringing a product from an idea or concept through to its final release in the market. It includes design, development, testing, and post-launch support."
+                  },
+                  {
+                    "question": "How long does product development take?",
+                    "answer": "The timeline depends on the complexity of your product and the development phases involved. It can range from a few months to over a year for more complex products."
+                  },
+                  {
+                    "question": "Why is a product roadmap important?",
+                    "answer": "A product roadmap outlines the strategic vision for your product's development, ensuring alignment with business goals and customer needs, helping to manage timelines and resources effectively."
+                  },
+                  {
+                    "question": "Do you offer post-launch support?",
+                    "answer": "Yes, we provide ongoing support and maintenance after the product is launched to ensure its continued success and scalability."
+                  },
+                  {
+                    "question": "Can you help with both digital and physical products?",
+                    "answer": "Yes, we have expertise in developing both digital and physical products, including hardware and software integration."
+                  }
+                ]
+              },
+              "process_related_questions": {
+                "faq": [
+                  {
+                    "question": "How do I communicate with the team during development?",
+                    "answer": "Once you sign up, you'll have dedicated communication channels with our team via chat and video calls to ensure continuous updates and feedback."
+                  },
+                  {
+                    "question": "Can I request changes during the development process?",
+                    "answer": "Yes, we follow an agile development approach, allowing for iterative changes and refinements based on your feedback."
+                  },
+                  {
+                    "question": "What happens if my product needs updates after launch?",
+                    "answer": "We offer ongoing maintenance and updates after the product is launched to ensure it remains relevant and meets market demands."
+                  }
+                ]
+              },
+              "pricing_payment_questions": {
+                "faq": [
+                  {
+                    "question": "What are the pricing options for product development?",
+                    "answer": "Pricing varies depending on the complexity of your product, development phases, and services required. We provide customized quotes after discussing your product's specific needs."
+                  },
+                  {
+                    "question": "Can I pay in installments?",
+                    "answer": "Yes, we offer flexible payment options based on the phases of development, including installments."
+                  },
+                  {
+                    "question": "Do you offer refunds?",
+                    "answer": "Refunds are available in certain circumstances, particularly before the development process begins. Once the project starts, we work closely to ensure it meets your expectations."
+                  }
+                ]
+              },
+              "customization_questions": {
+                "faq": [
+                  {
+                    "question": "Can I customize the development process?",
+                    "answer": "Absolutely! We tailor the product development process to meet your unique business goals, market needs, and preferences."
+                  },
+                  {
+                    "question": "Can I add new features during development?",
+                    "answer": "Yes, you can request new features during the development cycle, and we will work to incorporate them as needed."
+                  },
+                  {
+                    "question": "How do you handle scalability in product design?",
+                    "answer": "We design products with future scalability in mind, ensuring they can handle increasing demand and additional features as your business grows."
+                  }
+                ]
+              }
             }            
           ],
           "Press Release Distribution" : [
@@ -1111,6 +1107,702 @@
                   {
                     "question": "Do you provide a tool for conducting the SWOT analysis?",
                     "answer": "Yes, we provide a user-friendly SWOT analysis tool that guides you through the process of identifying and evaluating the key components of your business."
+                  }
+                ]
+              }
+            }
+          ],
+          "Business Model Canvas Consultation": [
+            {
+              "intro": {
+                  "short": "Our Business Model Canvas Consultation helps startups, small businesses, and entrepreneurs design, refine, and optimize their business models using proven frameworks like the Lean Startup and Business Model Canvas, ensuring strategic clarity and long-term success.",
+                  "url": "https://www.bizzowl.com/services/business-model-canvas"
+                },
+                "process": {
+                  "steps": [
+                    "Initial consultation to understand your business idea, structure, and challenges.",
+                    "Comprehensive analysis using the Business Model Canvas and Lean Startup methodologies.",
+                    "Receive a customized and visual representation of your business model with expert feedback.",
+                    "Implementation support for applying recommended changes and improvements.",
+                    "Ongoing guidance to review, refine, and adapt your business model as your business evolves."
+                  ]
+                },
+                "features": {
+                  "list": [
+                    "Design and development of your Business Model Canvas from scratch.",
+                    "Customer segmentation and targeting for effective market alignment.",
+                    "Refinement of your value proposition to meet customer needs.",
+                    "Revenue stream design and cost structure analysis for profitability.",
+                    "Identification of key resources, partners, and activities required for success.",
+                    "Channel and customer relationship strategy planning.",
+                    "Operational guidance tailored to Lean Startup principles.",
+                    "Actionable and visual business plan delivery.",
+                    "Ongoing consulting support for strategic adjustments.",
+                    "Expert review sessions with feedback and improvements."
+                  ]
+                },
+                "benefits": {
+                  "list": [
+                    "Achieve strategic clarity and business direction through expert-guided modeling.",
+                    "Improve operational efficiency and minimize unnecessary resource usage.",
+                    "Reduce business risks with early-stage validation and planning.",
+                    "Build a resilient and scalable business model using modern frameworks.",
+                    "Receive personalized, actionable insights based on your unique needs.",
+                    "Position your business for sustainable growth and long-term success."
+                  ]
+                },
+                "when_to_use": {
+                  "list": [
+                    "When you're launching a new venture and need a structured model to guide decisions.",
+                    "When scaling your business and looking to optimize customer targeting and revenue.",
+                    "When you're pivoting your business model or entering new markets.",
+                    "When you're transitioning from freelancing to a structured business model.",
+                    "When your current model isn’t delivering results and needs expert intervention."
+                  ]
+                },
+                "how_to_use": {
+                  "steps": [
+                    "Book a consultation through our official platform.",
+                    "Provide details about your business idea, goals, and current structure.",
+                    "Attend an in-depth session to co-create your Business Model Canvas with our experts.",
+                    "Receive a detailed report outlining the canvas and action plan.",
+                    "Use ongoing support and follow-ups to implement and refine your strategy."
+                  ]
+                },
+                "best_practices": {
+                  "list": [
+                    "Clearly define your business goals before the consultation.",
+                    "Be honest about your challenges, assumptions, and target customers.",
+                    "Embrace Lean Startup principles like testing and iteration.",
+                    "Use your Business Model Canvas as a living document, not a one-time exercise.",
+                    "Regularly revisit your model and consult for updates as your business grows."
+                  ]
+                },
+                "common_doubts": {
+                  "schedule_call_option": "Have questions before you begin? Schedule a call with our consultants. Please share your business idea or current model to help us guide you better:"
+                },
+                "general_questions": {
+                  "faq": [
+                    {
+                      "question": "What is a Business Model Canvas?",
+                      "answer": "It’s a strategic tool that visually outlines key elements of your business such as customer segments, value propositions, revenue streams, and operations. It helps entrepreneurs understand and communicate their business model clearly."
+                    },
+                    {
+                      "question" : "what is Lean Startup model?",
+                      "answer" : "Lean Startup Model Canvas is a simple 1-page tool that helps startups quickly map out their idea, identify key problems, solutions, customers, and test assumptions. It’s perfect for early-stage businesses using the build-measure-learn approach to reduce risk and grow faster."
+                    },
+                    {
+                      "question": "How does the Lean Startup model apply?",
+                      "answer": "We use Lean principles to validate your assumptions, reduce waste, and iteratively improve your model, ensuring faster and more effective growth with lower risk."
+                    },
+                    {
+                      "question": "Is this service suitable for new entrepreneurs?",
+                      "answer": "Yes, this service is ideal for individuals starting a business and needing strategic clarity before market entry."
+                    },
+                    {
+                      "question": "What types of businesses can use this service?",
+                      "answer": "We cater to startups, small businesses, freelancers, and even established companies seeking to pivot or expand."
+                    }
+                  ]
+                },
+                "process_related_questions": {
+                  "faq": [
+                    {
+                      "question": "Will I get a visual version of the Business Model Canvas?",
+                      "answer": "Absolutely. We deliver a complete, visually structured canvas that clearly maps out all aspects of your business model."
+                    },
+                    {
+                      "question": "Can I update my canvas later?",
+                      "answer": "Yes, your canvas is a dynamic tool. You can revisit and revise it anytime, and we offer follow-up sessions to help with updates."
+                    }
+                  ]
+                },
+                "pricing_payment_questions": {
+                  "faq": [
+                    {
+                      "question": "What is the cost of the consultation service?",
+                      "answer": "The charges may vary depending on your business needs. The final amount will be confirmed after an initial consultation with our team."
+
+                    },
+                    {
+                      "question": "Can I pay in installments?",
+                      "answer": "Yes, we offer flexible installment options upon request. Contact us for more details."
+                    },
+                    {
+                      "question": "Are there any hidden charges?",
+                      "answer": "No. We maintain complete transparency and share all pricing details upfront in your consultation proposal."
+                    }
+                  ]
+                },
+                "customization_questions": {
+                  "faq": [
+                    {
+                      "question": "Can this service be tailored to my industry?",
+                      "answer": "Yes. We customize the canvas and advice based on the specific challenges and opportunities in your industry."
+                    },
+                    {
+                      "question": "Can I focus on specific sections of the canvas?",
+                      "answer": "Absolutely. You can choose to prioritize areas like value proposition, revenue streams, customer segments, or cost structures."
+                    }
+                  ]
+                },
+                "technical_questions": {
+                  "faq": [
+                    {
+                      "question": "Is this service available remotely?",
+                      "answer": "Yes. All consultations and follow-ups can be conducted virtually, making it accessible from anywhere."
+                    },
+                    {
+                      "question": "Do I get documentation after the session?",
+                      "answer": "Yes, you’ll receive a comprehensive PDF report including your completed Business Model Canvas and our expert recommendations."
+                    },
+                    {
+                      "question": "How do I get started?",
+                      "answer": "Just visit our website, book a session, and share your basic business information. We’ll guide you from there."
+                    }
+                  ]
+                }
+              }
+          ],
+          "Market Entry Strategy": [
+            {
+              "intro": {
+                "short": "Our Market Entry Strategy service helps startups, small businesses, and international companies enter new markets with confidence by analyzing local dynamics, identifying barriers, and crafting a tailored plan for strategic market positioning.",
+                "url": "https://www.bizzowl.com/services/market-entry-strategy"
+              },
+              "process": {
+                "steps": [
+                  "Initial consultation to understand your business goals and entry objectives.",
+                  "In-depth market landscape analysis, including trends, competition, and opportunities.",
+                  "Identification of entry barriers and regulatory challenges.",
+                  "Development of a comprehensive and actionable market entry strategy.",
+                  "Ongoing implementation support and strategic adjustments as needed."
+                ]
+              },
+              "features": {
+                "list": [
+                  "Comprehensive market research and trend analysis.",
+                  "Identification of industry-specific entry barriers.",
+                  "Competitive landscape assessment to gauge positioning.",
+                  "Legal and compliance advisory tailored to the target market.",
+                  "Recommendations for effective distribution channels.",
+                  "Strategic partnership and alliance suggestions.",
+                  "Risk mitigation and contingency planning.",
+                  "Insights into local consumer behavior and preferences.",
+                  "Customizable strategy to suit different industries.",
+                  "Delivery of a detailed, actionable entry strategy report."
+                ]
+              },
+              "benefits": {
+                "list": [
+                  "Faster and more effective market penetration.",
+                  "Informed decision-making based on market data.",
+                  "Improved compliance with local laws and regulations.",
+                  "Access to potential strategic partnerships.",
+                  "Competitive advantage through positioning insights.",
+                  "Minimized risks with a structured and validated plan."
+                ]
+              },
+              "when_to_use": {
+                "list": [
+                  "When launching a new product or business in an unfamiliar market.",
+                  "When expanding operations into a different city, region, or country.",
+                  "When entering regulated or competitive industries.",
+                  "When you want to validate demand before large investments.",
+                  "When unsure how to position yourself among local competitors."
+                ]
+              },
+              "how_to_use": {
+                "steps": [
+                  "Schedule an initial consultation via our platform.",
+                  "Share details about your business, target market, and objectives.",
+                  "Collaborate with our experts during strategy development sessions.",
+                  "Review the final market entry strategy and recommended actions.",
+                  "Begin implementation with continued support and feedback."
+                ]
+              },
+              "best_practices": {
+                "list": [
+                  "Be clear about your goals and expected outcomes before the consultation.",
+                  "Provide detailed information on your current offerings and resources.",
+                  "Engage actively during market analysis discussions.",
+                  "Use the strategy document as a living plan, not a static file.",
+                  "Monitor market performance and revisit your strategy regularly."
+                ]
+              },
+              "common_doubts": {
+                "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your expansion goals:"
+              },
+              "general_questions": {
+                "faq": [
+                  {
+                    "question": "How long does it take to create a market entry strategy?",
+                    "answer": "The typical timeline is 1 to 2 weeks, depending on the complexity of the market and the depth of analysis required."
+                  },
+                  {
+                    "question": "Do I need this service if I already have a product ready?",
+                    "answer": "Yes. A market-ready product still needs the right strategy to ensure successful entry, visibility, and competitive positioning."
+                  },
+                  {
+                    "question": "What markets do you specialize in?",
+                    "answer": "We specialize in a wide range of markets including India, Southeast Asia, North America, and Europe, across industries like tech, retail, education, and wellness."
+                  },
+                  {
+                    "question": "Can you help with local regulations?",
+                    "answer": "Yes. We provide guidance on relevant local laws, industry regulations, and licensing requirements based on your business type and market."
+                  }
+                ]
+              },
+              "pricing_payment_questions": {
+                "faq": [
+                  {
+                    "question": "What is the cost of the Market Entry Strategy service?",
+                    "answer": "Prices may vary depending on the scope and complexity of your requirements. The final price will be discussed and shared after an initial consultation with our team."
+                  }
+                ]
+              },
+              "customization_questions": {
+                "faq": [
+                  {
+                    "question": "Can the strategy be customized for my industry?",
+                    "answer": "Absolutely. We tailor each market entry plan based on the unique needs and challenges of your specific sector."
+                  },
+                  {
+                    "question": "Can I focus only on regulations or partnerships?",
+                    "answer": "Yes. You can choose to focus on specific components like legal advisory, partnership strategy, or competitor research."
+                  }
+                ]
+              },
+              "technical_questions": {
+                "faq": [
+                  {
+                    "question": "Is the consultation remote?",
+                    "answer": "Yes. All sessions can be conducted online, making the service accessible globally."
+                  },
+                  {
+                    "question": "Will I get a written strategy document?",
+                    "answer": "Yes, you will receive a professionally formatted strategy report in PDF format."
+                  },
+                  {
+                    "question": "What support do I get after the strategy is delivered?",
+                    "answer": "We provide ongoing email and virtual support for implementation, refinement, and follow-ups."
+                  }
+                ]
+              }
+            }
+          ],
+          "Website Development Service": [
+              {
+                "intro": {
+                  "short": "Building a professional website is crucial for any business. Our website development service connects you with top developers through a transparent bidding process, ensuring you get the best quality within your budget. Whether you need an e-commerce site, a portfolio, or a business website, we streamline the process to match you with the right experts.",
+                  "url": "https://www.bizzowl.com/service/web-development-distribution"
+                },
+                "process": {
+                  "steps": [
+                    "Fill Out a Simple Form – Provide details about your website, such as type, features, and budget.",
+                    "Partners Submit Bids – Verified web developers bid on your project based on your requirements.",
+                    "Receive & Compare Quotes – We shortlist the best quotes and send them to you.",
+                    "Select, Chat, & Finalize – Discuss details with developers, compare offers, and book the best one.",
+                    "Project Execution & Delivery – The developer starts working, and we ensure you get what was promised."
+                  ]
+                },
+                "features": {
+                  "list": [
+                    "Customized Quotes – Get proposals from multiple experts tailored to your needs.",
+                    "Verified Developers – Work with trusted professionals.",
+                    "Transparent Pricing – Compare competitive bids before making a decision.",
+                    "Support & Quality Assurance – We help ensure smooth delivery and quality service.",
+                    "Flexible Packages – Choose from different levels of complexity, from basic sites to advanced platforms."
+                  ]
+                },
+                "benefits": {
+                  "list": [
+                    "Saves Time & Effort – No need to research developers yourself; we bring them to you.",
+                    "Cost-Effective – Get competitive pricing from multiple providers.",
+                    "High-Quality Work – Only trusted, skilled professionals bid on your project.",
+                    "Full Control & Transparency – Compare, discuss, and decide based on your preferences.",
+                    "End-to-End Support – We ensure you get what you paid for."
+                  ]
+                },
+                "when_to_use": {
+                  "list": [
+                    "When launching a new business and need an online presence.",
+                    "When revamping your existing website for better performance.",
+                    "When you need an e-commerce platform or web application.",
+                    "When you want a cost-effective and transparent development process."
+                  ]
+                },
+                "how_to_use": {
+                  "steps": [
+                    "Clearly define your website goals.",
+                    "Fill in the form with accurate details.",
+                    "Review the received bids carefully.",
+                    "Communicate openly with developers before booking.",
+                    "Finalize and ensure deliverables are clearly documented."
+                  ]
+                },
+                "best_practices": {
+                  "list": [
+                    "Define Your Requirements Clearly – Be specific about design, functionality, and features.",
+                    "Set Realistic Timelines – Understand that quality development takes time.",
+                    "Discuss Revisions & Support – Clarify post-launch support and update policies.",
+                    "Ensure Mobile Responsiveness – Your site should work on all devices.",
+                    "Clarify Payment Terms – Understand milestones, payments, and refund policies before booking.",
+                    "Keep All Communication Documented – Use chat or emails to avoid disputes."
+                  ]
+                },
+                "common_doubts": {
+                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your website needs:"
+                },
+                "general_questions": {
+                  "faq": [
+                    {
+                      "question": "What types of websites can I get developed?",
+                      "answer": "We offer business websites, e-commerce stores, blogs, portfolios, SaaS platforms, and more."
+                    },
+                    {
+                      "question": "How does the process work?",
+                      "answer": "Fill a form → Get bids → Compare & chat → Select a developer → Start development."
+                    },
+                    {
+                      "question": "Can I request changes during development?",
+                      "answer": "Yes, but major changes may incur additional costs. Discuss revision policies beforehand."
+                    },
+                    {
+                      "question": "What if I’m not satisfied with the final website?",
+                      "answer": "We ensure you get what was promised. If there are issues, we mediate between you and the developer."
+                    }
+                  ]
+                },
+                "process_related_questions": {
+                  "faq": [
+                    {
+                      "question": "How do I communicate with my developer?",
+                      "answer": "Through our platform chat, email, or direct calls before finalizing the deal."
+                    },
+                    {
+                      "question": "How long does it take to build a website?",
+                      "answer": "Depends on complexity. Basic sites take 1-2 weeks, while complex ones take 4+ weeks."
+                    },
+                    {
+                      "question": "Can I track my website development progress?",
+                      "answer": "Yes, your developer will provide updates. Set clear milestones at the start."
+                    }
+                  ]
+                },
+                "pricing_payment_questions": {
+                  "faq": [
+                    {
+                      "question": "What are the pricing options?",
+                      "answer": "Pricing varies based on project complexity, features, and developer experience. You’ll receive multiple bids."
+                    },
+                    {
+                      "question": "Can I upgrade my package later?",
+                      "answer": "Yes, you can discuss additional features and upgrades with your developer."
+                    },
+                    {
+                      "question": "Do you offer refunds?",
+                      "answer": "Refunds are possible only if the developer has not started working. Once work begins, refunds depend on the terms agreed upon."
+                    }
+                  ]
+                },
+                "customization_questions": {
+                  "faq": [
+                    {
+                      "question": "Can I provide my own design references?",
+                      "answer": "Absolutely! Share inspirations, wireframes, or specific website examples with your developer."
+                    },
+                    {
+                      "question": "Can I request a custom website package?",
+                      "answer": "Yes, developers can tailor their services based on your requirements."
+                    },
+                    {
+                      "question": "Are there limitations on revisions?",
+                      "answer": "Each package has a set number of revisions. Additional changes may incur extra charges."
+                    }
+                  ]
+                },
+                "technical_questions": {
+                  "faq": [
+                    {
+                      "question": "Is the consultation remote?",
+                      "answer": "Yes. All sessions can be conducted online, making the service accessible globally."
+                    },
+                    {
+                      "question": "Will I get a written strategy document?",
+                      "answer": "Yes, you will receive a professionally formatted strategy report in PDF format."
+                    },
+                    {
+                      "question": "What support do I get after the strategy is delivered?",
+                      "answer": "We provide ongoing email and virtual support for implementation, refinement, and follow-ups."
+                    }
+                  ]
+                }
+              }
+            ], 
+            "MVP Development Service": [
+              {
+                "intro": {
+                  "short": "Validate Quickly, Scale Smartly. Kickstart Your MVP with Expert Development Services. Our MVP Development Services help you bring your product idea to life by focusing on essential features, validating your concept, and ensuring scalability. Test your idea with minimal risk and grow with confidence.",
+                  "url": "https://www.bizzowl.com/services/mvp-development-for-startups"
+                },
+                "process": {
+                  "steps": [
+                    "Initial Consultation – Discuss your product idea and goals to identify the core features.",
+                    "MVP Feature Definition – Define the minimum features needed to achieve product-market fit.",
+                    "Development & Testing – Build and test your MVP using iterative cycles.",
+                    "Launch & Feedback – Launch your MVP, gather user feedback, and iterate based on results."
+                  ]
+                },
+                "features": {
+                  "list": [
+                    "MVP Feature Identification – Identify the minimum set of features required to validate your product idea in the market, ensuring it's both effective and resource-efficient.",
+                    "Product Competence Evaluation – Assess the core competencies of your product, and define the features that will give it an edge over competitors.",
+                    "User-Centric Design – Ensure your MVP offers a user-friendly design that addresses customer pain points and meets essential needs.",
+                    "Iterative Development Process – Adopt an agile, iterative process that allows for constant improvements based on user feedback and market insights.",
+                    "Technical Feasibility Assessment – Evaluate the technical feasibility of your MVP to ensure it can be built efficiently within the given time and budget constraints.",
+                    "Scalable Architecture Design – Build your MVP with scalability in mind, ensuring it can grow with your product's success."
+                  ]
+                },
+                "benefits": {
+                  "list": [
+                    "Validated Product Concept – Test your idea in the market with minimal risk and feedback-driven iterations.",
+                    "Focused Feature Set – Ensure you build only the essential features needed for early success.",
+                    "Cost-Efficient Development – Avoid unnecessary expenses by focusing on what matters most.",
+                    "Faster Time to Market – Get your product into users' hands quickly, enabling faster validation.",
+                    "Scalability – Build an MVP that can grow with your business as you scale.",
+                    "Risk Mitigation – Minimize potential losses by validating ideas before full-scale development."
+                  ]
+                },
+                "when_to_use": {
+                  "list": [
+                    "When you're launching a new product and need a quick market test.",
+                    "When you need to validate your business idea with minimal investment.",
+                    "When you want to test key features before committing to full-scale development.",
+                    "When scaling up and refining your product based on real user feedback."
+                  ]
+                },
+                "how_to_use": {
+                  "steps": [
+                    "Define the core features of your product and identify your target users.",
+                    "Work with our experts to build and test your MVP with an iterative development process.",
+                    "Launch your MVP and gather feedback to refine it for further development."
+                  ]
+                },
+                "best_practices": {
+                  "list": [
+                    "Identify Essential Features – Focus on the core functionalities that validate your product's potential.",
+                    "Incorporate User Feedback – Regularly collect and incorporate user feedback for continuous improvement.",
+                    "Plan for Scalability – Ensure your MVP can scale as your business grows.",
+                    "Maintain Clear Communication – Stay aligned with your development team throughout the process.",
+                    "Evaluate Technical Feasibility – Make sure the technical aspects of your MVP are feasible within your time and budget constraints."
+                  ]
+                },
+                "common_doubts": {
+                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our MVP development experts:"
+                },
+                "general_questions": {
+                  "faq": [
+                    {
+                      "question": "What is MVP development?",
+                      "answer": "MVP (Minimum Viable Product) development focuses on creating the most basic version of a product with just enough features to gather feedback and validate your business idea."
+                    },
+                    {
+                      "question": "Why is MVP important for startups?",
+                      "answer": "An MVP allows startups to test their idea quickly and with minimal risk, ensuring they are building something that customers want before committing to large-scale development."
+                    },
+                    {
+                      "question": "How long does MVP development take?",
+                      "answer": "MVP development typically takes a few weeks to a few months depending on the complexity and scope of the product."
+                    },
+                    {
+                      "question": "Can MVP be scaled later?",
+                      "answer": "Yes, the MVP is designed with scalability in mind. As your product grows, additional features and improvements can be added."
+                    }
+                  ]
+                },
+                "process_related_questions": {
+                  "faq": [
+                    {
+                      "question": "How do I communicate with my development team?",
+                      "answer": "We provide a platform for direct communication with your development team through chat, email, and scheduled calls."
+                    },
+                    {
+                      "question": "How do I know if my MVP is ready for launch?",
+                      "answer": "Your MVP is ready for launch when it meets the core objectives, has been tested with real users, and received actionable feedback for improvements."
+                    }
+                  ]
+                },
+                "pricing_payment_questions": {
+                  "faq": [
+                    {
+                      "question": "What are the pricing options?",
+                      "answer": "Pricing for MVP development varies depending on the complexity of your project and the required features. We provide custom quotes based on your needs."
+                    },
+                    {
+                      "question": "Do you offer refunds?",
+                      "answer": "Refunds are available based on the terms agreed upon at the start of the project. Once development begins, refunds may depend on progress."
+                    }
+                  ]
+                },
+                "customization_questions": {
+                  "faq": [
+                    {
+                      "question": "Can I provide my own design references?",
+                      "answer": "Yes, you can provide design inspirations, wireframes, or specific website examples to guide the development."
+                    },
+                    {
+                      "question": "Can I request a custom MVP package?",
+                      "answer": "Yes, our services are flexible, and we can tailor an MVP package to meet your specific requirements."
+                    }
+                  ]
+                },
+                "technical_questions": {
+                  "faq": [
+                    {
+                      "question": "Is the MVP development remote?",
+                      "answer": "Yes, the development process is carried out remotely, ensuring flexibility and accessibility for clients globally."
+                    },
+                    {
+                      "question": "Will I get a written strategy document?",
+                      "answer": "Yes, we provide a detailed strategy document that outlines the MVP's goals, features, and timeline."
+                    }
+                  ]
+                }
+              }
+            ],
+            "Logo Design Service": [
+            {
+              "intro": {
+                "short": "Our Graphic Design Service connects users with professional designers who create high-quality visuals, including logos, banners, social media posts, and marketing materials.",
+                "url" : "https://www.bizzowl.com/services/logo-design-distribution/quote-details"
+              },
+              "process": {
+                "steps": [
+                  "User fills out a form specifying their design requirements.",
+                  "Based on their needs, they receive the best-matched quotation or package options.",
+                  "Users can compare prices, features, and delivery timelines.",
+                  "Once a package is selected, users make the payment.",
+                  "Users can chat or video call with the assigned designer.",
+                  "The designer works on the project and submits drafts for approval.",
+                  "Final design is delivered, ensuring quality and satisfaction."
+                ]
+              },
+              "features": {
+                "list": [
+                  "Direct communication with designers via chat and video calls.",
+                  "Multiple package options based on design complexity.",
+                  "Revisions available for customer satisfaction.",
+                  "High-quality, print-ready designs.",
+                  "Industry-specific design expertise."
+                ]
+              },
+              "benefits": {
+                "list": [
+                  "Get custom designs tailored to your brand.",
+                  "Real-time collaboration with designers.",
+                  "High-quality graphics for marketing and branding.",
+                  "Fast and hassle-free process."
+                ]
+              },
+              "when_to_use": {
+                "list": [
+                  "When launching a new brand or rebranding.",
+                  "Creating marketing materials like banners, brochures, and ads.",
+                  "Designing social media posts for campaigns.",
+                  "Developing product packaging or presentation materials."
+                ]
+              },
+              "how_to_use": {
+                "steps": [
+                  "Fill out the requirement form.",
+                  "Compare available packages and select the best one.",
+                  "Make the payment.",
+                  "Start chatting or video calling with the designer.",
+                  "Review drafts and provide feedback.",
+                  "Receive final design files."
+                ]
+              },
+              "best_practices": {
+                "list": [
+                  "Provide clear design guidelines and references.",
+                  "Communicate openly with the designer.",
+                  "Approve drafts promptly to avoid delays.",
+                  "Specify the required formats and sizes beforehand."
+                ]
+              },
+              "common_doubts": {
+                "schedule_call_option": "If you have any specific questions, schedule a call with our expert."
+              },
+              "general_questions": {
+                "faq": [
+                  {
+                    "question": "What types of designs do you offer?",
+                    "answer": "We offer various logo styles, including minimalist, modern, vintage, mascot, typography-based, and custom brand identity logos. You can choose from different design packages based on your needs."
+                  },
+                  {
+                    "question": "How does the process work?",
+                    "answer": "You fill out a form detailing your logo preferences. We suggest the best-matched logo design packages from our partners. You compare packages, chat with designers, and book the service. The designer creates and shares initial concepts. You review, request revisions if needed, and finalize the design. We ensure you receive the logo as promised."
+                  },
+                  {
+                    "question": "Can I request revisions?",
+                    "answer": "Yes, revisions are included based on the package you choose. If you need additional changes, extra revisions can be purchased. You need to communicate this with Bizowl’s team at +919354651433."
+                  },
+                  {
+                    "question": "What if I am not happy with the design?",
+                    "answer": "We ensure you get multiple options before finalizing. If you’re not satisfied, you can request modifications or discuss alternative solutions with the designer or Bizowl’s team."
+                  }
+                ]
+              },
+              "process_related_questions": {
+                "faq": [
+                  {
+                    "question": "How do I communicate with the designer?",
+                    "answer": "After selecting a package, you can chat or have a call with the designer before booking. Post-booking, a dedicated communication channel will be provided."
+                  },
+                  {
+                    "question": "Can I request multiple designs at once?",
+                    "answer": "Yes, you can order multiple logo concepts within a package or request additional designs separately."
+                  },
+                  {
+                    "question": "What file formats will I receive?",
+                    "answer": "Depending on the package, you will receive high-quality files such as PNG, JPEG, PDF, and vector formats like AI, SVG, and EPS."
+                  },
+                  {
+                    "question": "How long does it take to complete a design?",
+                    "answer": "The timeline depends on the package, but most logos are delivered within 2-5 days. Complex or highly customized designs may take longer."
+                  }
+                ]
+              },
+              "pricing_payment_questions": {
+                "faq": [
+                  {
+                    "question": "What are the pricing options?",
+                    "answer": "We offer multiple pricing plans based on design complexity, number of revisions, and file formats. You can compare packages before booking."
+                  },
+                  {
+                    "question": "Can I upgrade my package later?",
+                    "answer": "Yes, you can upgrade before finalizing the design if you need additional revisions, variations, or file formats."
+                  },
+                  {
+                    "question": "Do you offer refunds?",
+                    "answer": "Refunds are available only if work has not started. Once the design process begins, we ensure you receive the promised service, and refunds may not be possible."
+                  }
+                ]
+              },
+              "customization_questions": {
+                "faq": [
+                  {
+                    "question": "Can I provide my own design references?",
+                    "answer": "Yes, you can share inspirations, brand guidelines, and specific ideas with the designer."
+                  },
+                  {
+                    "question": "Can I request a custom package?",
+                    "answer": "Absolutely! If our standard packages don’t meet your needs, we can create a custom solution tailored to your requirements."
+                  },
+                  {
+                    "question": "Are there limitations on revisions?",
+                    "answer": "Each package includes a set number of revisions. If you need more, you can purchase additional revision rounds."
                   }
                 ]
               }
