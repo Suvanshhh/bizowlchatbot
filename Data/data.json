@@ -11,42 +11,42 @@
           "Business Canvas Model",
           "Market Entry Strategy",
           "Branding Strategy",
-          "Business Feasibility"
+          "Business Feasibility (Launching soon)"
         ],
-        "Marketing": [
-          "SEO",
-          "Go-To-Market",
-          "Email Marketing",
-          "Social Media Marketing",
-          "Influencer Marketing",
-          "SMS Marketing",
-          "Video Marketing"
+        "Marketing (Launching soon)": [
+          "SEO (Launching soon)",
+          "Go-To-Market (Launching soon)",
+          "Email Marketing (Launching soon)",
+          "Social Media Marketing (Launching soon)",
+          "Influencer Marketing (Launching soon)",
+          "SMS Marketing (Launching soon)",
+          "Video Marketing (Launching soon)"
         ],
-        "Web Development": [
+        "Web & App Development": [
           "Website Development",
-          "Mobile App Development",
-          "Shopify Development",
-          "E-commerce Development",
-          "Maintenance/Update",
+          "Mobile App Development (Launching soon)",
+          "Shopify Development (Launching soon)",
+          "E-commerce Development (Launching soon)",
+          "Maintenance/Update (Launching soon)",
           "Other"
         ],
-        "Advertising": [
-          "PPC",
-          "Meta",
-          "LinkedIn",
-          "X",
-          "Radio Advertisement"
+        "Advertising (Launching soon)": [
+          "PPC (Launching soon)",
+          "Meta (Launching soon)",
+          "LinkedIn (Launching soon)",
+          "X (Launching soon)",
+          "Radio Advertisement (Launching soon)"
         ],
         "Market Research": [
-          "Market Analysis",
+          "Market Analysis (Launching soon)",
           "Target Audience Analysis",
           "Competitor Analysis",
-          "Trend Analysis"
+          "Trend Analysis (Launching soon)"
         ],
         "Design": [
           "Logo Design",
-          "UI/UX",
-          "Social Creatives"
+          "UI/UX (Launching soon)",
+          "Social Creatives (Launching soon)"
         ],
         "Public Relations": [
           "Press Release",
@@ -204,7 +204,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If you have any specific questions, schedule a call with our expert."
+                "schedule_call_option": "If you have any specific questions, schedule a call with our expert by filling this form. [link]"
               },
               "general_questions": {
                 "faq": [
@@ -343,7 +343,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If the user has any specific questions, they can schedule a call with an expert. Visit the following link to schedule a call: https://www.bizzowl.com/services/press-release-distribution"
+                "schedule_call_option": "If the user has any specific questions, they can schedule a call with an expert. Visit the following link to schedule a call: [link]"
               },
               "general_questions": {
                 "faq": [
@@ -545,7 +545,7 @@
             ]
             },
             "common_doubts": {
-            "schedule_call_option": "If you have specific questions, you can schedule a call with a branding expert. Fill out the following details to schedule a call : "
+            "schedule_call_option": "If you have specific questions, you can schedule a call with a branding expert. Fill out the following details to schedule a call : [link] "
             },
             "general_questions": {
             "faq": [
@@ -716,7 +716,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If you're unsure about how this service works or if it's the right fit, you can schedule a free consultation call with our validation experts."
+                "schedule_call_option": "If you're unsure about how this service works or if it's the right fit, you can schedule a free consultation call with our validation experts by filling out this form : [link]."
               },
               "general_questions": {
                 "faq": [
@@ -883,7 +883,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If you have questions, schedule a call with a consultant. Please provide your business details to get started:"
+                "schedule_call_option": "If you have questions, schedule a call with a consultant. Please provide your business details to get started: [link]"
               },
               "general_questions": {
                 "faq": [
@@ -1024,7 +1024,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If you have specific questions or concerns, you can schedule a call with one of our SWOT experts. Fill out the following details to schedule a call:"
+                "schedule_call_option": "If you have specific questions or concerns, you can schedule a call with one of our SWOT experts. Fill out the following details to schedule a call: [link]"
               },
               "general_questions": {
                 "faq": [
@@ -1179,7 +1179,7 @@
                   ]
                 },
                 "common_doubts": {
-                  "schedule_call_option": "Have questions before you begin? Schedule a call with our consultants. Please share your business idea or current model to help us guide you better:"
+                  "schedule_call_option": "Have questions before you begin? Schedule a call with our consultants.Please fill out this form to schedule a call : [link]"
                 },
                 "general_questions": {
                   "faq": [
@@ -1331,7 +1331,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your expansion goals:"
+                "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your expansion goals: [link]"
               },
               "general_questions": {
                 "faq": [
@@ -1452,7 +1452,7 @@
                   ]
                 },
                 "common_doubts": {
-                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your website needs:"
+                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our consultants to discuss your website needs: [link]"
                 },
                 "general_questions": {
                   "faq": [
@@ -1599,7 +1599,7 @@
                   ]
                 },
                 "common_doubts": {
-                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our MVP development experts:"
+                  "schedule_call_option": "Have questions before getting started? Schedule a discovery call with our MVP development experts: [link]"
                 },
                 "general_questions": {
                   "faq": [
@@ -1732,7 +1732,7 @@
                 ]
               },
               "common_doubts": {
-                "schedule_call_option": "If you have any specific questions, schedule a call with our expert."
+                "schedule_call_option": "If you have any specific questions, schedule a call with our expert. [link]"
               },
               "general_questions": {
                 "faq": [
@@ -1803,6 +1803,257 @@
                   {
                     "question": "Are there limitations on revisions?",
                     "answer": "Each package includes a set number of revisions. If you need more, you can purchase additional revision rounds."
+                  }
+                ]
+              }
+            }
+          ],
+          "Customer & Target Market Analysis Service": [
+            {
+              "intro": {
+                "short": "Customer & Target Market Analysis helps businesses identify ideal customer segments, understand consumer behavior, and create data-driven marketing strategies for better engagement and ROI.",
+                "url": "https://www.bizzowl.com/services/target-market-analysis"
+              },
+              "process": {
+                "steps": [
+                  "User fills out a business overview and objective form.",
+                  "Our team conducts an initial consultation to understand the business model and goals.",
+                  "In-depth market research and customer segmentation analysis are performed.",
+                  "Customer personas and behavior insights are developed.",
+                  "User receives a detailed audience segmentation report and marketing strategy guidance.",
+                  "Ongoing support is provided for refining strategies and segments."
+                ]
+              },
+              "features": {
+                "list": [
+                  "Customer Segmentation Analysis",
+                  "Target Market Research & Insights",
+                  "Target Audience Identification",
+                  "Consumer Behavior Analysis",
+                  "Customer Persona Development",
+                  "Target Market Segmentation Reports",
+                  "Tailored Marketing Strategy Guidance",
+                  "Data-Driven Insights for Decision-Making",
+                  "Competitor Target Audience Comparison",
+                  "Ongoing Customer Segment Refinement"
+                ]
+              },
+              "benefits": {
+                "list": [
+                  "Identify and segment your target audience for effective marketing.",
+                  "Boost conversions through personalized messaging and insights.",
+                  "Maximize ROI by focusing on the most profitable segments.",
+                  "Gain a competitive edge with deep customer understanding.",
+                  "Deliver a customer-centric approach across marketing and product efforts.",
+                  "Increase customer retention with relevant offerings."
+                ]
+              },
+              "when_to_use": {
+                "list": [
+                  "Before launching a new product or service.",
+                  "While expanding to new markets.",
+                  "To improve current marketing ROI.",
+                  "To identify underserved or missed customer segments.",
+                  "For enhancing customer retention strategies."
+                ]
+              },
+              "how_to_use": {
+                "steps": [
+                  "Fill out the customer and market analysis requirement form on Bizowl.",
+                  "Schedule an initial consultation with our expert team.",
+                  "Receive tailored research and segmentation insights.",
+                  "Use the report and strategies to guide your marketing and product focus.",
+                  "Get ongoing support for refining and adapting to market changes."
+                ]
+              },
+              "best_practices": {
+                "list": [
+                  "Provide a clear business overview and objectives.",
+                  "Share any existing customer or market data if available.",
+                  "Be open to refining your initial assumptions about your audience.",
+                  "Regularly revisit your target market analysis as your business evolves.",
+                  "Implement recommendations from the segmentation report in marketing."
+                ]
+              },
+              "common_doubts": {
+                "schedule_call_option": "If you have any questions about how this service can benefit your business, you can schedule a consultation here: [link]"
+              },
+              "general_questions": {
+                "faq": [
+                  {
+                    "question": "What is target market segmentation?",
+                    "answer": "Target market segmentation is the process of dividing a broad market into smaller, more defined groups of consumers who share similar characteristics and needs. \nExample: A sportswear company segments its market into different groups such as:\nTeenagers interested in trendy gym wear \nProfessional athletes needing performance gear \nMiddle-aged customers looking for comfortable walking shoes.\nBy doing this, the company can create targeted ads and products that appeal to each segment's unique preferences."
+                  },
+                  {
+                    "question": "Why is customer segmentation important?",
+                    "answer": "Customer segmentation allows businesses to tailor marketing strategies and product offerings to specific groups, increasing effectiveness and customer satisfaction."
+                  },
+                  {
+                    "question": "How do you identify the target audience?",
+                    "answer": "We use a mix of data analysis, market research, and customer behavior insights to identify your most valuable target audience segments, ensuring your marketing efforts are aimed at the right customers."
+                  },
+                  {
+                    "question": "Can this service help with customer retention?",
+                    "answer": "Yes, by understanding your customers better, you can deliver more personalized experiences and offers, which helps retain your most valuable segments."
+                  },
+                  {
+                    "question": "How often should target audience analysis be done?",
+                    "answer": "Target market analysis should be done regularly, especially when entering new markets, launching new products, or when there are changes in consumer behavior."
+                  },
+                  {
+                    "question": "Can I use this service for a new product launch?",
+                    "answer": "Absolutely. It's highly recommended to identify the right audience before investing in product development and marketing."
+                  },
+                  {
+                    "question": "What industries do you specialize in?",
+                    "answer": "We serve a wide range of industries including tech, retail, health, education, and services-based businesses. Our customer analysis and segmentation approach is adaptable to any market."
+                  },
+                  {
+                    "question": "How long does the analysis take?",
+                    "answer": "The time required varies based on your business size and market complexity, but most analyses are completed within 2-4 weeks."
+                  },
+                  {
+                    "question": "Will this service help me discover new market opportunities?",
+                    "answer": "Yes, our analysis often uncovers underserved or emerging customer segments that your business can target for growth."
+                  }
+                ]
+              },
+              "pricing_payment_questions": {
+                "faq": [
+                  {
+                    "question": "What is the cost of the Customer & Target Market Analysis Service?",
+                    "answer": "Prices for this service may vary based on the complexity of your business and market analysis needs. Our team will discuss the details with you and provide a tailored quote."
+                  },
+                  {
+                    "question": "Are there any hidden charges?",
+                    "answer": "No, the pricing is fully transparent and includes all services and deliverables mentioned."
+                  },
+                  {
+                    "question": "Can I get a customized quotation?",
+                    "answer": "Yes, based on your business size and needs, we can offer a tailored package. Contact support for more information."
+                  },
+                  {
+                    "question": "Do you offer discounts for bulk or repeat usage?",
+                    "answer": "Yes, we offer discounts for long-term or multiple service engagements. Please contact us for special pricing."
+                  }
+                ],
+                "Competitor Analysis Service": [
+                  {
+                    "intro": {
+                      "short": "Our Competitor Analysis service helps you uncover strategic insights to refine your approach and outperform competitors in the market.",
+                      "url": "https://www.bizzowl.com/services/competitor-analysis"
+                    },
+                    "process": {
+                      "steps": [
+                        "User fills out a competitor focus area form.",
+                        "Our team conducts in-depth competitor market research.",
+                        "Competitor strengths, weaknesses, opportunities, and threats are analyzed.",
+                        "A comprehensive report with insights and strategic recommendations is created.",
+                        "The user receives actionable insights for refining their business strategy.",
+                        "Ongoing competitor monitoring is available to track market changes."
+                      ]
+                    },
+                    "features": {
+                      "list": [
+                        "Detailed Competitive Reports",
+                        "SWOT Analysis of Competitors",
+                        "Market Positioning Analysis",
+                        "Competitor Marketing & Sales Review",
+                        "Product & Service Benchmarking",
+                        "Competitive Pricing Insights",
+                        "Industry Trend Analysis",
+                        "Custom Reports & Insights",
+                        "Ongoing Competitor Monitoring",
+                        "Expert Consultation & Support"
+                      ]
+                    },
+                    "benefits": {
+                      "list": [
+                        "Gain a deeper understanding of your competitors and their strategies.",
+                        "Optimize your business strategy to improve market positioning.",
+                        "Identify opportunities to outperform competitors.",
+                        "Make data-driven choices to stay ahead in the market.",
+                        "Refine your product or service based on competitor benchmarking.",
+                        "Anticipate future market trends and competitor moves."
+                      ]
+                    },
+                    "when_to_use": {
+                      "list": [
+                        "Before launching a new product or entering a new market.",
+                        "To benchmark your business against competitors.",
+                        "To identify gaps and opportunities in your current strategy.",
+                        "When planning for growth or competitive responses.",
+                        "To track industry trends and anticipate market changes."
+                      ]
+                    },
+                    "how_to_use": {
+                      "steps": [
+                        "Fill out the competitor focus area form on Bizzowl.",
+                        "Schedule an initial consultation to discuss your competitors.",
+                        "Receive a detailed competitor analysis report.",
+                        "Review findings and adjust your business strategy accordingly.",
+                        "Leverage ongoing monitoring for continuous competitor insights."
+                      ]
+                    },
+                    "best_practices": {
+                      "list": [
+                        "Provide a list of your main competitors for accurate analysis.",
+                        "Be clear about your business goals and market positioning.",
+                        "Use the competitor insights to continuously refine your strategy.",
+                        "Monitor competitor activities regularly to stay proactive."
+                      ]
+                    },
+                    "common_doubts": {
+                      "schedule_call_option": "If you have any questions about how this service can benefit your business, you can schedule a consultation here: [link]"
+                    },
+                    "general_questions": {
+                      "faq": [
+                        {
+                          "question": "What is competitor analysis?",
+                          "answer": "Competitor analysis is the process of researching and understanding your competitors' strengths, weaknesses, strategies, and market position."
+                        },
+                        {
+                          "question": "Why is competitor analysis important?",
+                          "answer": "It helps you understand the market landscape, identify opportunities, and position your business more effectively to gain a competitive edge."
+                        },
+                        {
+                          "question": "How long does a competitor analysis take?",
+                          "answer": "The analysis typically takes 7-14 business days, depending on the scope and complexity of the competitors being analyzed."
+                        },
+                        {
+                          "question": "Can this service help me improve my product?",
+                          "answer": "Yes, by benchmarking your product against competitors, you can identify areas of improvement and refine your offerings."
+                        },
+                        {
+                          "question": "What industries do you support?",
+                          "answer": "We support a wide range of industries, including technology, retail, healthcare, education, and more."
+                        },
+                        {
+                          "question": "Do you offer ongoing monitoring of competitors?",
+                          "answer": "Yes, we offer ongoing monitoring services to keep track of competitor moves and industry trends."
+                        }
+                      ]
+                    },
+                    "pricing_payment_questions": {
+                      "faq": [
+                        {
+                          "question": "What is the cost of the Competitor Analysis Service?",
+                          "answer": "Prices for this service may vary based on the complexity of your analysis and competitor landscape. Our team will discuss the details with you and provide a tailored quote."
+                        },
+                        {
+                          "question": "Are there any hidden charges?",
+                          "answer": "No, the pricing is fully transparent and includes all services and deliverables mentioned."
+                        },
+                        {
+                          "question": "Can I get a customized quotation?",
+                          "answer": "Yes, based on your business size and needs, we can offer a tailored package. Contact support for more information."
+                        },
+                        {
+                          "question": "Do you offer discounts for bulk or repeat usage?",
+                          "answer": "Yes, we offer discounts for long-term or multiple service engagements. Please contact us for special pricing."
+                        }
+                      ]
+                    }
                   }
                 ]
               }
