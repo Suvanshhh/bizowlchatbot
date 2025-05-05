@@ -9,15 +9,38 @@ from google.api_core.exceptions import DeadlineExceeded
 from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('FLASK_SECRET', 'default-secret-key')
 
-#menu data
-with open('Data/temp_data.json', 'r') as f:
-    menu_data = json.load(f)
+# ✅ Initialize Firebase using credentials from .env
+firebase_credentials_str = os.getenv("FIREBASE_CREDENTIALS_JSON")  # Corrected the variable name
+if not firebase_credentials_str:
+    print("❌ Firebase credentials not found in environment variables!")
+else:
+    try:
+        firebase_credentials_dict = json.loads(firebase_credentials_str)
+        cred = credentials.Certificate(firebase_credentials_dict)
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        print("✅ Firebase initialized successfully.")
+    except json.JSONDecodeError as e:
+        print(f"❌ Failed to decode Firebase credentials JSON: {e}")
+        exit(1)  # Exit the program if Firebase initialization fails
+    except Exception as e:
+        print(f"❌ Error initializing Firebase: {e}")
+        exit(1)  # Exit the program if Firebase initialization fails
 
-#bizzowl info
-with open('Data/data.json', 'r') as f:
-    company_data = json.load(f)
+# Load data files
+try:
+    with open('Data/temp_data.json', 'r') as f:
+        menu_data = json.load(f)
+    with open('Data/data.json', 'r') as f:
+        company_data = json.load(f)
+    print("✅ Data files loaded successfully.")
+except Exception as e:
+    print(f"❌ Error loading data files: {e}")
+    exit(1)
 
+# Configure Gemini
 api_key = os.environ.get('GEMINI_API_KEY')
 if not api_key:
     print("❌ Gemini API key not found in environment variables.")
@@ -99,88 +122,61 @@ USER QUERY: {user_query}
     return prompt
 
 def get_initial_menu_options():
-    """Extract initial menu options from the nested menu structure."""
     try:
-        greeting = menu_data.get('menu', {}).get('greeting', {})
-        options = greeting.get('options', {})
-        menu_options = []
-        for key, value in options.items():
-            menu_options.append({
-                'id': key,
-                'text': key
-            })
-        
-        return menu_options
+        return [{'id': k, 'text': k} for k in menu_data.get('menu', {}).get('greeting', {}).get('options', {}).keys()]
     except Exception as e:
-        print(f"Error getting initial menu options: {e}")
+        print(f"❌ Error getting initial menu options: {e}")
         return []
 
 def get_next_menu_options(path):
-    """Get the next menu options based on the selected path."""
     try:
-        # Start navigation from the greeting level
         current = menu_data.get('menu', {}).get('greeting', {})
-        
-        # Navigate through the path
         for step in path:
-            # Get available options at this level
-            options = current.get('options', {})
-            
-            # Move to the next level based on the step
-            if step in options:
-                current = options[step]
-            else:
-                # If step not found, break the traversal
-                break
-        
-        # Get options from the current node
-        options_dict = current.get('options', {})
-        
-        menu_options = []
-        for key, value in options_dict.items():
-            menu_options.append({
-                'id': key,
-                'text': key
-            })
-
-        message = current.get('message', '')
-        
-        return menu_options, message
+            current = current.get('options', {}).get(step, {})
+        return [
+            {'id': k, 'text': k}
+            for k in current.get('options', {}).keys()
+        ], current.get('message', '')
     except Exception as e:
-        print(f"Error getting next menu options: {e}")
+        print(f"❌ Error getting next menu options: {e}")
         return [], ""
 
 # Routes
 @app.route('/')
 def index():
-    """Render the main chat interface."""
-    initial_options = get_initial_menu_options()
-    return render_template('index1.html', menu_options=initial_options)
+    if 'chat_id' not in session:
+        chat_id = create_chat_session()
+        if not chat_id:
+            print("⚠️ Failed to create chat session. Proceeding without chat_id.")
+        session['chat_id'] = chat_id
+    return render_template('index1.html', menu_options=get_initial_menu_options())
 
 @app.route('/get_menu_options', methods=['POST'])
 def get_menu_options():
-    """Return the next menu options based on the selected option."""
     data = request.json
     selected_option = data.get('option')
-    selected_text = data.get('text', '')
     path = data.get('path', [])
 
-    current_path = path + [selected_text]
+    save_message(session.get('chat_id'), selected_option, is_user=True)
 
+    current_path = path + [selected_option]
     next_options, bot_response = get_next_menu_options(current_path)
-    
-    response = {
+
+    if bot_response:
+        save_message(session.get('chat_id'), bot_response, is_user=False)
+
+    return jsonify({
         'options': next_options,
         'bot_response': bot_response,
         'path': current_path
-    }
-    
-    return jsonify(response)
+    })
 
 @app.route('/process_custom_input', methods=['POST'])
 def process_custom_input():
     user_input = request.json.get('input', '')
-    
+
+    save_message(session.get('chat_id'), user_input, is_user=True)
+
     try:
         prompt = create_gemini_prompt(user_input)
         print("\n🔹 Prompt sent to Gemini:\n", prompt)
@@ -208,9 +204,12 @@ def save_contact():
 
 @app.route('/reset', methods=['POST'])
 def reset():
-    """Reset the conversation to the initial state."""
-    initial_options = get_initial_menu_options()
-    return jsonify({'options': initial_options})
+    session.pop('chat_id', None)
+    chat_id = create_chat_session()
+    if not chat_id:
+        print("⚠️ Failed to create new chat session during reset.")
+    session['chat_id'] = chat_id
+    return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
     app.run(debug=True)
