@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: flask-chatbot-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn main:app"
+    envVars:
+      - key: GEMINI_API_KEY
+        value: 'AIzaSyDDZNau-7AH-_hSI0A9TNSVV_VU6SqAVfw'
+      - key: FIREBASE_CREDENTIALS_JSON
+        value: '{"type": "service_account", "project_id": "ai-powered-assistant-4e4f2", "private_key_id": "a8e14635794acec5796800c37cef56912bb34e62", "private_key": "-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2kLNn7Hc3munO\\nh53Bnu4fqXAiuFh8tLgu9uNM3j3I3CvO6mb/5XZpgTF127cR+x9OhrnzmhJb/PkG\\n/J67APVbmycsEyfbXiVyrkH9vKMc+F6D4HY8hS4TZboulsyMt8FXnZL+1APRP4Rc\\nlOjokiC8uJObTgkmk2/g7b4TpWI+z9x4h0vUKUCS77C4FeJaThhS167pydKAGdjR\\nTxYu4Y267woXdmvZ3kXvBi16CEfCdneAzEQDeIZjEXpBaAzHRiZNirju7vUTb8Sh\\nQYm/CJqypKjq+Q6+2vjUPOH0TzTunxpVvlcO2dY9QoRDs791iiz7OHwzlJuQxO+P\\ntIwL+XwjAgMBAAECggEAD+Y3MaBG26lanllyNDgOneRIN0XdsvKcLb7jmcCrGdCO\\n4iTI1pVZxCNztsNtRJwdpF2YWS48VhWIbILYogmZ1KIE/dInQPQIh93EMoBYpj+9\\nH3gPZALnOdo8pi0M4F5qcKJw+E9ni7Qf514ykHqVbkoW1MotgtYJQsoBqT1YeobD\\nESS+WmGtTcZu1tPF/mAaZFd5Wh/eCyae42xBuOnKSopMPq2HuoEwDJ8puvTv7un8\\nlt0gvnFArcNgqMq1fn0db7yrUDQIVY/pNd3d86X+fQN8II4oW+rw3CXZjT3F0gZB\\nQlQAzUdLjkF1chwav27RT2K+Q1L206M3iiDkI7uJFQKBgQDZuRzrxTk03W1vUpfK\\nDe9BhbJHeKa8P4TcGynSEjLYR8d8arTZ7AoW0P6lwHjDXo0QhAS9WmYBPblJ+YFw\\nIHeJZbQsSqt4aAypv6uYtDIfpDMgVc27yYmQwKLnKQdfQyTRfH5h0y7Hn6BxbcZP\\nFAA9Rad2UCjIOxXzlvckTYjiBwKBgQDWqUQ6SUpZdtxQ0HZpHgKhld7XWK6j66Uc\\nMlC47LvXdMmj7FLDpbVjzlaLu9zwVhm7Rf4bjDWcwqovD+4Lc+TL1CpJxWrG2j9v\\nNx4Ok9gzj1pcSc2P6RT/yeurwi7qd+pcMvePFu3UH/Qfo2AoWFGLf3iX/q6JudbC\\n26IZmp3eBQKBgB1tccVEQPkuPI5hYXbD72Sxx2j1m8Ox6ik92qc0In8tJH9ihNM3\\nnh17Xg/VNf1_

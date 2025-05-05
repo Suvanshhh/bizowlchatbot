@@ -1,58 +1,84 @@
 import os
 import json
-from flask import Flask, request, render_template, jsonify
+from datetime import datetime
+from flask import Flask, request, render_template, jsonify, session
 import google.generativeai as genai
+import firebase_admin
+from firebase_admin import credentials, firestore
+from google.api_core.exceptions import DeadlineExceeded
+from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 
 app = Flask(__name__)
 
-# File paths for JSON data in Data folder
-DATA_FOLDER = "Data"
-file_map = {
-    "idea_validation": os.path.join(DATA_FOLDER, "idea_validation.json"),
-    "business_consultancy": os.path.join(DATA_FOLDER, "business_consultancy.json"),
-    "business_branding": os.path.join(DATA_FOLDER, "business_branding.json"),
-    "business_feasibility": os.path.join(DATA_FOLDER, "business_feasibility.json"),
-    "SWOT_analysis": os.path.join(DATA_FOLDER, "SWOT.json"),
-    "business_model_canvas": os.path.join(DATA_FOLDER, "business_model_canvas.json"),
-    "web_development": os.path.join(DATA_FOLDER, "web_dev.json")
-}
+#menu data
+with open('Data/temp_data.json', 'r') as f:
+    menu_data = json.load(f)
 
-# Default messages for each service
-default_messages = {
-    "business_planning_and_strategy": "Welcome to Business Planning and Strategy! Let's build your business foundation.",
-    "business_consultancy": "Welcome to Business Consultancy! Explore our FAQs to grow your business.",
-    "idea_validation": "Welcome to Idea Validation! Let's dive into assessing your business idea.",
-    "business_branding": "Welcome to Business Branding! Discover FAQs to enhance your brand.",
-    "business_feasibility": "Welcome to Business Feasibility! Explore FAQs to evaluate your business.",
-    "SWOT_analysis": "Welcome to SWOT Analysis! Let's analyze your business strengths and weaknesses.",
-    "business_model_canvas": "Welcome to Business Model Canvas! FAQs to design your business model.",
-    "web_development": "Building a professional website is crucial for any business. Explore our FAQs to learn more about our website development services."
-}
-
-# Load JSON data for FAQs
-def load_json_data(option):
-    try:
-        with open(file_map[option], "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {"error": f"Error: {file_map[option]} not found."}
-    except json.JSONDecodeError:
-        return {"error": f"Error: Invalid JSON format in {file_map[option]}."}
-
-# Load company data for Gemini API
-with open(os.path.join(DATA_FOLDER, 'data.json'), 'r') as f:
+#bizzowl info
+with open('Data/data.json', 'r') as f:
     company_data = json.load(f)
 
-# Configure Gemini API
 api_key = os.environ.get('GEMINI_API_KEY')
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
+if not api_key:
+    print("❌ Gemini API key not found in environment variables.")
+else:
+    print("✅ Gemini API key found.")
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    print("✅ Gemini model loaded:", model)
 
+# ✅ Firebase Helper Functions (Upgraded)
+def create_chat_session():
+    chat_ref = db.collection('chats').document()
+    chat_data = {
+        'created_at': SERVER_TIMESTAMP,
+        'updated_at': SERVER_TIMESTAMP,
+        'status': 'active'
+    }
+    try:
+        chat_ref.set(chat_data, timeout=30)
+        return chat_ref.id
+    except DeadlineExceeded:
+        print("⚠️ Firestore DeadlineExceeded while creating chat session. Retrying once...")
+        try:
+            chat_ref.set(chat_data, timeout=30)
+            return chat_ref.id
+        except Exception as e:
+            print(f"❌ Failed to create chat session after retry: {e}")
+            return None
+    except Exception as e:
+        print(f"❌ Unexpected error while creating chat session: {e}")
+        return None
+
+def save_message(chat_id, message, is_user=True):
+    try:
+        if not chat_id:
+            print("⚠️ No chat_id provided, skipping save_message.")
+            return
+        messages_ref = db.collection('chats').document(chat_id).collection('messages')
+        messages_ref.add({
+            'content': message,
+            'sender': 'user' if is_user else 'bot',
+            'timestamp': SERVER_TIMESTAMP
+        }, timeout=30)
+    except Exception as e:
+        print(f"❌ Error saving message: {e}")
+
+def save_contact_info(chat_id, contact_data):
+    try:
+        if not chat_id:
+            print("⚠️ No chat_id provided, skipping save_contact_info.")
+            return
+        chat_ref = db.collection('chats').document(chat_id)
+        chat_ref.update({
+            'contact_info': contact_data,
+            'updated_at': SERVER_TIMESTAMP
+        }, timeout=30)
+    except Exception as e:
+        print(f"❌ Error saving contact info: {e}")
+
+# Gemini Prompt Creation
 def create_gemini_prompt(user_query):
-    """
-    Create a prompt for Gemini that instructs it to only answer questions
-    based on the provided company data.
-    """
     prompt = f"""
 You are a customer support AI assistant for a company. You must ONLY answer questions using the information provided below.
 Do not make up or infer information that is not explicitly stated in the provided data.
@@ -72,167 +98,109 @@ USER QUERY: {user_query}
 """
     return prompt
 
-# Simulate session state using a simple dictionary (in a real app, use Flask-Session or a database)
-session_state = {
-    "level": "main",
-    "selected_option": None,
-    "selected_questions": [],
-    "answers": [],
-    "faqs": []
-}
+def get_initial_menu_options():
+    """Extract initial menu options from the nested menu structure."""
+    try:
+        greeting = menu_data.get('menu', {}).get('greeting', {})
+        options = greeting.get('options', {})
+        menu_options = []
+        for key, value in options.items():
+            menu_options.append({
+                'id': key,
+                'text': key
+            })
+        
+        return menu_options
+    except Exception as e:
+        print(f"Error getting initial menu options: {e}")
+        return []
 
+def get_next_menu_options(path):
+    """Get the next menu options based on the selected path."""
+    try:
+        # Start navigation from the greeting level
+        current = menu_data.get('menu', {}).get('greeting', {})
+        
+        # Navigate through the path
+        for step in path:
+            # Get available options at this level
+            options = current.get('options', {})
+            
+            # Move to the next level based on the step
+            if step in options:
+                current = options[step]
+            else:
+                # If step not found, break the traversal
+                break
+        
+        # Get options from the current node
+        options_dict = current.get('options', {})
+        
+        menu_options = []
+        for key, value in options_dict.items():
+            menu_options.append({
+                'id': key,
+                'text': key
+            })
+
+        message = current.get('message', '')
+        
+        return menu_options, message
+    except Exception as e:
+        print(f"Error getting next menu options: {e}")
+        return [], ""
+
+# Routes
 @app.route('/')
 def index():
     """Render the main chat interface."""
-    session_state["level"] = "main"
-    session_state["selected_option"] = None
-    session_state["selected_questions"] = []
-    session_state["answers"] = []
-    session_state["faqs"] = []
-    
-    menu_options = [
-        {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
-        {"id": "web_development", "text": "Web Development"}
-    ]
-    return render_template('index1.html', menu_options=menu_options, message="Hello! How can I assist you today?")
+    initial_options = get_initial_menu_options()
+    return render_template('index1.html', menu_options=initial_options)
 
 @app.route('/get_menu_options', methods=['POST'])
 def get_menu_options():
-    """Handle menu navigation based on user selection."""
+    """Return the next menu options based on the selected option."""
     data = request.json
     selected_option = data.get('option')
-    current_path = data.get('path', [])
+    selected_text = data.get('text', '')
+    path = data.get('path', [])
 
-    if session_state["level"] == "main":
-        if selected_option == "business_planning_and_strategy":
-            session_state["level"] = "business_planning_and_strategy"
-            menu_options = [
-                {"id": "business_consultancy", "text": "Business Consultancy"},
-                {"id": "idea_validation", "text": "Idea Validation"},
-                {"id": "business_branding", "text": "Business Branding"},
-                {"id": "business_feasibility", "text": "Business Feasibility"},
-                {"id": "SWOT_analysis", "text": "SWOT Analysis"},
-                {"id": "business_model_canvas", "text": "Business Model Canvas"},
-                {"id": "back", "text": "Back to Main Menu"}
-            ]
-            return jsonify({
-                "options": menu_options,
-                "bot_response": default_messages["business_planning_and_strategy"],
-                "path": current_path + [selected_option]
-            })
-        elif selected_option == "web_development":
-            session_state["level"] = "service"
-            session_state["selected_option"] = selected_option
-            session_state["faqs"] = load_json_data(selected_option)
-            if "error" in session_state["faqs"]:
-                return jsonify({
-                    "options": [{"id": "back", "text": "Back to Main Menu"}],
-                    "bot_response": session_state["faqs"]["error"],
-                    "path": current_path + [selected_option]
-                })
-            available_faqs = [faq for faq in session_state["faqs"] if faq["question"] not in session_state["selected_questions"]]
-            options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
-            options.append({"id": "back", "text": "Back to Main Menu"})
-            return jsonify({
-                "options": options,
-                "bot_response": default_messages["web_development"],
-                "path": current_path + [selected_option]
-            })
+    current_path = path + [selected_text]
 
-    elif session_state["level"] == "business_planning_and_strategy":
-        if selected_option == "back":
-            session_state["level"] = "main"
-            menu_options = [
-                {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
-                {"id": "web_development", "text": "Web Development"}
-            ]
-            return jsonify({
-                "options": menu_options,
-                "bot_response": "Hello! How can I assist you today?",
-                "path": []
-            })
-        elif selected_option in file_map:
-            session_state["level"] = "service"
-            session_state["selected_option"] = selected_option
-            session_state["faqs"] = load_json_data(selected_option)
-            if "error" in session_state["faqs"]:
-                return jsonify({
-                    "options": [{"id": "back", "text": "Back to Main Menu"}],
-                    "bot_response": session_state["faqs"]["error"],
-                    "path": current_path + [selected_option]
-                })
-            available_faqs = [faq for faq in session_state["faqs"] if faq["question"] not in session_state["selected_questions"]]
-            options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
-            options.append({"id": "back", "text": "Back to Main Menu"})
-            return jsonify({
-                "options": options,
-                "bot_response": default_messages[selected_option],
-                "path": current_path + [selected_option]
-            })
-
-    elif session_state["level"] == "service":
-        if selected_option == "back":
-            if session_state["selected_option"] == "web_development":
-                session_state["level"] = "main"
-                menu_options = [
-                    {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
-                    {"id": "web_development", "text": "Web Development"}
-                ]
-            else:
-                session_state["level"] = "business_planning_and_strategy"
-                menu_options = [
-                    {"id": "business_consultancy", "text": "Business Consultancy"},
-                    {"id": "idea_validation", "text": "Idea Validation"},
-                    {"id": "business_branding", "text": "Business Branding"},
-                    {"id": "business_feasibility", "text": "Business Feasibility"},
-                    {"id": "SWOT_analysis", "text": "SWOT Analysis"},
-                    {"id": "business_model_canvas", "text": "Business Model Canvas"},
-                    {"id": "back", "text": "Back to Main Menu"}
-                ]
-            return jsonify({
-                "options": menu_options,
-                "bot_response": "Hello! How can I assist you today?" if session_state["level"] == "main" else default_messages["business_planning_and_strategy"],
-                "path": [] if session_state["level"] == "main" else current_path[:-1]
-            })
-        else:
-            faq = next((f for f in session_state["faqs"] if f["question"] == selected_option), None)
-            if faq:
-                session_state["selected_questions"].append(faq["question"])
-                session_state["answers"].append({"question": faq["question"], "answer": faq["answer"]})
-                available_faqs = [f for f in session_state["faqs"] if f["question"] not in session_state["selected_questions"]]
-                options = [{"id": f["question"], "text": f["question"]} for f in available_faqs]
-                options.append({"id": "back", "text": "Back to Main Menu"})
-                response = faq["answer"]  # Only the answer text, no "Question:" or "Answer:"
-                if not available_faqs:
-                    response += "\nNo more questions available in this category."
-                return jsonify({
-                    "options": options,
-                    "bot_response": response,
-                    "path": current_path
-                })
-
-    return jsonify({"options": [], "bot_response": "Something went wrong.", "path": current_path})
+    next_options, bot_response = get_next_menu_options(current_path)
+    
+    response = {
+        'options': next_options,
+        'bot_response': bot_response,
+        'path': current_path
+    }
+    
+    return jsonify(response)
 
 @app.route('/process_custom_input', methods=['POST'])
 def process_custom_input():
-    """Process custom user input using Gemini API and company data."""
     user_input = request.json.get('input', '')
     
-    # Use Gemini API for all inputs
     try:
         prompt = create_gemini_prompt(user_input)
-        gemini_response = model.generate_content(prompt)
-        response = gemini_response.text
+        print("\n🔹 Prompt sent to Gemini:\n", prompt)
+
+        response_obj = model.generate_content(prompt)
+        print("\n🔸 Gemini Response Object:\n", response_obj)
+
+        response_text = response_obj.text
     except Exception as e:
-        response = "I apologize, but our system is experiencing technical difficulties. Our customer support team will contact you soon."
-    
-    return jsonify({'response': response})
+        print("❌ Error in Gemini API call:", e)
+        response_text = "I apologize, but our system is experiencing technical difficulties."
+
+    save_message(session.get('chat_id'), response_text, is_user=False)
+
+    return jsonify({'response': response_text})
 
 @app.route('/save_contact', methods=['POST'])
 def save_contact():
-    """Save customer contact information for follow-up."""
     contact_info = request.json
-    
+    save_contact_info(session.get('chat_id'), contact_info)
     return jsonify({
         'success': True,
         'message': "Thank you! Our customer support team will contact you shortly."
@@ -241,16 +209,8 @@ def save_contact():
 @app.route('/reset', methods=['POST'])
 def reset():
     """Reset the conversation to the initial state."""
-    session_state["level"] = "main"
-    session_state["selected_option"] = None
-    session_state["selected_questions"] = []
-    session_state["answers"] = []
-    session_state["faqs"] = []
-    menu_options = [
-        {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
-        {"id": "web_development", "text": "Web Development"}
-    ]
-    return jsonify({'options': menu_options, 'bot_response': "Hello! How can I assist you today?", "path": []})
+    initial_options = get_initial_menu_options()
+    return jsonify({'options': initial_options})
 
 if __name__ == '__main__':
     app.run(debug=True)
