@@ -212,4 +212,5 @@ def reset():
     return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
