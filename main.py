@@ -144,11 +144,15 @@ def get_next_menu_options(path):
 # Routes
 @app.route('/')
 def index():
-    # if 'chat_id' not in session:
-    #     chat_id = create_chat_session()
-    #     if not chat_id:
-    #         print("Failed to create chat session. Proceeding without chat_id.")
-    #     session['chat_id'] = chat_id
+    print("Route / called")
+    if 'chat_id' not in session:
+        print("No chat_id in session, creating...")
+        chat_id = create_chat_session()
+        print(f"Created chat_id: {chat_id}")
+        if not chat_id:
+            print("Failed to create chat session. Proceeding without chat_id.")
+        session['chat_id'] = chat_id
+    print("Rendering template...")
     return render_template('index1.html', menu_options=get_initial_menu_options())
 
 @app.route('/get_menu_options', methods=['POST'])
