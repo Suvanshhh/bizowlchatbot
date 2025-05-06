@@ -202,6 +202,11 @@ def save_contact():
         'message': "Thank you! Our customer support team will contact you shortly."
     })
 
+@app.route('/health')
+def health():
+    return "OK", 200
+
+
 @app.route('/reset', methods=['POST'])
 def reset():
     session.pop('chat_id', None)
