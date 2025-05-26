@@ -26,86 +26,92 @@
           </p>
         </div>
       </div>
+<div class="menu-options" id="menuOptions">
+  {% for option in menu_options %}
+  <button
+    class="menu-button"
+    onclick="selectMenuOption('{{ option.id }}', '{{ option.text }}')"
+  >
+    {{ option.text }}
+  </button>
+  {% endfor %}
+  <div class="custom-input-container">
+    <input
+      type="text"
+      id="customInput"
+      placeholder="Or ask your own question..."
+    />
+    <button id="sendButton" onclick="sendCustomInput()" disabled>
+      Send
+    </button>
+    <button
+      id="voiceButton"
+      class="voice-button"
+      onclick="toggleVoiceRecording()"
+      title="Voice Input"
+    >
+      🎤
+    </button>
+    <button
+      id="voiceToggle"
+      class="voice-toggle"
+      onclick="toggleVoiceOutput()"
+    >
+      Voice ON
+    </button>
+    <button
+      id="scheduleCallButton"
+      class="menu-button"
+      onclick="showContactForm()"
+    >
+      Schedule a Call
+    </button>
+  </div>
+  <div id="voiceStatus" class="voice-status" style="display: none">
+    Click to speak
+  </div>
+  <div
+    id="voiceTranscript"
+    class="voice-transcript"
+    style="display: none"
+  ></div>
+</div>
 
-      <div class="menu-options" id="menuOptions">
-        {% for option in menu_options %}
-        <button
-          class="menu-button"
-          onclick="selectMenuOption('{{ option.id }}', '{{ option.text }}')"
-        >
-          {{ option.text }}
-        </button>
-        {% endfor %}
-        <div class="custom-input-container">
-          <input
-            type="text"
-            id="customInput"
-            placeholder="Or ask your own question..."
-          />
-          <button id="sendButton" onclick="sendCustomInput()" disabled>
-            Send
-          </button>
-
-          <button
-            id="voiceButton"
-            class="voice-button"
-            onclick="toggleVoiceRecording()"
-            title="Voice Input"
-          >
-            🎤
-          </button>
-          <button
-            id="voiceToggle"
-            class="voice-toggle"
-            onclick="toggleVoiceOutput()"
-          >
-            Voice ON
-          </button>
-        </div>
-        <div id="voiceStatus" class="voice-status" style="display: none">
-          Click to speak
-        </div>
-        <div
-          id="voiceTranscript"
-          class="voice-transcript"
-          style="display: none"
-        ></div>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="contact-form" id="contactForm" style="display: none">
-        <h3>Leave your contact information</h3>
-        <div class="form-group">
-          <label for="contactName">Name:</label>
-          <input type="text" id="contactName" placeholder="Your name" />
-        </div>
-        <div class="form-group">
-          <label for="contactEmail">Email:</label>
-          <input type="email" id="contactEmail" placeholder="Your email" />
-        </div>
-        <div class="form-group">
-          <label for="contactPhone">Phone (optional):</label>
-          <input
-            type="text"
-            id="contactPhone"
-            placeholder="Your phone number"
-          />
-        </div>
-        <div class="form-group">
-          <label for="contactIssue">Briefly describe your issue:</label>
-          <textarea
-            id="contactIssue"
-            placeholder="Please describe your question or issue"
-          ></textarea>
-        </div>
-        <div class="form-buttons">
-          <button onclick="submitContactForm()">Submit</button>
-          <button class="cancel-button" onclick="hideContactForm()">
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
+<!-- Contact Form -->
+<div class="contact-form" id="contactForm" style="display: none">
+     <button class="close-form-btn" onclick="hideContactForm()" title="Close">&times;</button>
+  <h3>Schedule a Call</h3>
+  <div class="form-group">
+    <label for="contactName">Name:</label>
+    <input type="text" id="contactName" placeholder="Your name" />
+  </div>
+  <div class="form-group">
+    <label for="contactEmail">Email:</label>
+    <input type="email" id="contactEmail" placeholder="Your email" />
+  </div>
+  <div class="form-group">
+    <label for="contactPhone">Phone (required):</label>
+    <input
+      type="text"
+      id="contactPhone"
+      placeholder="Your phone number"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="contactIssue">Briefly describe your issue:</label>
+    <textarea
+      id="contactIssue"
+      placeholder="Please describe your question or issue"
+    ></textarea>
+  </div>
+  <div class="form-buttons">
+    <button onclick="submitContactForm()">Submit</button>
+    <button class="cancel-button" onclick="hideContactForm()">
+      Cancel
+    </button>
+  </div>
+</div>
 
     <script>
       let currentPath = [];
@@ -377,6 +383,7 @@
           });
       }
 
+
       function addMessage(sender, text) {
         const messagesDiv = document.getElementById("chatMessages");
         const messageDiv = document.createElement("div");
@@ -452,57 +459,54 @@
         initSpeechRecognition();
       }
 
-      function showContactForm() {
-        document.getElementById("menuOptions").style.display = "none";
-        document.getElementById("contactForm").style.display = "block";
-      }
+       function showContactForm() {
+    document.getElementById("menuOptions").style.display = "none";
+    document.getElementById("contactForm").style.display = "block";
+  }
 
-      function hideContactForm() {
-        document.getElementById("contactForm").style.display = "none";
-        document.getElementById("menuOptions").style.display = "flex";
-      }
+  function hideContactForm() {
+    document.getElementById("contactForm").style.display = "none";
+    document.getElementById("menuOptions").style.display = "flex";
+  }
 
-      function submitContactForm() {
-        const contactInfo = {
-          name: document.getElementById("contactName").value,
-          email: document.getElementById("contactEmail").value,
-          phone: document.getElementById("contactPhone").value,
-          issue: document.getElementById("contactIssue").value,
-        };
+  function submitContactForm() {
+    const phone = document.getElementById("contactPhone").value.trim();
+    if (!/^\+?\d{10,15}$/.test(phone)) {
+      alert("Please enter a valid phone number.");
+      return;
+    }
+    const contactInfo = {
+      name: document.getElementById("contactName").value,
+      email: document.getElementById("contactEmail").value,
+      phone: phone,
+      issue: document.getElementById("contactIssue").value,
+    };
 
-        fetch("/save_contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(contactInfo),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            addMessage("bot", data.message);
-
-            // Speak the response if voice output is enabled
-            if (voiceOutputEnabled) {
-              speakText(data.message);
-            }
-
-            hideContactForm();
-
-            document.getElementById("contactName").value = "";
-            document.getElementById("contactEmail").value = "";
-            document.getElementById("contactPhone").value = "";
-            document.getElementById("contactIssue").value = "";
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            addMessage(
-              "bot",
-              "Failed to submit the form. Please try again later."
-            );
-          });
-      }
-
-      function resetChat() {
+    fetch("/save_contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(contactInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        addMessage("bot", data.message);
+        hideContactForm();
+        document.getElementById("contactName").value = "";
+        document.getElementById("contactEmail").value = "";
+        document.getElementById("contactPhone").value = "";
+        document.getElementById("contactIssue").value = "";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        addMessage(
+          "bot",
+          "Failed to submit the form. Please try again later."
+        );
+      });
+  }function resetChat() {
         location.reload();
       }
+
 
       // Initialize speech recognition when page loads
       document.addEventListener("DOMContentLoaded", function () {
