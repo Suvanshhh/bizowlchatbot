@@ -1,19 +1,27 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f8fa;
   margin: 0;
   padding: 0;
 }
 
 .chat-container {
-  width: 100%;
-  max-width: 700px;
-  margin: 40px auto;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 370px;
+  max-width: 95vw;
+  max-height: 80vh;
+  height: 540px;
+  margin: 0;
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   animation: fadeIn 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
 }
 
 .chat-header {
@@ -25,12 +33,14 @@ body {
 }
 
 .chat-messages {
-  height: 300px;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   padding: 16px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   background-color: #fafafa;
+  /* Remove fixed height */
 }
 
 .message {
@@ -70,7 +80,7 @@ body {
 .menu-button {
   padding: 8px 12px;
   border: none;
-  background-color: #007bff;
+  background-color: #1c6ed0;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -100,7 +110,7 @@ body {
 
 .custom-input-container button {
   padding: 8px 12px;
-  background-color: #28a745;
+  background-color: #1c6ed0;
   color: white;
   border: none;
   border-radius: 8px;
@@ -109,7 +119,7 @@ body {
 }
 
 .custom-input-container button:hover {
-  background-color: #1e7e34;
+  background-color: #0056b3;
 }
 
 .contact-form {
@@ -201,25 +211,47 @@ textarea {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Responsive */
 @media (max-width: 600px) {
   .chat-container {
-    width: 95%;
-    margin: 20px auto;
+    width: 100vw;
+    height: 60vh;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    max-height: 80vh;
   }
 
   .custom-input-container {
