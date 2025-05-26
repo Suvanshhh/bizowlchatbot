@@ -39,14 +39,16 @@ else:
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FOLDER = os.path.join(BASE_DIR, "Data")
 file_map = {
-    "general_faqs": os.path.join(DATA_FOLDER, "faqs.json"),  # New general FAQs file
+    "general_faqs": os.path.join(DATA_FOLDER, "faqs.json"),
     "idea_validation": os.path.join(DATA_FOLDER, "idea_validation.json"),
     "business_consultancy": os.path.join(DATA_FOLDER, "business_consultancy.json"),
     "business_branding": os.path.join(DATA_FOLDER, "business_branding.json"),
     "business_feasibility": os.path.join(DATA_FOLDER, "business_feasibility.json"),
     "SWOT_analysis": os.path.join(DATA_FOLDER, "SWOT.json"),
     "business_model_canvas": os.path.join(DATA_FOLDER, "business_model_canvas.json"),
-    "web_development": os.path.join(DATA_FOLDER, "Web_dev.json")
+    "web_development": os.path.join(DATA_FOLDER, "web_development.json"),
+    "logo_design": os.path.join(DATA_FOLDER, "logo_design.json"),
+    "press_release": os.path.join(DATA_FOLDER, "press_release.json")
 }
 
 # Default messages for each service
@@ -61,7 +63,24 @@ default_messages = {
     "business_feasibility": "Welcome to Business Feasibility! Explore FAQs to evaluate your business.",
     "SWOT_analysis": "Welcome to SWOT Analysis! Let’s analyze your business strengths and weaknesses.",
     "business_model_canvas": "Welcome to Business Model Canvas! FAQs to design your business model.",
-    "web_development": "Building a professional website is crucial for any business. Explore our FAQs to learn more about our website development services."
+    "web_development": "Building a professional website is crucial for any business. Explore our FAQs to learn more about our website development services.",
+    "design": "Welcome to Design Services! Explore our design solutions to elevate your brand.",
+    "logo_design": "Our Graphic Design Service connects users with professional designers who create high-quality visuals, including logos, banners, social media posts, and marketing materials.",
+    "public_relations": "Welcome to Public Relations! Enhance your brand’s visibility with our PR services.",
+    "press_release": "Press Release Distribution helps businesses publish and distribute their news to media outlets, journalists, and online platforms, increasing brand awareness and credibility."
+}
+
+# Buy Now links for each service
+service_buy_links = {
+    "business_consultancy": "https://www.bizzowl.com/services/business-consultancy-service",
+    "idea_validation": "https://www.bizzowl.com/services/startup-idea-validation-service",
+    "business_branding": "https://www.bizzowl.com/services/business-branding-strategy-service",
+    "business_feasibility": "https://bizont.com/buy/business-feasibility",
+    "SWOT_analysis": "https://www.bizzowl.com/services/swot-analysis-of-a-business",
+    "business_model_canvas": "https://www.bizzowl.com/services/business-model-canvas",
+    "web_development": "https://www.bizzowl.com/service/web-development-distribution",
+    "logo_design": "https://www.bizzowl.com/services/logo-design-distribution/quote-details",
+    "press_release": "https://www.bizzowl.com/services/press-release-distribution"
 }
 
 # Load JSON data for FAQs
@@ -89,10 +108,10 @@ if not api_key:
     print("❌ Gemini API key not found in environment variables.")
     model = None
 else:
-    print("✅ Gemini API key found.")
+    print("✅ API key found.")
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    print("✅ Gemini model loaded:", model)
+    model = genai.GenerativeModel('gemini-1.0-pro')
+    print("✅ Generated model successfully.")
 
 # --- Firebase Helper Functions ---
 def create_chat_session():
@@ -226,6 +245,8 @@ def get_menu_options():
             menu_options = [
                 {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
                 {"id": "web_development", "text": "Web Development"},
+                {"id": "design", "text": "Design"},
+                {"id": "public_relations", "text": "Public Relations"},
                 {"id": "back", "text": "Back to Main Menu"}
             ]
             bot_response = default_messages["services"]
@@ -282,11 +303,38 @@ def get_menu_options():
                 })
             available_faqs = [faq for faq in session['faqs'] if faq["question"] not in session['selected_questions']]
             options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
+            options.append({"id": "buy_now", "text": "Buy Now"})
             options.append({"id": "back", "text": "Back to Services"})
             bot_response = default_messages["web_development"]
             save_message(session.get('chat_id'), bot_response, is_user=False)
             return jsonify({
                 "options": options,
+                "bot_response": bot_response,
+                "path": current_path + [selected_option]
+            })
+        elif selected_option == "design":
+            session['level'] = "design"
+            menu_options = [
+                {"id": "logo_design", "text": "Logo Design"},
+                {"id": "back", "text": "Back to Services"}
+            ]
+            bot_response = default_messages["design"]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": menu_options,
+                "bot_response": bot_response,
+                "path": current_path + [selected_option]
+            })
+        elif selected_option == "public_relations":
+            session['level'] = "public_relations"
+            menu_options = [
+                {"id": "press_release", "text": "Press Release"},
+                {"id": "back", "text": "Back to Services"}
+            ]
+            bot_response = default_messages["public_relations"]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": menu_options,
                 "bot_response": bot_response,
                 "path": current_path + [selected_option]
             })
@@ -297,6 +345,8 @@ def get_menu_options():
             menu_options = [
                 {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
                 {"id": "web_development", "text": "Web Development"},
+                {"id": "design", "text": "Design"},
+                {"id": "public_relations", "text": "Public Relations"},
                 {"id": "back", "text": "Back to Main Menu"}
             ]
             bot_response = default_messages["services"]
@@ -320,8 +370,91 @@ def get_menu_options():
                 })
             available_faqs = [faq for faq in session['faqs'] if faq["question"] not in session['selected_questions']]
             options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
+            options.append({"id": "buy_now", "text": "Buy Now"})
             options.append({"id": "back", "text": "Back to Services"})
             bot_response = default_messages[selected_option]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": options,
+                "bot_response": bot_response,
+                "path": current_path + [selected_option]
+            })
+
+    elif session['level'] == "design":
+        if selected_option == "back":
+            session['level'] = "main"
+            menu_options = [
+                {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
+                {"id": "web_development", "text": "Web Development"},
+                {"id": "design", "text": "Design"},
+                {"id": "public_relations", "text": "Public Relations"},
+                {"id": "back", "text": "Back to Main Menu"}
+            ]
+            bot_response = default_messages["services"]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": menu_options,
+                "bot_response": bot_response,
+                "path": current_path[:-1]
+            })
+        elif selected_option == "logo_design":
+            session['level'] = "faq"
+            session['selected_option'] = selected_option
+            session['faqs'] = load_json_data(selected_option)
+            if "error" in session['faqs']:
+                bot_response = session['faqs']["error"]
+                save_message(session.get('chat_id'), bot_response, is_user=False)
+                return jsonify({
+                    "options": [{"id": "back", "text": "Back to Services"}],
+                    "bot_response": bot_response,
+                    "path": current_path + [selected_option]
+                })
+            available_faqs = [faq for faq in session['faqs'] if faq["question"] not in session['selected_questions']]
+            options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
+            options.append({"id": "buy_now", "text": "Buy Now"})
+            options.append({"id": "back", "text": "Back to Services"})
+            bot_response = default_messages["logo_design"]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": options,
+                "bot_response": bot_response,
+                "path": current_path + [selected_option]
+            })
+
+    elif session['level'] == "public_relations":
+        if selected_option == "back":
+            session['level'] = "main"
+            menu_options = [
+                {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
+                {"id": "web_development", "text": "Web Development"},
+                {"id": "design", "text": "Design"},
+                {"id": "public_relations", "text": "Public Relations"},
+                {"id": "back", "text": "Back to Main Menu"}
+            ]
+            bot_response = default_messages["services"]
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": menu_options,
+                "bot_response": bot_response,
+                "path": current_path[:-1]
+            })
+        elif selected_option == "press_release":
+            session['level'] = "faq"
+            session['selected_option'] = selected_option
+            session['faqs'] = load_json_data(selected_option)
+            if "error" in session['faqs']:
+                bot_response = session['faqs']["error"]
+                save_message(session.get('chat_id'), bot_response, is_user=False)
+                return jsonify({
+                    "options": [{"id": "back", "text": "Back to Services"}],
+                    "bot_response": bot_response,
+                    "path": current_path + [selected_option]
+                })
+            available_faqs = [faq for faq in session['faqs'] if faq["question"] not in session['selected_questions']]
+            options = [{"id": faq["question"], "text": faq["question"]} for faq in available_faqs]
+            options.append({"id": "buy_now", "text": "Buy Now"})
+            options.append({"id": "back", "text": "Back to Services"})
+            bot_response = default_messages["press_release"]
             save_message(session.get('chat_id'), bot_response, is_user=False)
             return jsonify({
                 "options": options,
@@ -343,9 +476,25 @@ def get_menu_options():
                 menu_options = [
                     {"id": "business_planning_and_strategy", "text": "Business Planning and Strategy"},
                     {"id": "web_development", "text": "Web Development"},
+                    {"id": "design", "text": "Design"},
+                    {"id": "public_relations", "text": "Public Relations"},
                     {"id": "back", "text": "Back to Main Menu"}
                 ]
                 bot_response = default_messages["services"]
+            elif session['selected_option'] == "logo_design":
+                session['level'] = "design"
+                menu_options = [
+                    {"id": "logo_design", "text": "Logo Design"},
+                    {"id": "back", "text": "Back to Services"}
+                ]
+                bot_response = default_messages["design"]
+            elif session['selected_option'] == "press_release":
+                session['level'] = "public_relations"
+                menu_options = [
+                    {"id": "press_release", "text": "Press Release"},
+                    {"id": "back", "text": "Back to Services"}
+                ]
+                bot_response = default_messages["public_relations"]
             else:
                 session['level'] = "business_planning_and_strategy"
                 menu_options = [
@@ -364,6 +513,16 @@ def get_menu_options():
                 "bot_response": bot_response,
                 "path": [] if session['level'] == "greeting" else current_path[:-1]
             })
+        elif selected_option == "buy_now" and session['selected_option'] in service_buy_links:
+            redirect_url = service_buy_links[session['selected_option']]
+            bot_response = f"Redirecting to purchase {session['selected_option']}..."
+            save_message(session.get('chat_id'), bot_response, is_user=False)
+            return jsonify({
+                "options": [],
+                "bot_response": bot_response,
+                "path": current_path,
+                "redirect_url": redirect_url
+            })
         else:
             faq = next((f for f in session['faqs'] if f["question"] == selected_option), None)
             if faq:
@@ -371,8 +530,10 @@ def get_menu_options():
                 session['answers'].append({"question": faq["question"], "answer": faq["answer"]})
                 available_faqs = [f for f in session['faqs'] if f["question"] not in session['selected_questions']]
                 options = [{"id": f["question"], "text": f["question"]} for f in available_faqs]
+                if session['selected_option'] in service_buy_links:
+                    options.append({"id": "buy_now", "text": "Buy Now"})
                 options.append({"id": "back", "text": "Back to Main Menu" if session['selected_option'] == "general_faqs" else "Back to Services"})
-                bot_response = faq["answer"]  # Only the answer text, no "Question:" or "Answer:"
+                bot_response = faq["answer"]
                 if not available_faqs:
                     bot_response += "\nNo more questions available in this category."
                 save_message(session.get('chat_id'), bot_response, is_user=False)
