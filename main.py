@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 from flask import Flask, request, render_template, jsonify, session
+from flask_cors import CORS
 import google.generativeai as genai
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -9,48 +10,53 @@ from google.api_core.exceptions import DeadlineExceeded
 from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.secret_key = os.environ.get('FLASK_SECRET', 'default-secret-key')
 
-# ✅ Initialize Firebase using credentials from .env
-firebase_credentials_str = os.getenv("FIREBASE_CREDENTIALS_JSON")  # Corrected the variable name
+# --- Firebase Initialization ---
+firebase_credentials_str = os.getenv("FIREBASE_CREDENTIALS_JSON")
 if not firebase_credentials_str:
     print("❌ Firebase credentials not found in environment variables!")
+    raise RuntimeError("Firebase credentials missing")
 else:
     try:
         firebase_credentials_dict = json.loads(firebase_credentials_str)
         cred = credentials.Certificate(firebase_credentials_dict)
-        firebase_admin.initialize_app(cred)
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app(cred)
         db = firestore.client()
         print("✅ Firebase initialized successfully.")
     except json.JSONDecodeError as e:
         print(f"❌ Failed to decode Firebase credentials JSON: {e}")
-        exit(1)  # Exit the program if Firebase initialization fails
+        raise
     except Exception as e:
         print(f"❌ Error initializing Firebase: {e}")
-        exit(1)  # Exit the program if Firebase initialization fails
+        raise
 
-# Load data files
+# --- Load Data Files (absolute paths) ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 try:
-    with open('Data/temp_data.json', 'r') as f:
+    with open(os.path.join(BASE_DIR, 'Data', 'temp_data.json'), 'r') as f:
         menu_data = json.load(f)
-    with open('Data/data.json', 'r') as f:
+    with open(os.path.join(BASE_DIR, 'Data', 'data.json'), 'r') as f:
         company_data = json.load(f)
     print("✅ Data files loaded successfully.")
 except Exception as e:
     print(f"❌ Error loading data files: {e}")
-    exit(1)
+    raise
 
-# Configure Gemini
+# --- Configure Gemini ---
 api_key = os.environ.get('GEMINI_API_KEY')
 if not api_key:
     print("❌ Gemini API key not found in environment variables.")
+    model = None
 else:
     print("✅ Gemini API key found.")
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
     print("✅ Gemini model loaded:", model)
 
-# ✅ Firebase Helper Functions (Upgraded)
+# --- Firebase Helper Functions ---
 def create_chat_session():
     chat_ref = db.collection('chats').document()
     chat_data = {
@@ -100,11 +106,10 @@ def save_contact_info(chat_id, contact_data):
     except Exception as e:
         print(f"❌ Error saving contact info: {e}")
 
-# Gemini Prompt Creation
+# --- Gemini Prompt Creation ---
 def create_gemini_prompt(user_query):
     prompt = f"""
-You are a customer support AI assistant for a company. You must ONLY answer questions using the information provided below.
-Do not make up or infer information that is not explicitly stated in the provided data.
+You are a customer support AI assistant for a company. You must ONLY answer questions using the information provided below. Do not make up or infer information that is not explicitly stated in the provided data.
 
 COMPANY DATA:
 {json.dumps(company_data, indent=2)}
@@ -141,14 +146,18 @@ def get_next_menu_options(path):
         print(f"❌ Error getting next menu options: {e}")
         return [], ""
 
-# Routes
+# --- Routes ---
 @app.route('/')
 def index():
+    print("Route / called")
     if 'chat_id' not in session:
+        print("No chat_id in session, creating...")
         chat_id = create_chat_session()
+        print(f"Created chat_id: {chat_id}")
         if not chat_id:
-            print("⚠️ Failed to create chat session. Proceeding without chat_id.")
+            print("Failed to create chat session. Proceeding without chat_id.")
         session['chat_id'] = chat_id
+    print("Rendering template...")
     return render_template('index1.html', menu_options=get_initial_menu_options())
 
 @app.route('/get_menu_options', methods=['POST'])
@@ -177,17 +186,16 @@ def process_custom_input():
 
     save_message(session.get('chat_id'), user_input, is_user=True)
 
-    try:
-        prompt = create_gemini_prompt(user_input)
-        print("\n🔹 Prompt sent to Gemini:\n", prompt)
-
-        response_obj = model.generate_content(prompt)
-        print("\n🔸 Gemini Response Object:\n", response_obj)
-
-        response_text = response_obj.text
-    except Exception as e:
-        print("❌ Error in Gemini API call:", e)
-        response_text = "I apologize, but our system is experiencing technical difficulties."
+    response_text = "I apologize, but our system is experiencing technical difficulties."
+    if model:
+        try:
+            prompt = create_gemini_prompt(user_input)
+            print("\n🔹 Prompt sent to Gemini:\n", prompt)
+            response_obj = model.generate_content(prompt)
+            print("\n🔸 Gemini Response Object:\n", response_obj)
+            response_text = response_obj.text
+        except Exception as e:
+            print("❌ Error in Gemini API call:", e)
 
     save_message(session.get('chat_id'), response_text, is_user=False)
 
@@ -202,6 +210,10 @@ def save_contact():
         'message': "Thank you! Our customer support team will contact you shortly."
     })
 
+@app.route('/health')
+def health():
+    return "OK", 200
+
 @app.route('/reset', methods=['POST'])
 def reset():
     session.pop('chat_id', None)
@@ -212,4 +224,5 @@ def reset():
     return jsonify({'options': get_initial_menu_options()})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
