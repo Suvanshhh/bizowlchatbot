@@ -5,6 +5,7 @@ body {
   padding: 0;
 }
 
+/* Chat container styles */
 .chat-container {
   position: fixed;
   bottom: 24px;
@@ -27,9 +28,9 @@ body {
 .chat-header {
   background-color: #0056b3;
   color: white;
-  padding: 2px;
+  padding: 1px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .chat-messages {
@@ -40,7 +41,6 @@ body {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   background-color: #fafafa;
-  /* Remove fixed height */
 }
 
 .message {
@@ -78,7 +78,7 @@ body {
 }
 
 .menu-button {
-  padding: 8px 12px;
+  padding: 7px 11px;
   border: none;
   background-color: #1c6ed0;
   color: white;
@@ -92,36 +92,154 @@ body {
   background-color: #0056b3;
 }
 
+/* --- INPUT ROW & VOICE CONTROLS --- */
 .custom-input-container {
   display: flex;
-  width: 100%;
+  align-items: center;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 4px;
   justify-content: center;
+  padding: 2px 8px;
 }
 
 .custom-input-container input[type="text"] {
-  flex-grow: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  flex: 1 1 157px;
+  min-width: 0;
+  max-width: 157px;
+  padding: 1.8px 7px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
   font-size: 11px;
+  background: #fff;
+  height: 32px;
 }
 
-.custom-input-container button {
-  padding: 8px 12px;
-  background-color: #1c6ed0;
-  color: white;
+.custom-input-container button,
+.custom-input-container .voice-button,
+.custom-input-container .voice-toggle {
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  min-width: 36px;
+  max-width: 80px;
+  height: 32px;
+  box-sizing: border-box;
   border: none;
-  border-radius: 8px;
+  background-color: #1c6ed0;
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.custom-input-container button:hover {
+.custom-input-container button:hover,
+.custom-input-container .voice-button:hover,
+.custom-input-container .voice-toggle:hover {
   background-color: #0056b3;
 }
 
+/* --- Voice Button --- */
+.custom-input-container .voice-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  padding: 0;
+  font-size: 16px;
+  border-radius: 50%;
+}
+
+.custom-input-container .voice-button.recording {
+  background: #ff4757;
+  animation: pulse 1.5s infinite;
+}
+
+.custom-input-container .voice-button.processing {
+  background: #ffa502;
+  cursor: not-allowed;
+}
+
+/* --- Voice Toggle --- */
+.custom-input-container .voice-toggle {
+  background: #28a745;
+  border-radius: 16px;
+  padding: 5px 12px;
+  font-size: 12px;
+  margin-left: 0;
+  min-width: 60px;
+  max-width: 80px;
+  height: 32px;
+}
+
+.custom-input-container .voice-toggle.disabled {
+  background: #6c757d;
+}
+
+/* --- Reset Button: Compact Icon Style --- */
+.reset-button {
+  position: absolute;
+  top: 87px;
+  right: 12px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  outline: none;
+  /* or your brand blue, or #333 for dark */
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  transition: color 0.2s;
+  opacity: 1;
+}
+
+.reset-button:hover {
+  background-color: #e0a800;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* --- END INPUT ROW & VOICE CONTROLS --- */
+
+.voice-status {
+  font-size: 10px;
+  color: #666;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.voice-controls{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.voice-transcript {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 5px 0;
+  font-size: 14px;
+  color: #495057;
+}
+
+/* Contact Form */
 .contact-form {
   display: none;
   padding: 25px;
@@ -193,23 +311,6 @@ textarea {
   background-color: #b02a37;
 }
 
-.reset-button {
-  background-color: #ffc107;
-  color: #333;
-  border: none;
-  padding: 10px 16px;
-  margin: 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-}
-
-.reset-button:hover {
-  background-color: #e0a800;
-}
-
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -256,11 +357,20 @@ textarea {
 
   .custom-input-container {
     flex-direction: column;
+    gap: 4px;
+    padding: 0 2px;
   }
 
   .custom-input-container input,
-  .custom-input-container button {
+  .custom-input-container button,
+  .custom-input-container .voice-button,
+  .custom-input-container .voice-toggle,
+  .reset-button {
     width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: 32px;
+    margin-left: 0;
   }
 
   .menu-options {
@@ -268,3 +378,73 @@ textarea {
     align-items: center;
   }
 }
+@media (max-width: 480px) {
+  .chat-container {
+    width: 100vw;
+    min-width: 0;
+    height: 100vh;
+    max-height: 100vh;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .chat-header {
+    font-size: 1.1rem;
+    padding: 8px 4px;
+  }
+
+  .chat-messages {
+    padding: 8px 4px;
+    font-size: 14px;
+  }
+
+  .menu-options {
+    gap: 4px;
+    padding: 6px 2px;
+  }
+
+  .menu-button {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+
+  .custom-input-container {
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 2px;
+  }
+
+  .custom-input-container input,
+  .custom-input-container button,
+  .custom-input-container .voice-button,
+  .custom-input-container .voice-toggle,
+  .reset-button {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: 32px;
+    margin-left: 0;
+    font-size: 15px;
+  }
+
+  .reset-button {
+    position: static;
+    margin: 0;
+    align-self: flex-end;
+    font-size: 1.4rem;
+  }
+
+  .voice-status {
+    font-size: 11px;
+    margin-left: 0;
+    margin-top: 2px;
+  }
+
+  .voice-transcript {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+}
+
