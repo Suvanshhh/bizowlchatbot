@@ -58,6 +58,9 @@
     {
       "question": "What does Bizowl do?",
       "answer": "Bizowl is an aggregator and B2B service marketplace, a platform where users can visit to search for any digital business solution they need for their businesses. On our website, users may compare prices, features, and other aspects to determine which service provider best suits their needs. A to Z services are provided by Bizowl under one roof. In addition, we also provide free business consultation. We also offer our users the option to tell us what they want as a result and their budget, and we will do all the hard work on their behalf if they don't have the time or don't want the inconvenience of having to keep an eye out for this. Users on our platform can avail all business services such as web development, digital marketing, advertising, all designing services, media and content productions, and other required services."
+    },{
+      "question" : "Who is the founder of Bizowl?",
+      "answer" : "Bizowl was founded by Prashant Sirohi with a vision to create an online platform exclusively for business owners and startups, providing essential services, tools, resources, and expert guidance—all under one roof—to help them start and grow their businesses successfully."
     },
     {
       "question": "What is Bizowl's general policy on refunds for digital services?",
@@ -89,7 +92,7 @@
     },
     {
       "question": "How can customers contact Bizowl for refund inquiries?",
-      "answer": "Customers can contact Bizowl for refund inquiries by emailing info@bizzowl.com or contact@bizzowl.com, or by calling +919354651433."
+      "answer": "Customers can contact Bizowl for refund inquiries by emailing support@bizzowl.com or contact@bizzowl.com, or by calling +91 9354651433."
     },
     {
       "question": "What types of personal information does Bizzowl.com collect?",
@@ -140,6 +143,85 @@
           }
         ]
       }
+    },
+    {
+      "question" : "Contact information",
+      "answer" : "For support, email us at : support@bizzowl.com. \nFor Sales email us at : sales@bizzowl.com. You can also contact us at +91 9354651433"
+    },{
+      "question" : "office address",
+      "answer" : "WZ-49/C, Radha Krishna Mandir, Dwarka Sector -1, New Delhi, Delhi, 110045"
+    },
+    {
+      "question" : "How does Bizowl help us?",
+      "answer" : "Many startups fail due to flawed fundamentals—like unclear problems, small markets, or poor business models. Finding trustworthy service partners is also a challenge, with most platforms focusing on selling services over ensuring real business growth. At Bizowl, we put your growth first. We offer genuine, reliable solutions tailored to your business needs."
+    },
+    {
+      "question" : "How do you ensure the service we get will be of desired and good quality?",
+      "answer" : "Our service partners must adhere to our tight rules in order to become and remain a part of our collaboration. We closely examine our service partners before partnering with them, and we caution against doing business with people who lack professionalism. In the event of any dishonest or fraudulent type action, we typically invalidate the agreement between us and the service partner. We constantly ensure that our clients receive the desired degree of work and quality with service offered."
+    },
+    {
+      "question" : "Why should we choose BIZOWL rather contacting your listed partner directly?",
+      "answer" : "At Bizowl, you get more value, better service, and complete peace of mind: \n1. Better Pricing: We offer rates lower than or equal to what partners quote directly. If not, you receive rewards and a free business consultation. \n2. Smart Comparison: Compare multiple service providers based on price, features, and fit—saving time and helping you make informed decisions. \n3. All-in-One Platform: From A to Z, we offer every business service under one roof. \n4. Your Choice, Our Support: You choose the partner; we guide you at every step. \n5. Superior Service: We ensure high-quality pre- and post-sale support, making your B2B experience seamless. \n6. Trust & Security: Your payment is held securely in escrow until the work is completed to your satisfaction. \nBizowl isn't just a marketplace, we're your growth partner."
+    },{
+      "question" : "How do we reach out to you?",
+      "answer" : "For support, you can contact us at support@bizzowl.com . or by phone at +919354651433. . For general questions, please email us at info@bizzowl.com or contact@bizzowl.com. You can reach at prashantsirohi@bizzowl.com if you have any concerns and wish to speak with someone in management in our organization."
+    },{
+      "question" : "If there are any issues between a client and your service provider, how do you resolve them?",
+      "answer" : "At Bizowl, we act as the single point of contact—you don’t need to deal with service partners directly. If any issue arises, our dedicated team steps in immediately to resolve it. We manage all communications, ensuring your goals are met without stress or delays. With our clear policies and proactive support, you can focus on results while we handle the rest."
+    },{
+      "question" : "Our Process: How It Works?",
+      "answer" : "1. Submit Your Requirement : Choose a service and fill out the form with your details. \n2. Receive Bids (2 to 4 Hours) : Our verified partners will review and bid on your request. \n3. Get Notified : We’ll notify you as soon as the quotations are ready. \n4. Compare & Choose : Evaluate options based on price, features, and partner experience. \n5. Finalize & Pay Securely : Select the best fit and make your payment online. \nWe aim to ensure timely delivery and a dispute-free experience."
+    },{
+      "question" : "some customer testimonials or companies we have worked with",
+      "answer" : [
+        {
+          "company" : "Shiv Vinayak Band",
+          "rating" : "Rated our service 4 star.",
+          "testimonial" : "Used Their Service For My Business, Shiv Vinayak Band In Palam Delhi, I Had The Time And Knowledge Issue So I Handed Over Everything On BIZOWL'S Team, Told Them My Budget And They Did A Fabulous Job. They Did A Complete Make Over Using Their Partners Services. I Would Definitely Recommend BizOwl, At Least Give Them A Try And Know By Yourself."
+        },
+        {
+          "company" : "Kravitz",
+          "rating" : "Rated our service 5 star.",
+          "testimonial" : "Perfect Place To Use Any Service. I Love Their Concept Of Business. It Saves A Lot Of Time And Prices Are According To Budget."
+        },
+        {
+          "company" : "Indus Overseas",
+          "rating" : "Rated our service 5 star.",
+          "testimonial" : "Great! We Got BIZOWL's Services For Digitalization Of Our Company INDUS OVERSEAS. BIZOWL Made Is Easy To Explore Our Business Internationally. Thanks"
+        }
+      ]
+    },{
+      "question" : "How can I sign up or sign in on Bizowl?",
+      "answer" : "Bizowl offers three types of accounts based on your role: \n1. Client: For those seeking business services.\n2. Partner: For service providers offering their expertise. \n3. Mentor: For experienced professionals guiding clients and partners. \nSimply select the appropriate option when signing up or signing in to access features tailored to your role."
+    },
+    {
+      "question" : "What resources does Bizowl offer to help me grow my business? / what are blogs on your website?",
+      "answer" : " Bizowl provides a comprehensive Business Resources Hub featuring: \n1. Informative Blogs: Covering topics like branding, marketing, sales, funding, and more. \n2. Market Research Reports: Offering insights into various industries and market trends. \n3. Guides and Templates: Providing practical tools to assist in business planning and execution. \nThese resources are designed to equip you with the knowledge needed to make informed decisions and drive your business forward. Access them anytime at [link : https://www.bizzowl.com/resources]"
+    },
+    {
+      "question" : "What is Bizowl's Business Support?",
+      "answer" : "Bizowl's Business Support is a comprehensive service designed to assist entrepreneurs and startups at every stage of their journey. Whether you're launching your business, scaling operations, or seeking expert guidance, Bizowl provides end-to-end support to help you succeed."
+    },
+    {
+      "question" : "How can I get started with Bizowl’s Long Term Mentorship?",
+      "answer" : "Getting started is simple — just follow these 3 easy steps: \n1. Find Your Ideal Mentor: Browse from 600+ experienced mentors and choose one that fits your preferences. \n2. Book a Free Trial Session: Connect with your selected mentor and explore how they can help you reach your goals faster—no need to ask for referrals. \n3. Learn, Chat, and Grow: Begin your personalized mentorship journey and move confidently in the right direction with your chosen mentor. \nReady to start? Just Find Your Mentor and book your free trial!"
+    },
+    {
+      "question" : "How can I schedule a call with Bizowl?",
+      "answer" : "You can easily schedule a call with us through our Calendly page: https://calendly.com/bizowl. Pick a convenient time slot, and we’ll connect with you to discuss your needs."
+    },
+    {
+      "links" : [
+        {
+          "contact us, request call back" : "https://www.bizzowl.com/contactUs"
+        },
+        {
+          "resources" : "https://www.bizzowl.com/resources"
+        }, 
+        {
+          "connect on WhatsApp" : "https://api.whatsapp.com/message/MR4KKWOY4H62O1?autoload=1&app_absent=0"
+        }
+      ]
     },
     {
       "frequently asked questions": {
