@@ -2061,6 +2061,67 @@
           ]
         }
       }
-    }
+    },
+    {
+      "AI Tools for Business Journey": {
+        "intro": {
+          "message": "From idea to global growth, our AI tools support founders at every stage, making your business journey smoother and more successful. No account required. These AI tools are free to use.",
+          "url" : "https://www.bizzowl.com/ai-startup-tools"
+        },
+        "tools": [
+          {
+            "name": "Business Name Generator",
+            "description": "Get the first step of your business right.",
+            "features": [
+              "Quick Name Generation",
+              "Creative Suggestions",
+              "Overcome Name Blocks",
+              "Brand Alignment"
+            ],
+            "cta": "Try for Free",
+            "url": "https://www.bizzowl.com/ai-startup-tools/company-name-generator"
+          },
+          {
+            "name": "Business Canvas Generator",
+            "description": "Map out your business model with ease.",
+            "features": [
+              "Define Key Partners & Activities",
+              "Map Customer Segments",
+              "Visualize Revenue Streams",
+              "Customize Canvas to Your Business Model"
+            ],
+            "cta": "Try for Free",
+            "url": "https://www.bizzowl.com/ai-startup-tools/Business-Canvas-Generator"
+          },
+          {
+            "name": "Press Release Generator",
+            "description": "Create professional press releases in minutes.",
+            "features": [
+              "Quick Name Generation",
+              "Creative Writing",
+              "Unique Template",
+              "Brand Alignment"
+            ],
+            "cta": "Try for Free",
+            "url": "https://www.bizzowl.com/ai-startup-tools/ai-press-release-generator-free"
+          },
+          {
+            "name": "Marketing Plan Generator",
+            "description": "Generate a tailored marketing strategy.",
+            "features": [
+              "Quick Plan Generation",
+              "Strategy Builder",
+              "Unique Template",
+              "Tailored to Your Business"
+            ],
+            "cta": "Try for Free",
+            "url": "https://www.bizzowl.com/ai-startup-tools/ai-marketing-plan-generator"
+          }
+        ],
+        "follow_up": {
+          "message": "Would you like to know more about any of these tools or try one out?"
+        }
+      }
+    }    
   ]
 }
