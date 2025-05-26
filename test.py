@@ -188,7 +188,7 @@ def get_next_menu_options(path):
 def index():
     if 'chat_id' not in session:
         session['chat_id'] = create_chat_session()
-    return render_template('index2.html', menu_options=get_initial_menu_options())
+    return render_template('index1.html', menu_options=get_initial_menu_options())
 
 # @app.route('/')
 # def index():
