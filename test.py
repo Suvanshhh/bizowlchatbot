@@ -8,6 +8,9 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from google.api_core.exceptions import DeadlineExceeded
 from google.cloud.firestore_v1 import SERVER_TIMESTAMP
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
