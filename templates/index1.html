@@ -74,6 +74,10 @@
             })
             .then(response => response.json())
             .then(data => {
+                if (data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                    return;
+                }
                 currentPath = data.path;
                 updateMenuOptions(data.options);
                 if (data.bot_response) {
