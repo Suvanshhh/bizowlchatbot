@@ -3,7 +3,6 @@ import json
 from datetime import datetime
 from flask import Flask, request, render_template, jsonify, session
 from flask_cors import CORS
-from flask_mail import Mail, Message  # NEW
 import google.generativeai as genai
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -16,20 +15,8 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.secret_key = os.environ.get('FLASK_SECRET', 'SECRET_KEY')
 
-# --- Flask-Mail Configuration ---
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # or your SMTP server
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')  # your email
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # your app password
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_DEBUG'] = True
+chat_memory = {}
 
-mail = Mail(app)
-# --- End Flask-Mail Configuration ---
-
-#Firebase initialization
 firebase_credentials_str = os.getenv("FIREBASE_CREDENTIALS_JSON")
 if not firebase_credentials_str:
     print("Firebase credentials not found in environment variables")
@@ -160,21 +147,33 @@ def save_contact_info(chat_id, contact_data):
     except Exception as e:
         print(f"Error saving contact info: {e}")
         
-
-
-
-def get_chat_history(chat_id, max_messages=15):
+def get_chat_history(chat_id, max_messages=10):
+    """Get recent chat history with fallback to memory"""
     try:
-        messages_ref = db.collection('chats').document(chat_id).collection('messages')
-        query = messages_ref.order_by('timestamp').limit_to_last(max_messages)
-        docs = query.stream()
-        history = []
-        for doc in docs:
-            msg = doc.to_dict()
-            sender = msg.get('sender', 'user')
-            content = msg.get('content', '')
-            history.append(f"{'User' if sender == 'user' else 'Bot'}: {content}")
-        return "\n".join(history)
+        if not chat_id:
+            return ""
+        chat_id = str(chat_id)
+        if not chat_id.startswith('fallback_'):
+            messages_ref = db.collection('chats').document(chat_id).collection('messages')
+            query = messages_ref.order_by('timestamp').limit_to_last(max_messages)
+            docs = query.get()
+            
+            history = []
+            for doc in docs:
+                msg = doc.to_dict()
+                sender = msg.get('sender', 'user')
+                content = msg.get('content', '').strip()
+                
+                if content:  
+                    role = 'User' if sender == 'user' else 'Assistant'
+                    history.append(f"{role}: {content}")
+            
+            result = "\n".join(history) if history else ""
+            print(f"Retrieved {len(history)} messages from Firebase for chat {chat_id}")
+            return result
+        else:
+            raise Exception("Using fallback storage")
+            
     except Exception as e:
         print(f"Firebase fetch failed, using memory fallback: {e}")
         chat_id = str(chat_id)
@@ -192,7 +191,7 @@ def get_chat_history(chat_id, max_messages=15):
         
         print(f"No chat history found for chat {chat_id}")
         return ""
-    
+
 #Gemini Prompt Creation
 def create_gemini_prompt(user_query, chat_history):
     """Create a comprehensive prompt for Gemini with chat context"""
@@ -340,8 +339,6 @@ def process_custom_input():
 
     return jsonify({'response': response_text})
 
-
-# Voice input processing route
 @app.route('/voice_input', methods=['POST'])
 def voice_input():
     """Process voice input (speech-to-text handled by frontend)"""
@@ -371,63 +368,21 @@ def voice_input():
         'transcribed_text': user_input
     })
 
-@app.route('/test_mail')
-def test_mail():
-    try:
-        msg = Message("Test Email", recipients=[os.environ.get('ADMIN_EMAIL', app.config['MAIL_USERNAME'])])
-        msg.body = "This is a test email from Flask-Mail."
-        mail.send(msg)
-        return "Test email sent!"
-    except Exception as e:
-        return f"Error: {e}"
-
-
 @app.route('/save_contact', methods=['POST'])
 def save_contact():
-    data = request.json
-    name = data.get('name', 'Unknown')
-    email_addr = data.get('email', 'Not provided')
-    phone = data.get('phone', 'Not provided')
-    issue = data.get('issue', '')
+    """Save user contact information"""
+    contact_data = request.json
     chat_id = session.get('chat_id')
-    chat_history = get_chat_history(chat_id)
-
-    # Compose email
-    subject = "New Call Request from Chatbot"
-    body = f"""
-A user has requested a call.
-
-Name: {name}
-Email: {email_addr}
-Phone: {phone}
-Issue: {issue}
-
-Chat History:
-{chat_history}
-    """
-
-    msg = Message(
-        subject=subject,
-        sender=app.config['MAIL_USERNAME'],
-        recipients=[os.environ.get('ADMIN_EMAIL', app.config['MAIL_USERNAME'])]  # Set admin email in env
-    )
-    msg.body = body
-
-    try:
-        mail.send(msg)
-        return jsonify({
-            'success': True,
-            'message': "Thank you! Our customer support team will contact you shortly."
-        })
-    except Exception as e:
-        print("Mail send error:", e)
-        return jsonify({
-            'success': False,
-            'message': "There was an error sending your request. Please try again later."
-        }), 500
-
-# ... (other routes unchanged) ...
-
+    
+    if chat_id and contact_data:
+        save_contact_info(chat_id, contact_data)
+        save_message(chat_id, f"Contact information submitted: {contact_data.get('name', 'Unknown')} - {contact_data.get('email', 'No email')} - {contact_data.get('phone', 'No phone')}", is_user=True)
+        save_message(chat_id, "Thank you! Our customer support team will contact you shortly.", is_user=False)
+    
+    return jsonify({
+        'success': True,
+        'message': "Thank you! Our customer support team will contact you shortly."
+    })
 
 @app.route('/health')
 def health():
