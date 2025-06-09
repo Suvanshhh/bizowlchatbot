@@ -71,25 +71,68 @@ body {
 .menu-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
-  padding: 10px;
+  gap: 4px;
+  padding: 13px;
   justify-content: center;
   background-color: #f2f2f2;
 }
 
 .menu-button {
-  padding: 7px 11px;
+  padding: 10px 20px;
+  margin: 0 6px 8px 0;
   border: none;
-  background-color: #1c6ed0;
-  color: white;
-  border-radius: 8px;
+  background: #0056b3;
+  color: #fff;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 10px;
-  transition: background-color 0.2s ease-in-out;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+  transition: background 0.22s cubic-bezier(0.4, 2, 0.6, 1),
+    box-shadow 0.22s cubic-bezier(0.4, 2, 0.6, 1),
+    transform 0.15s cubic-bezier(0.4, 2, 0.6, 1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.menu-button:hover {
-  background-color: #0056b3;
+.menu-button:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(167, 139, 250, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.4, 2, 0.6, 1),
+    height 0.4s cubic-bezier(0.4, 2, 0.6, 1);
+  z-index: 0;
+}
+
+.menu-button:hover:before {
+  width: 100%;
+  height: 500%;
+}
+
+.menu-button:hover,
+.menu-button:focus {
+  background: linear-gradient(90deg, #a78bfa 0%, #1c6ed0 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.13);
+  transform: translateY(-2px) scale(1.045);
+}
+
+.menu-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(124, 58, 237, 0.08);
+}
+
+.menu-button span {
+  position: relative;
+  z-index: 1;
 }
 
 /* --- INPUT ROW & VOICE CONTROLS --- */
@@ -138,7 +181,7 @@ body {
 .custom-input-container button:hover,
 .custom-input-container .voice-button:hover,
 .custom-input-container .voice-toggle:hover {
-  background-color: #0056b3;
+  background-color: #a78bfa;
 }
 
 /* --- Voice Button --- */
@@ -199,7 +242,7 @@ body {
 }
 
 .reset-button:hover {
-  background-color: #e0a800;
+  background-color: #a78bfa;
 }
 
 @keyframes pulse {
@@ -241,23 +284,33 @@ body {
 }
 .contact-form {
   display: none;
-  padding: 10px 10px 10px 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 24px;
   background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
   animation: fadeIn 0.3s ease-in-out;
   max-width: 370px;
-  margin: 30px 20px;
+  width: 94vw;
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
-  position: relative;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  z-index: 10001;
+  /* Optional: keep scrollbar visible for usability */
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: auto; /* IE and Edge */
 }
 .contact-form::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: block; /* Chrome, Safari, Opera */
+  width: 8px;
+  background: #eee;
+}
+.contact-form::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
 }
 
 .contact-form h3 {
@@ -292,7 +345,7 @@ body {
   transition: color 0.2s;
 }
 .close-form-btn:hover {
-  color: #dc3545;
+  color: #a78bfa;
 }
 
 .form-group input,
@@ -310,6 +363,120 @@ body {
 .form-group textarea:focus {
   border-color: #007bff;
   outline: none;
+}
+.custom-input-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #007bff; /* purple border */
+  border-radius: 2em;
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  margin-top: 7px;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.custom-input-bar:focus-within {
+  border-color: #a78bfa;
+}
+
+.circle-btn {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: #f3f3fa;
+  color: #22223b;
+  border: none;
+  font-size: 1.5em;
+  margin-right: 0.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(60, 72, 88, 0.07);
+}
+.circle-btn:hover {
+  background: #e0e7ff;
+}
+
+.custom-input-bar input[type="text"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: black;
+  font-size: 1.1em;
+  outline: none;
+  padding: 0.6em 0;
+  margin-right: 0.7em;
+}
+
+.custom-input-bar input[type="text"]::placeholder {
+  color: #a3a3b2;
+  opacity: 1;
+}
+
+.send-btn {
+  background: none;
+  border: none;
+  color: #a78bfa;
+  font-size: 1.4em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  padding: 0.3em;
+  border-radius: 50%;
+}
+.send-btn:disabled {
+  color: #97bee8;
+  cursor: not-allowed;
+}
+.send-btn:hover:enabled {
+  color: #fff;
+  background: #a78bfa;
+}
+
+.plus-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  bottom: 3em;
+  background: #23232f;
+  border-radius: 1em;
+  box-shadow: 0 8px 24px rgba(60, 72, 88, 0.18);
+  padding: 0.5em 0;
+  z-index: 100;
+  min-width: 180px;
+  animation: fadeInUp 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+}
+.plus-dropdown button {
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  padding: 0.7em 1.2em;
+  text-align: left;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 0.7em;
+  transition: background 0.18s, color 0.18s;
+}
+.plus-dropdown button:hover {
+  background: #7c3aed22;
+  color: #fff;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 textarea {
@@ -336,12 +503,12 @@ textarea {
 }
 
 .form-buttons button:first-child {
-  background-color: #007bff;
+  background-color: #a78bfa;
   color: white;
 }
 
 .form-buttons button:first-child:hover {
-  background-color: #0056b3;
+  background-color: #a78bfa;
 }
 
 .cancel-button {
@@ -350,7 +517,7 @@ textarea {
 }
 
 .cancel-button:hover {
-  background-color: #b02a37;
+  background-color: #a78bfa;
 }
 
 @media (max-width: 500px) {
@@ -464,8 +631,8 @@ textarea {
   }
 
   .menu-button {
-    font-size: 12px;
-    padding: 7px 8px;
+    /* font-size: 12px;
+    padding: 7px 8px; */
   }
 
   .custom-input-container {
@@ -505,16 +672,17 @@ textarea {
     padding: 6px 8px;
   }
 }
-#scheduleCallButton {
-  background: #dbbe6e;
-  color: white;
+/* #scheduleCallButton {
+  background: transparent;
+  color: #f2f2f2;
   border: none;
-  border-radius: 8px;
+  /* border-radius: 8px;
   padding: 3px 8px;
-  margin-left: 2px;
+  margin-left: 2px; 
   cursor: pointer;
   transition: background 0.2s;
-}
-#scheduleCallButton:hover {
-  background: #0056b3;
-}
+} */
+
+/* #scheduleCallButton:hover {
+  background: #a78bfa;
+}  */

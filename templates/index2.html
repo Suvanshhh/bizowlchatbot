@@ -35,47 +35,43 @@
     {{ option.text }}
   </button>
   {% endfor %}
-  <div class="custom-input-container">
-    <input
-      type="text"
-      id="customInput"
-      placeholder="Or ask your own question..."
-    />
-    <button id="sendButton" onclick="sendCustomInput()" disabled>
-      Send
-    </button>
-    <button
-      id="voiceButton"
+ <div class="custom-input-bar">
+  <button class="circle-btn" id="plusMenuBtn" title="More options" type="button">
+    +
+  </button>
+  <input
+    type="text"
+    id="customInput"
+    placeholder="Ask anything..."
+    autocomplete="off"
+  />
+  <button id="sendButton" class="send-btn" onclick="sendCustomInput()" disabled>
+  <span id="sendIcon">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <path d="M3 11L19 3L11 19L10 13L3 11Z" fill="currentColor"/>
+    </svg>
+  </span>
+</button>
+
+  <!-- Hidden dropdown for extra actions (voice, call, etc.) -->
+  <div id="plusDropdown" class="plus-dropdown">
+    <button id="voiceButton"
       class="voice-button"
       onclick="toggleVoiceRecording()"
-      title="Voice Input"
-    >
-      🎤
-    </button>
-    <button
-      id="voiceToggle"
+      title="Voice Input">🎤 Voice Input</button>
+    <button  id="voiceToggle"
       class="voice-toggle"
-      onclick="toggleVoiceOutput()"
-    >
-      Voice ON
-    </button>
+      onclick="toggleVoiceOutput()">🔊 Voice Toggle</button>
     <button
       id="scheduleCallButton"
       class="menu-button"
       onclick="showContactForm()"
-    >
-      Schedule a Call
-    </button>
+    >📞 Schedule Call</button>
   </div>
-  <div id="voiceStatus" class="voice-status" style="display: none">
-    Click to speak
-  </div>
-  <div
-    id="voiceTranscript"
-    class="voice-transcript"
-    style="display: none"
-  ></div>
 </div>
+
+<div id="voiceStatus" class="voice-status" style="display: none">Click to speak</div>
+<div id="voiceTranscript" class="voice-transcript" style="display: none"></div>
 
 <!-- Contact Form -->
 <div class="contact-form" id="contactForm" style="display: none">
@@ -117,7 +113,7 @@
       let currentPath = [];
       let recognition = null;
       let isRecording = false;
-      let voiceOutputEnabled = true;
+      let voiceOutputEnabled = false;
 
       // Initialize Speech Recognition
       function initSpeechRecognition() {
@@ -184,26 +180,46 @@
           recognition.start();
         }
       }
+function updateVoiceButton() {
+  const button = document.getElementById("voiceButton");
+  const status = document.getElementById("voiceStatus");
+  const sendButton = document.getElementById("sendButton");
+  const sendIcon = document.getElementById("sendIcon");
 
-      function updateVoiceButton() {
-        const button = document.getElementById("voiceButton");
-        const status = document.getElementById("voiceStatus");
+  if (isRecording) {
+    // Voice button state
+    button.classList.add("recording");
+    button.textContent = "⏹️";
+    status.textContent = "Listening... (click to stop)";
 
-        if (isRecording) {
-          button.classList.add("recording");
-          button.textContent = "⏹️";
-          status.textContent = "Listening... (click to stop)";
-        } else {
-          button.classList.remove("recording", "processing");
-          button.textContent = "🎤";
-          if (
-            status.textContent.includes("Listening") ||
-            status.textContent.includes("Processing")
-          ) {
-            status.textContent = "Click to speak";
-          }
-        }
-      }
+    // Send button becomes stop button
+    if (sendIcon) sendIcon.textContent = "⏹️";
+    sendButton.onclick = toggleVoiceRecording;
+    sendButton.disabled = false; // Allow stopping at any time
+  } else {
+    // Voice button state
+    button.classList.remove("recording", "processing");
+    button.textContent = "🎤 Voice Input";
+    if (
+      status.textContent.includes("Listening") ||
+      status.textContent.includes("Processing")
+    ) {
+      status.textContent = "Click to speak";
+    }
+
+    // Restore send button
+    if (sendIcon) {
+      sendIcon.innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M3 11L19 3L11 19L10 13L3 11Z" fill="currentColor"/>
+        </svg>
+      `;
+    }
+    sendButton.onclick = sendCustomInput;
+    // Only enable if input has value
+    sendButton.disabled = document.getElementById("customInput").value.trim() === "";
+  }
+}
 
       function sendVoiceInput(transcript) {
         document.getElementById("voiceButton").classList.add("processing");
@@ -282,10 +298,10 @@
         const button = document.getElementById("voiceToggle");
 
         if (voiceOutputEnabled) {
-          button.textContent = "Voice ON";
+          button.textContent = "🔊 Voice Turned ON";
           button.classList.remove("disabled");
         } else {
-          button.textContent = "Voice OFF";
+          button.textContent = "🔇Voice Turned OFF";
           button.classList.add("disabled");
           speechSynthesis.cancel(); // Stop any ongoing speech
         }
@@ -339,6 +355,23 @@
             );
           });
       }
+
+      // Dropdown for plus button
+const plusBtn = document.getElementById('plusMenuBtn');
+const plusDropdown = document.getElementById('plusDropdown');
+
+plusBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  plusDropdown.style.display = plusDropdown.style.display === 'flex' ? 'none' : 'flex';
+});
+
+// Hide dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (plusDropdown && plusDropdown.style.display === 'flex' && !plusBtn.contains(e.target)) {
+    plusDropdown.style.display = 'none';
+  }
+});
+
 
       function sendCustomInput() {
         const inputField = document.getElementById("customInput");
@@ -404,63 +437,34 @@
         if (input) input.focus();
       }
 
-      function updateMenuOptions(options) {
-        const menuDiv = document.getElementById("menuOptions");
-        menuDiv.innerHTML = "";
+function updateMenuOptions(options) {
+  const menuDiv = document.getElementById("menuOptions");
 
-        options.forEach((option) => {
-          const button = document.createElement("button");
-          button.className = "menu-button";
-          button.textContent = option.text;
-          button.onclick = function () {
-            selectMenuOption(option.id, option.text);
-          };
-          menuDiv.appendChild(button);
-        });
+  // Remove only the menu buttons, not the input bar
+  Array.from(menuDiv.querySelectorAll(".menu-button")).forEach(btn => btn.remove());
 
-        const customInputContainer = document.createElement("div");
-        customInputContainer.className = "custom-input-container";
-        customInputContainer.innerHTML = `
-                <input type="text" id="customInput" placeholder="Or ask your own question...">
-                <button id="sendButton" onclick="sendCustomInput()" disabled>Send</button>
-                <div class="voice-controls">
-                    <button id="voiceButton" class="voice-button" onclick="toggleVoiceRecording()" title="Voice Input">
-                        🎤
-                    </button>
-                    <span id="voiceStatus" class="voice-status">Click to speak</span>
-                    <button id="voiceToggle" class="voice-toggle" onclick="toggleVoiceOutput()">
-                        Voice ${voiceOutputEnabled ? "ON" : "OFF"}
-                    </button>
-                </div>
-                <div id="voiceTranscript" class="voice-transcript" style="display: none;"></div>
-            `;
-        menuDiv.appendChild(customInputContainer);
+  // Add new menu buttons before the input bar
+  const inputBar = menuDiv.querySelector(".custom-input-bar");
+  options.forEach((option) => {
+    const button = document.createElement("button");
+    button.className = "menu-button";
+    button.textContent = option.text;
+    button.onclick = function () {
+      selectMenuOption(option.id, option.text);
+    };
+    menuDiv.insertBefore(button, inputBar);
+  });
 
-        document
-          .getElementById("customInput")
-          .addEventListener("input", function () {
-            document.getElementById("sendButton").disabled =
-              this.value.trim() === "";
-          });
+  // Update the voice toggle button in the dropdown to reflect the current state
+  const voiceToggleBtn = document.getElementById('voiceToggle');
+  if (voiceToggleBtn) {
+    voiceToggleBtn.innerHTML = voiceOutputEnabled ? "🔊 Voice Toggle" : "🔇 Voice Toggle";
+  }
+}
 
-        document
-          .getElementById("customInput")
-          .addEventListener("keypress", function (e) {
-            if (
-              e.key === "Enter" &&
-              !this.disabled &&
-              this.value.trim() !== ""
-            ) {
-              sendCustomInput();
-            }
-          });
-
-        // Reinitialize speech recognition for the new elements
-        initSpeechRecognition();
-      }
 
        function showContactForm() {
-    document.getElementById("menuOptions").style.display = "none";
+    document.getElementById("menuOptions").style.display = "block";
     document.getElementById("contactForm").style.display = "block";
   }
 
