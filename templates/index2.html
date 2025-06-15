@@ -516,6 +516,21 @@ function updateMenuOptions(options) {
       document.addEventListener("DOMContentLoaded", function () {
         initSpeechRecognition();
       });
+
+      
+  if (window.self !== window.top) {
+    var chat = document.querySelector('.chat-container');
+    if (chat) {
+      chat.style.position = 'relative';
+      chat.style.bottom = '0';
+      chat.style.right = '0';
+      chat.style.width = '100%';
+      chat.style.height = '100%';
+      chat.style.maxWidth = 'none';
+      chat.style.maxHeight = 'none';
+    }
+  }
+
     </script>
   </body>
 </html>
