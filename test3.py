@@ -348,7 +348,7 @@ def index():
     """Main page route"""
     chat_id = ensure_chat_session()
     print(f"Index route - using chat session: {chat_id}")
-    return render_template('index1.html', menu_options=get_initial_menu_options())
+    return render_template('index2.html', menu_options=get_initial_menu_options())
 
 @app.route('/get_menu_options', methods=['POST'])
 def get_menu_options():

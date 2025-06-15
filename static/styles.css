@@ -241,9 +241,9 @@ body {
   opacity: 1;
 }
 
-.reset-button:hover {
+/* .reset-button:hover {
   background-color: #a78bfa;
-}
+} */
 
 @keyframes pulse {
   0% {
