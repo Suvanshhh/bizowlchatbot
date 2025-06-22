@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f8fa;
@@ -80,7 +86,7 @@ body {
 .menu-button {
   padding: 10px 20px;
   margin: 0 6px 8px 0;
-  border: none;
+  border: 2px solid transparent;
   background: #0056b3;
   color: #fff;
   border-radius: 12px;
@@ -89,9 +95,11 @@ body {
   font-weight: 500;
   letter-spacing: 0.02em;
   box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
-  transition: background 0.22s cubic-bezier(0.4, 2, 0.6, 1),
-    box-shadow 0.22s cubic-bezier(0.4, 2, 0.6, 1),
-    transform 0.15s cubic-bezier(0.4, 2, 0.6, 1);
+  transition: background 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    color 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    border 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    transform 0.1s cubic-bezier(0.4, 1, 0.6, 1);
   outline: none;
   position: relative;
   overflow: hidden;
@@ -107,27 +115,29 @@ body {
   background: rgba(167, 139, 250, 0.18);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.4s cubic-bezier(0.4, 2, 0.6, 1),
-    height 0.4s cubic-bezier(0.4, 2, 0.6, 1);
+  transition: width 0.18s cubic-bezier(0.4, 1, 0.6, 1),
+    height 0.18s cubic-bezier(0.4, 1, 0.6, 1), background 0.13s;
   z-index: 0;
 }
 
 .menu-button:hover:before {
   width: 100%;
   height: 500%;
+  background: rgba(0, 86, 179, 0.07);
 }
 
 .menu-button:hover,
 .menu-button:focus {
-  background: linear-gradient(90deg, #a78bfa 0%, #1c6ed0 100%);
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.13);
-  transform: translateY(-2px) scale(1.045);
+  background: #fff;
+  color: #0056b3;
+  border: 2px solid #0056b3;
+  box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+  transform: translateY(-1.5px) scale(1.03);
 }
 
 .menu-button:active {
-  transform: scale(0.97);
-  box-shadow: 0 1px 4px rgba(124, 58, 237, 0.08);
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 86, 179, 0.08);
 }
 
 .menu-button span {
@@ -231,7 +241,6 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  /* or your brand blue, or #333 for dark */
   font-size: 1.6rem;
   cursor: pointer;
   padding: 0;
@@ -240,10 +249,6 @@ body {
   transition: color 0.2s;
   opacity: 1;
 }
-
-/* .reset-button:hover {
-  background-color: #a78bfa;
-} */
 
 @keyframes pulse {
   0% {
@@ -282,6 +287,7 @@ body {
   font-size: 14px;
   color: #495057;
 }
+
 .contact-form {
   display: none;
   position: fixed;
@@ -299,12 +305,11 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 10001;
-  /* Optional: keep scrollbar visible for usability */
-  scrollbar-width: thin; /* Firefox */
-  -ms-overflow-style: auto; /* IE and Edge */
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
 }
 .contact-form::-webkit-scrollbar {
-  display: block; /* Chrome, Safari, Opera */
+  display: block;
   width: 8px;
   background: #eee;
 }
@@ -364,21 +369,28 @@ body {
   border-color: #007bff;
   outline: none;
 }
+
 .custom-input-bar {
   display: flex;
   align-items: center;
   background: white;
-  border: 2px solid #007bff; /* purple border */
+  border: 2px solid #0056b3;
   border-radius: 2em;
   padding: 0.2em 0.4em 0.2em 0.4em;
   margin-top: 7px;
   box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
   position: relative;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s cubic-bezier(0.4, 2, 0.6, 1),
+    box-shadow 0.22s cubic-bezier(0.4, 2, 0.6, 1),
+    background 0.22s cubic-bezier(0.4, 2, 0.6, 1),
+    transform 0.18s cubic-bezier(0.4, 2, 0.6, 1);
 }
 
 .custom-input-bar:focus-within {
-  border-color: #a78bfa;
+  border-color: #007bff;
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.13);
+  background: #f5faff;
+  transform: scale(1.015);
 }
 
 .circle-btn {
@@ -420,7 +432,7 @@ body {
 .send-btn {
   background: none;
   border: none;
-  color: #a78bfa;
+  color: #0056b3;
   font-size: 1.4em;
   cursor: pointer;
   display: flex;
@@ -434,8 +446,7 @@ body {
   cursor: not-allowed;
 }
 .send-btn:hover:enabled {
-  color: #fff;
-  background: #a78bfa;
+  color: #007bff;
 }
 
 .plus-dropdown {
@@ -444,28 +455,130 @@ body {
   position: absolute;
   left: 0;
   bottom: 3em;
-  background: #23232f;
-  border-radius: 1em;
+  background: #fff;
+  border-radius: 1.1em;
   box-shadow: 0 8px 24px rgba(60, 72, 88, 0.18);
   padding: 0.5em 0;
   z-index: 100;
-  min-width: 180px;
+  min-width: 200px;
   animation: fadeInUp 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  border: 2px solid #e6eafd;
 }
+
+/* Dropdown buttons styled like your main menu/form buttons */
 .plus-dropdown button {
-  background: none;
-  border: none;
-  color: #e0e0e0;
-  padding: 0.7em 1.2em;
+  position: relative;
+  border: 2px solid transparent;
+  outline: none;
+  background: #f5f8fa;
+  color: #23232f;
+  padding: 0.85em 1.3em;
   text-align: left;
   font-size: 1em;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 0.7em;
-  transition: background 0.18s, color 0.18s;
+  border-radius: 0.8em;
+  margin: 0.15em 0.7em;
+  transition: background 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    color 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    border 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    transform 0.1s cubic-bezier(0.4, 1, 0.6, 1);
+  overflow: hidden;
 }
-.plus-dropdown button:hover {
-  background: #7c3aed22;
+
+/* Ripple effect */
+.plus-dropdown button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 86, 179, 0.09);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s cubic-bezier(0.4, 1, 0.6, 1),
+    height 0.18s cubic-bezier(0.4, 1, 0.6, 1), background 0.13s;
+  z-index: 0;
+}
+
+.plus-dropdown button:hover::before,
+.plus-dropdown button:focus::before {
+  width: 100%;
+  height: 500%;
+  background: rgba(0, 86, 179, 0.12);
+}
+
+.plus-dropdown button:hover,
+.plus-dropdown button:focus {
+  background: #fff;
+  color: #0056b3;
+  border: 2px solid #0056b3;
+  box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+  transform: translateY(-1.5px) scale(1.03);
+}
+
+.plus-dropdown button:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 86, 179, 0.08);
+}
+
+/* Icon and text layering */
+.plus-dropdown button span,
+.plus-dropdown button i,
+.plus-dropdown button svg {
+  position: relative;
+  z-index: 1;
+}
+
+/* Special color for Schedule Call (red) */
+.plus-dropdown button.schedule-call {
+  color: #c53030;
+}
+.plus-dropdown button.schedule-call:hover,
+.plus-dropdown button.schedule-call:focus {
   color: #fff;
+  background: #c53030;
+  border: 2px solid #c53030;
+  box-shadow: 0 4px 16px rgba(197, 48, 48, 0.13);
+}
+.plus-dropdown button.schedule-call::before {
+  background: rgba(197, 48, 48, 0.13);
+}
+.plus-dropdown button.schedule-call:hover::before,
+.plus-dropdown button.schedule-call:focus::before {
+  background: rgba(197, 48, 48, 0.18);
+}
+
+/* Responsive: full width and centered on mobile */
+@media (max-width: 600px) {
+  .plus-dropdown {
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: 3.5em;
+    min-width: 85vw;
+    max-width: 98vw;
+    box-sizing: border-box;
+    border-radius: 0.8em;
+  }
+  .plus-dropdown button {
+    font-size: 1.1em;
+    padding: 1.1em 1.2em;
+    margin: 0.13em 0.4em;
+  }
+}
+@media (max-width: 480px) {
+  .plus-dropdown {
+    top: -1em;
+    bottom: auto;
+    left: 50% !important;
+    transform: translateX(-50%);
+    min-width: 97vw;
+    max-width: 99vw;
+    border-radius: 0.7em;
+    box-shadow: 0 2px 8px rgba(60, 72, 88, 0.18);
+  }
 }
 
 @keyframes fadeInUp {
@@ -485,41 +598,134 @@ textarea {
   max-height: 160px;
 }
 
-.form-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-
 .form-buttons button {
-  padding: 9px 18px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-weight: 500;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.2s;
+  background: #0056b3;
+  color: #fff;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    color 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    border 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    transform 0.12s cubic-bezier(0.4, 1, 0.6, 1);
 }
 
-.form-buttons button:first-child {
-  background-color: #a78bfa;
-  color: white;
+/* Ripple effect for all buttons */
+.form-buttons button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(167, 139, 250, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.4, 1, 0.6, 1),
+    height 0.25s cubic-bezier(0.4, 1, 0.6, 1), background 0.15s;
+  z-index: 0;
 }
 
-.form-buttons button:first-child:hover {
-  background-color: #a78bfa;
+.form-buttons button:hover::before {
+  width: 100%;
+  height: 500%;
+  background: rgba(0, 86, 179, 0.07);
 }
 
-.cancel-button {
+.form-buttons button:hover,
+.form-buttons button:focus {
+  background: #fff;
+  color: #0056b3;
+  border: 2px solid #0056b3;
+  box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.form-buttons button:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(0, 86, 179, 0.08);
+}
+
+/* Ensure button text is above the ripple effect */
+.form-buttons button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cancel button styles */
+.form-buttons .cancel-button {
   background-color: #dc3545;
-  color: white;
+  color: #fff;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.13);
+  transition: background 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    color 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    border 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 0.15s cubic-bezier(0.4, 1, 0.6, 1),
+    transform 0.12s cubic-bezier(0.4, 1, 0.6, 1);
 }
 
-.cancel-button:hover {
-  background-color: #a78bfa;
+/* Red ripple for cancel button */
+.form-buttons .cancel-button::before {
+  background: rgba(220, 53, 69, 0.13);
 }
 
+.form-buttons .cancel-button:hover::before {
+  background: rgba(220, 53, 69, 0.09);
+}
+
+.form-buttons .cancel-button:hover,
+.form-buttons .cancel-button:focus {
+  background: #fff;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.15);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.form-buttons .cancel-button:active {
+  box-shadow: 0 1px 4px rgba(220, 53, 69, 0.09);
+  transform: scale(0.97);
+}
+
+/* Responsive adjustments for plus-dropdown */
+@media (max-width: 600px) {
+  .plus-dropdown {
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: 3.5em;
+    min-width: 85vw;
+    max-width: 98vw;
+    box-sizing: border-box;
+  }
+  .plus-dropdown button {
+    font-size: 1.1em;
+    padding: 1em 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .plus-dropdown {
+    top: -1em;
+    bottom: auto;
+    left: 50% !important;
+    transform: translateX(-50%);
+    min-width: 95vw;
+    max-width: 99vw;
+    border-radius: 0.7em;
+    box-shadow: 0 2px 8px rgba(60, 72, 88, 0.18);
+  }
+}
+
+/* Form responsive */
 @media (max-width: 500px) {
   .contact-form {
     max-width: 98vw;
@@ -569,7 +775,7 @@ textarea {
   }
 }
 
-/* Responsive */
+/* Responsive for chat and buttons */
 @media (max-width: 600px) {
   .chat-container {
     width: 100vw;
@@ -603,6 +809,7 @@ textarea {
     align-items: center;
   }
 }
+
 @media (max-width: 480px) {
   .chat-container {
     width: 100vw;
@@ -614,7 +821,6 @@ textarea {
     border-radius: 0;
     box-shadow: none;
   }
-
   .chat-header {
     font-size: 1.1rem;
     padding: 8px 4px;
@@ -628,11 +834,6 @@ textarea {
   .menu-options {
     gap: 4px;
     padding: 6px 2px;
-  }
-
-  .menu-button {
-    /* font-size: 12px;
-    padding: 7px 8px; */
   }
 
   .custom-input-container {
@@ -672,17 +873,3 @@ textarea {
     padding: 6px 8px;
   }
 }
-/* #scheduleCallButton {
-  background: transparent;
-  color: #f2f2f2;
-  border: none;
-  /* border-radius: 8px;
-  padding: 3px 8px;
-  margin-left: 2px; 
-  cursor: pointer;
-  transition: background 0.2s;
-} */
-
-/* #scheduleCallButton:hover {
-  background: #a78bfa;
-}  */
