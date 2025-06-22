@@ -530,6 +530,23 @@ function updateMenuOptions(options) {
       chat.style.maxHeight = 'none';
     }
   }
+  // --- Listen for initial message from parent via postMessage ---
+window.addEventListener("message", function(event) {
+  if (event.data && event.data.type === "initial_message") {
+    const msg = event.data.message;
+    // Insert the message into the input field
+    const input = document.getElementById("customInput");
+    if (input) {
+      input.value = msg;
+      // Enable the send button
+      const sendBtn = document.getElementById("sendButton");
+      if (sendBtn) sendBtn.disabled = false;
+      // Trigger send
+      sendCustomInput();
+    }
+  }
+});
+
 
     </script>
   </body>

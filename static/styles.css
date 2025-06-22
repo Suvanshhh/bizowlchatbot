@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+.chat-container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f8fa;
@@ -76,9 +86,10 @@ body {
 
 .menu-options {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 4px;
-  padding: 13px;
+  gap: 3px;
+  padding: 11px;
   justify-content: center;
   background-color: #f2f2f2;
 }
@@ -194,7 +205,6 @@ body {
   background-color: #a78bfa;
 }
 
-/* --- Voice Button --- */
 .custom-input-container .voice-button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   width: 29px;
@@ -216,7 +226,6 @@ body {
   cursor: not-allowed;
 }
 
-/* --- Voice Toggle --- */
 .custom-input-container .voice-toggle {
   background: #82d3c9;
   border-radius: 16px;
@@ -232,7 +241,6 @@ body {
   background: #6c757d;
 }
 
-/* --- Reset Button: Compact Icon Style --- */
 .reset-button {
   position: absolute;
   top: 87px;
@@ -261,8 +269,6 @@ body {
     transform: scale(1);
   }
 }
-
-/* --- END INPUT ROW & VOICE CONTROLS --- */
 
 .voice-status {
   font-size: 10px;
@@ -350,7 +356,7 @@ body {
   transition: color 0.2s;
 }
 .close-form-btn:hover {
-  color: #a78bfa;
+  color: #0056b3;
 }
 
 .form-group input,
@@ -368,6 +374,54 @@ body {
 .form-group textarea:focus {
   border-color: #007bff;
   outline: none;
+}
+.form-buttons button {
+  flex: 1 1 0;
+  padding: 7px 0;
+  border: none;
+  gap: 8px;
+  max-width: 120px;
+  min-width: 80px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: #0056b3;
+  color: #fff;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+  margin: 0 6px 0 0;
+  flex: 0 1 110px;
+  transition: background 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    color 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    border 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 0.14s cubic-bezier(0.4, 1, 0.6, 1),
+    transform 0.1s cubic-bezier(0.4, 1, 0.6, 1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-buttons button:hover,
+.form-buttons button:focus {
+  background: #fff;
+  color: #0056b3;
+  border: 2px solid #0056b3;
+  box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+  transform: translateY(-1.5px) scale(1.03);
+}
+
+.form-buttons button.cancel-button {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.form-buttons button.cancel-button:hover,
+.form-buttons button.cancel-button:focus {
+  background: #fff;
+  color: #dc3545;
+  border: 2px solid #dc3545;
 }
 
 .custom-input-bar {
@@ -449,6 +503,7 @@ body {
   color: #007bff;
 }
 
+/* Plus Dropdown Button */
 .plus-dropdown {
   display: none;
   flex-direction: column;
@@ -465,7 +520,6 @@ body {
   border: 2px solid #e6eafd;
 }
 
-/* Dropdown buttons styled like your main menu/form buttons */
 .plus-dropdown button {
   position: relative;
   border: 2px solid transparent;
@@ -487,7 +541,6 @@ body {
   overflow: hidden;
 }
 
-/* Ripple effect */
 .plus-dropdown button::before {
   content: "";
   position: absolute;
@@ -524,15 +577,13 @@ body {
   box-shadow: 0 1px 4px rgba(0, 86, 179, 0.08);
 }
 
-/* Icon and text layering */
 .plus-dropdown button span,
 .plus-dropdown button i,
 .plus-dropdown button svg {
   position: relative;
   z-index: 1;
 }
-
-/* Special color for Schedule Call (red) */
+/* 
 .plus-dropdown button.schedule-call {
   color: #c53030;
 }
@@ -549,11 +600,10 @@ body {
 .plus-dropdown button.schedule-call:hover::before,
 .plus-dropdown button.schedule-call:focus::before {
   background: rgba(197, 48, 48, 0.18);
-}
+} */
 
-/* Responsive: full width and centered on mobile */
 @media (max-width: 600px) {
-  .plus-dropdown {
+  /* .plus-dropdown {
     left: 50% !important;
     transform: translateX(-50%);
     bottom: 3.5em;
@@ -566,10 +616,10 @@ body {
     font-size: 1.1em;
     padding: 1.1em 1.2em;
     margin: 0.13em 0.4em;
-  }
+  } */
 }
 @media (max-width: 480px) {
-  .plus-dropdown {
+  /* .plus-dropdown {
     top: -1em;
     bottom: auto;
     left: 50% !important;
@@ -578,151 +628,7 @@ body {
     max-width: 99vw;
     border-radius: 0.7em;
     box-shadow: 0 2px 8px rgba(60, 72, 88, 0.18);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-textarea {
-  resize: vertical;
-  min-height: 80px;
-  max-height: 160px;
-}
-
-.form-buttons button {
-  padding: 10px 20px;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 1rem;
-  background: #0056b3;
-  color: #fff;
-  letter-spacing: 0.02em;
-  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
-  position: relative;
-  overflow: hidden;
-  transition: background 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    color 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    border 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    box-shadow 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    transform 0.12s cubic-bezier(0.4, 1, 0.6, 1);
-}
-
-/* Ripple effect for all buttons */
-.form-buttons button::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(167, 139, 250, 0.18);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s cubic-bezier(0.4, 1, 0.6, 1),
-    height 0.25s cubic-bezier(0.4, 1, 0.6, 1), background 0.15s;
-  z-index: 0;
-}
-
-.form-buttons button:hover::before {
-  width: 100%;
-  height: 500%;
-  background: rgba(0, 86, 179, 0.07);
-}
-
-.form-buttons button:hover,
-.form-buttons button:focus {
-  background: #fff;
-  color: #0056b3;
-  border: 2px solid #0056b3;
-  box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
-  transform: translateY(-2px) scale(1.03);
-}
-
-.form-buttons button:active {
-  transform: scale(0.97);
-  box-shadow: 0 1px 4px rgba(0, 86, 179, 0.08);
-}
-
-/* Ensure button text is above the ripple effect */
-.form-buttons button span {
-  position: relative;
-  z-index: 1;
-}
-
-/* Cancel button styles */
-.form-buttons .cancel-button {
-  background-color: #dc3545;
-  color: #fff;
-  border: 2px solid transparent;
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.13);
-  transition: background 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    color 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    border 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    box-shadow 0.15s cubic-bezier(0.4, 1, 0.6, 1),
-    transform 0.12s cubic-bezier(0.4, 1, 0.6, 1);
-}
-
-/* Red ripple for cancel button */
-.form-buttons .cancel-button::before {
-  background: rgba(220, 53, 69, 0.13);
-}
-
-.form-buttons .cancel-button:hover::before {
-  background: rgba(220, 53, 69, 0.09);
-}
-
-.form-buttons .cancel-button:hover,
-.form-buttons .cancel-button:focus {
-  background: #fff;
-  color: #dc3545;
-  border: 2px solid #dc3545;
-  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.15);
-  transform: translateY(-2px) scale(1.03);
-}
-
-.form-buttons .cancel-button:active {
-  box-shadow: 0 1px 4px rgba(220, 53, 69, 0.09);
-  transform: scale(0.97);
-}
-
-/* Responsive adjustments for plus-dropdown */
-@media (max-width: 600px) {
-  .plus-dropdown {
-    left: 50% !important;
-    transform: translateX(-50%);
-    bottom: 3.5em;
-    min-width: 85vw;
-    max-width: 98vw;
-    box-sizing: border-box;
-  }
-  .plus-dropdown button {
-    font-size: 1.1em;
-    padding: 1em 1.2em;
-  }
-}
-
-@media (max-width: 480px) {
-  .plus-dropdown {
-    top: -1em;
-    bottom: auto;
-    left: 50% !important;
-    transform: translateX(-50%);
-    min-width: 95vw;
-    max-width: 99vw;
-    border-radius: 0.7em;
-    box-shadow: 0 2px 8px rgba(60, 72, 88, 0.18);
-  }
+  } */
 }
 
 /* Form responsive */
@@ -775,7 +681,6 @@ textarea {
   }
 }
 
-/* Responsive for chat and buttons */
 @media (max-width: 600px) {
   .chat-container {
     width: 100vw;
@@ -805,7 +710,7 @@ textarea {
   }
 
   .menu-options {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 }
