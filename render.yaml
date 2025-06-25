@@ -8,14 +8,13 @@ services:
     envVars:
       - key: PORT
         value: "10000"
-        sync: false
       - key: FLASK_SECRET
-        # value: set this securely in the dashboard
+        sync: false
       - key: MAIL_USERNAME
-        # value: set this securely in the dashboard
+        sync: false
       - key: MAIL_PASSWORD
-        # value: set this securely in the dashboard
+        sync: false
       - key: GEMINI_API_KEY
-        # value: set this securely in the dashboard
+        sync: false
       - key: FIREBASE_CREDENTIALS_JSON
-        # value: set this securely in the dashboard
+        sync: false
