@@ -5,22 +5,17 @@ services:
     plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn main:app
-   envVars:
-  - key: PORT
-    value: "10000"
-    sync: false
-  - key: FLASK_SECRET
-    # value: set this securely in the dashboard
-  - key: MAIL_USERNAME
-    # value: set this securely in the dashboard
-  - key: MAIL_PASSWORD
-    # value: set this securely in the dashboard
-  - key: GEMINI_API_KEY
-    # value: set this securely in the dashboard
-  - key: FIREBASE_CREDENTIALS_JSON
-    # value: set this securely in the dashboard
-  - key: ADMIN_EMAIL
-    # value: set this securely in the dashboard
-
-    healthCheckPath: /health
-    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "10000"
+        sync: false
+      - key: FLASK_SECRET
+        # value: set this securely in the dashboard
+      - key: MAIL_USERNAME
+        # value: set this securely in the dashboard
+      - key: MAIL_PASSWORD
+        # value: set this securely in the dashboard
+      - key: GEMINI_API_KEY
+        # value: set this securely in the dashboard
+      - key: FIREBASE_CREDENTIALS_JSON
+        # value: set this securely in the dashboard
