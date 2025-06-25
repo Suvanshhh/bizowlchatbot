@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: bizowlchatbot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app
+    envVars:
+      - key: PORT
+        value: "10000"
+        sync: false
+      # The following environment variables should be set securely in Render dashboard
+      - key: FLASK_SECRET
+        fromDatabase: true
+      - key: MAIL_USERNAME
+        fromDatabase: true
+      - key: MAIL_PASSWORD
+        fromDatabase: true
+      - key: GEMINI_API_KEY
+        fromDatabase: true
+      - key: FIREBASE_CREDENTIALS_JSON
+        fromDatabase: true
+      - key: ADMIN_EMAIL
+        fromDatabase: true
+    healthCheckPath: /health
+    autoDeploy: true
