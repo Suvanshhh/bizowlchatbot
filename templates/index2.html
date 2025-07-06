@@ -340,7 +340,10 @@ function updateVoiceButton() {
             updateMenuOptions(data.options);
             if (data.bot_response) {
               addMessage("bot", data.bot_response);
-
+// If the selected option is "Schedule a Call", show the contact form
+        if (optionText === "Schedule a Call") {
+          showContactForm();
+        }
               // Speak the response if voice output is enabled
               if (voiceOutputEnabled) {
                 speakText(data.bot_response);
