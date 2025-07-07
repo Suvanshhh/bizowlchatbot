@@ -7,14 +7,8 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    environment:
-      - FLASK_SECRET=your_flask_secret
-      - MAIL_USERNAME=your_gmail_username@gmail.com
-      - MAIL_PASSWORD=your_gmail_app_password
-      - GEMINI_API_KEY=your_gemini_api_key
-      - FIREBASE_CREDENTIALS_JSON=your_firebase_credentials_json_string
-      - ADMIN_EMAIL=your_admin_email@gmail.com
-      # Add any other environment variables as needed
+    env_file:
+      - .env
     volumes:
       - ./Data:/app/Data
     depends_on:
@@ -35,5 +29,3 @@ services:
 volumes:
   data:
 
-env_file:
-  - .env
