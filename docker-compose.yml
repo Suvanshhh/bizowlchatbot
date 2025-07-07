@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    container_name: bizowl-flask
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_SECRET=your_flask_secret
+      - MAIL_USERNAME=your_gmail_username@gmail.com
+      - MAIL_PASSWORD=your_gmail_app_password
+      - GEMINI_API_KEY=your_gemini_api_key
+      - FIREBASE_CREDENTIALS_JSON=your_firebase_credentials_json_string
+      - ADMIN_EMAIL=your_admin_email@gmail.com
+      # Add any other environment variables as needed
+    volumes:
+      - ./Data:/app/Data
+    depends_on:
+      - mail-relay
+    # Uncomment if you want to run with gunicorn for production
+    # command: gunicorn -w 4 -b 0.0.0.0:5000 app:app
+
+  mail-relay:
+    image: bytemark/smtp
+    container_name: mail-relay
+    restart: always
+    ports:
+      - "2525:25"
+    # This is optional and only needed if you want to avoid Gmail SMTP restrictions.
+    # Otherwise, your Flask app will use Gmail's SMTP directly.
+
+# Optional: Add a volume for persistent data if needed
+volumes:
+  data:
+
+env_file:
+  - .env
