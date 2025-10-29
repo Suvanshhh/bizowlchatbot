@@ -19,13 +19,21 @@
         <button class="reset-button" onclick="resetChat()" title="Reset Chat">
           🔄
         </button>
+        
+
         <div class="message bot-message">
           <p>
             Hello! Welcome to our customer support. How can our OWL🦉help you
             today?
           </p>
         </div>
+
+        
       </div>
+
+      <div id="typingIndicator" class="typing-indicator" style="display: none;">
+  <span class="spinner"></span> <em>Bot is typing...</em>
+</div>
 <div class="menu-options" id="menuOptions">
   {% for option in menu_options %}
   <button
@@ -114,6 +122,19 @@
       let recognition = null;
       let isRecording = false;
       let voiceOutputEnabled = false;
+
+      function lockInput() {
+  document.getElementById("sendButton").disabled = true;
+  document.getElementById("customInput").disabled = true;
+  document.querySelectorAll(".menu-button").forEach(btn => btn.disabled = true);
+}
+
+function unlockInput() {
+  document.getElementById("sendButton").disabled = false;
+  document.getElementById("customInput").disabled = false;
+  document.querySelectorAll(".menu-button").forEach(btn => btn.disabled = false);
+}
+
 
       // Initialize Speech Recognition
       function initSpeechRecognition() {
@@ -221,63 +242,57 @@ function updateVoiceButton() {
   }
 }
 
-      function sendVoiceInput(transcript) {
-        document.getElementById("voiceButton").classList.add("processing");
-        document.getElementById("voiceStatus").textContent = "Processing...";
+// Updated sendVoiceInput with lock and typing indicator
+function sendVoiceInput(transcript) {
+  document.getElementById("voiceButton").classList.add("processing");
+  document.getElementById("voiceStatus").textContent = "Processing...";
 
-        addMessage("user", transcript);
+  addMessage("user", transcript);
+  lockInput();
+  document.getElementById("typingIndicator").style.display = "flex";
 
-        fetch("/voice_input", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ input: transcript }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              addMessage("bot", data.response);
+  fetch("/voice_input", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ input: transcript }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
+      document.getElementById("voiceButton").classList.remove("processing");
+      document.getElementById("voiceStatus").textContent = "Click to speak";
 
-              // Speak the response if voice output is enabled
-              if (voiceOutputEnabled) {
-                speakText(data.response);
-              }
+      if (data.success) {
+        addMessage("bot", data.response);
 
-              if (
-                data.response.includes(
-                  "I don't have that information in my database"
-                ) ||
-                data.response.includes(
-                  "Our customer support team will contact you soon"
-                )
-              ) {
-                setTimeout(() => showContactForm(), 1000);
-              }
-            } else {
-              addMessage(
-                "bot",
-                data.response || "I didn't understand that. Please try again."
-              );
-            }
-
-            document
-              .getElementById("voiceButton")
-              .classList.remove("processing");
-            document.getElementById("voiceStatus").textContent =
-              "Click to speak";
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            addMessage(
-              "bot",
-              "Oops! Something went wrong. Please try again later."
-            );
-            document
-              .getElementById("voiceButton")
-              .classList.remove("processing");
-            document.getElementById("voiceStatus").textContent =
-              "Click to speak";
-          });
+        if (voiceOutputEnabled) {
+          speakText(data.response);
+        }
+        if (
+          data.response.includes("I don't have that information in my database") ||
+          data.response.includes("Our customer support team will contact you soon")
+        ) {
+          setTimeout(() => showContactForm(), 1000);
+        }
+      } else {
+        addMessage(
+          "bot",
+          data.response || "I didn't understand that. Please try again."
+        );
       }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      addMessage("bot", "Oops! Something went wrong. Please try again later.");
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
+      document.getElementById("voiceButton").classList.remove("processing");
+      document.getElementById("voiceStatus").textContent = "Click to speak";
+    });
+}
+
+
 
       function speakText(text) {
         if ("speechSynthesis" in window) {
@@ -323,42 +338,47 @@ function updateVoiceButton() {
           }
         });
 
-      function selectMenuOption(optionId, optionText) {
-        addMessage("user", optionText);
-        fetch("/get_menu_options", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            option: optionId,
-            text: optionText,
-            path: currentPath,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            currentPath = data.path;
-            updateMenuOptions(data.options);
-            if (data.bot_response) {
-              addMessage("bot", data.bot_response);
-// If the selected option is "Schedule a Call", show the contact form
+// Updated selectMenuOption with lock and typing indicator
+function selectMenuOption(optionId, optionText) {
+  addMessage("user", optionText);
+  lockInput();
+  document.getElementById("typingIndicator").style.display = "flex";
+
+  fetch("/get_menu_options", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      option: optionId,
+      text: optionText,
+      path: currentPath,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
+
+      currentPath = data.path;
+      updateMenuOptions(data.options);
+
+      if (data.bot_response) {
+        addMessage("bot", data.bot_response);
+
         if (optionText === "Schedule a Call") {
           showContactForm();
         }
-              // Speak the response if voice output is enabled
-              if (voiceOutputEnabled) {
-                speakText(data.bot_response);
-              }
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            addMessage(
-              "bot",
-              "Oops! Something went wrong. Please try again later."
-            );
-          });
+        if (voiceOutputEnabled) {
+          speakText(data.bot_response);
+        }
       }
-
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      addMessage("bot", "Oops! Something went wrong. Please try again later.");
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
+    });
+}
       // Dropdown for plus button
 const plusBtn = document.getElementById('plusMenuBtn');
 const plusDropdown = document.getElementById('plusDropdown');
@@ -376,48 +396,47 @@ document.addEventListener('click', function(e) {
 });
 
 
-      function sendCustomInput() {
-        const inputField = document.getElementById("customInput");
-        const userInput = inputField.value.trim();
-        if (userInput === "") return;
+// Updated sendCustomInput with lock and typing indicator
+function sendCustomInput() {
+  const inputField = document.getElementById("customInput");
+  const userInput = inputField.value.trim();
+  if (userInput === "") return;
 
-        addMessage("user", userInput);
-        inputField.value = "";
-        document.getElementById("sendButton").disabled = true;
+  addMessage("user", userInput);
+  inputField.value = "";
+  lockInput();
+  document.getElementById("typingIndicator").style.display = "flex";
 
-        fetch("/process_custom_input", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ input: userInput }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            addMessage("bot", data.response);
+  fetch("/process_custom_input", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ input: userInput }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      addMessage("bot", data.response);
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
 
-            // Speak the response if voice output is enabled
-            if (voiceOutputEnabled) {
-              speakText(data.response);
-            }
-
-            if (
-              data.response.includes(
-                "I don't have that information in my database"
-              ) ||
-              data.response.includes(
-                "Our customer support team will contact you soon"
-              )
-            ) {
-              setTimeout(() => showContactForm(), 1000);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            addMessage(
-              "bot",
-              "Oops! Something went wrong. Please try again later."
-            );
-          });
+      if (voiceOutputEnabled) {
+        speakText(data.response);
       }
+
+      if (
+        data.response.includes("I don't have that information in my database") ||
+        data.response.includes("Our customer support team will contact you soon")
+      ) {
+        setTimeout(() => showContactForm(), 1000);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      addMessage("bot", "Oops! Something went wrong. Please try again later.");
+      document.getElementById("typingIndicator").style.display = "none";
+      unlockInput();
+    });
+}
+
 
 
       function addMessage(sender, text) {
@@ -466,7 +485,7 @@ function updateMenuOptions(options) {
 }
 
 
-       function showContactForm() {
+  function showContactForm() {
     document.getElementById("menuOptions").style.display = "block";
     document.getElementById("contactForm").style.display = "block";
   }

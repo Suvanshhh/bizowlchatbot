@@ -53,6 +53,7 @@ else:
         raise
 
 # Load data files
+# there are two files temp_data.json and data.json both are in Data folder it loads the data from these files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 try:
     with open(os.path.join(BASE_DIR, 'Data', 'temp_data.json'), 'r') as f:
@@ -72,7 +73,7 @@ if not api_key:
 else:
     print("Gemini API key found.")
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-flash-latest')
     print("Gemini model loaded:", model)
 
 # Firebase helper functions
@@ -117,36 +118,63 @@ def ensure_chat_session():
     
     return chat_id
 
-def save_message(chat_id, message, is_user=True):
-    """Save message to Firebase with fallback to memory"""
-    try: 
-        if not chat_id:
-            print("No chat_id provided")
-            return
-        chat_id = str(chat_id)
-        if not chat_id.startswith('fallback_'):
-            messages_ref = db.collection('chats').document(chat_id).collection('messages')
-            messages_ref.add({
-                'content': message,
-                'sender': 'user' if is_user else 'bot',
-                'timestamp': SERVER_TIMESTAMP
-            }, timeout=30)
-            print(f"Message saved to Firebase for chat {chat_id}")
-        else:
-            raise Exception("Using fallback storage")
-            
+def save_messages_batch(chat_id, messages):
+    """
+    Save multiple messages in a Firestore batch write.
+    Each message should be a dict with keys: content, sender.
+    """
+    if not chat_id or chat_id.startswith("fallback_"):
+        # fallback to in-memory or ignore batch write in this case
+        for msg in messages:
+            save_message(chat_id, msg["content"], msg.get("sender", True))
+        return
+
+    try:
+        batch = db.batch()
+        messages_ref = db.collection("chats").document(chat_id).collection("messages")
+        for msg in messages:
+            doc_ref = messages_ref.document()
+            batch.set(doc_ref, {
+                "content": msg["content"],
+                "sender": msg.get("sender", True) and "user" or "bot",
+                "timestamp": SERVER_TIMESTAMP,
+            })
+        batch.commit()
+        print(f"Batch saved {len(messages)} messages for chat {chat_id}")
     except Exception as e:
-        print(f"Firebase save failed, using memory fallback: {e}")
-        chat_id = str(chat_id)
+        print(f"Batch write failed: {e}")
+        # fallback logic: save individually
+        for msg in messages:
+            save_message(chat_id, msg["content"], msg.get("sender", True))
+
+
+def save_message(chat_id, message, is_user=True):
+    if not chat_id:
+        print("No chat id provided")
+        return
+    chat_id = str(chat_id)
+    try:
+        if not chat_id.startswith("fallback_"):
+            messages_ref = db.collection("chats").document(chat_id).collection("messages")
+            messages_ref.add({
+                "content": message,
+                "sender": "user" if is_user else "bot",
+                "timestamp": SERVER_TIMESTAMP,
+            }, timeout=30)
+            print(f"Saved message to Firebase in chat {chat_id}")
+        else:
+            raise Exception("Local fallback")
+    except Exception as e:
+        print(f"Firebase save failed, saving in memory: {e}")
         if chat_id not in chat_memory:
             chat_memory[chat_id] = []
         chat_memory[chat_id].append({
-            'content': message,
-            'sender': 'user' if is_user else 'bot',
-            'timestamp': datetime.utcnow().isoformat()
+            "content": message,
+            "sender": "user" if is_user else "bot",
+            "timestamp": datetime.utcnow().isoformat(),
         })
-        print(f"Message saved to memory for chat {chat_id}")
-        
+        print(f"Saved message in memory for chat {chat_id}")
+ 
 def save_contact_info(chat_id, contact_data):
     """Save contact information to Firebase"""
     try:
@@ -163,48 +191,48 @@ def save_contact_info(chat_id, contact_data):
     except Exception as e:
         print(f"Error saving contact info: {e}")
         
-def get_chat_history(chat_id, max_messages=15):
-    """Get recent chat history with fallback to memory"""
+def get_chat_history(chat_id, max_messages=20):
+    """Get recent chat history with fallback to memory."""
+    if not chat_id:
+        return ""
+
+    chat_id = str(chat_id)
     try:
-        if not chat_id:
-            return ""
-        chat_id = str(chat_id)
-        if not chat_id.startswith('fallback_'):
-            messages_ref = db.collection('chats').document(chat_id).collection('messages')
-            query = messages_ref.order_by('timestamp').limit_to_last(max_messages)
-            docs = query.get()
-            
+        if not chat_id.startswith("fallback_"):
+            messages_ref = db.collection("chats").document(chat_id).collection("messages")
+            # Query latest messages descending, limit to max_messages
+            query = messages_ref.order_by("timestamp", direction=firestore.Query.DESCENDING).limit(max_messages)
+            docs = list(query.get())
+
+            # Reverse to chronological order
+            docs.reverse()
+
             history = []
             for doc in docs:
                 msg = doc.to_dict()
-                sender = msg.get('sender', 'user')
-                content = msg.get('content', '').strip()
-                
-                if content:  
-                    role = 'User' if sender == 'user' else 'Assistant'
+                sender = msg.get("sender", "user")
+                content = msg.get("content", "").strip()
+                if content:
+                    role = "User" if sender == "user" else "Assistant"
                     history.append(f"{role}: {content}")
-            
-            result = "\n".join(history) if history else ""
+
             print(f"Retrieved {len(history)} messages from Firebase for chat {chat_id}")
-            return result
+            return "\n".join(history)
         else:
             raise Exception("Using fallback storage")
-            
     except Exception as e:
         print(f"Firebase fetch failed, using memory fallback: {e}")
-        chat_id = str(chat_id)
         if chat_id in chat_memory:
             messages = chat_memory[chat_id][-max_messages:]
             history = []
             for msg in messages:
-                content = msg.get('content', '').strip()
+                content = msg.get("content", "").strip()
                 if content:
-                    role = 'User' if msg['sender'] == 'user' else 'Assistant'
+                    role = "User" if msg["sender"] == "user" else "Assistant"
                     history.append(f"{role}: {content}")
-            result = "\n".join(history) if history else ""
             print(f"Retrieved {len(history)} messages from memory for chat {chat_id}")
-            return result
-        
+            return "\n".join(history)
+
         print(f"No chat history found for chat {chat_id}")
         return ""
 
@@ -253,6 +281,7 @@ CURRENT USER MESSAGE:
 """
     return prompt
 
+# gets initial menu from the data 
 def get_initial_menu_options():
     """Get initial menu options from data"""
     try:
@@ -261,6 +290,7 @@ def get_initial_menu_options():
         print(f"Error getting initial menu options: {e}")
         return []
 
+# navigates menu tree based on user choices:
 def get_next_menu_options(path):
     """Get next menu options based on current path"""
     try:
@@ -303,8 +333,9 @@ def generate_ai_response(user_input, chat_id):
         print(f"Error generating AI response: {e}")
         return "I apologize, but I'm having trouble processing your request right now. Could you please try again in a few moments or let us know if you need human assistance?"
 
+# Done here we are using two objects mail and message, mail for handling the email configuration and sending, and Message for creating the email content.
 def send_contact_email(contact_data, chat_id):
-    """Send email notification for contact requests"""
+    """Send email noti  fication for contact requests"""
     try:
         name = contact_data.get('name', 'Unknown')
         email_addr = contact_data.get('email', 'Not provided')
@@ -525,6 +556,18 @@ def debug_chat_history():
         'chat_id': chat_id,
         'history': history,
         'memory_chats': list(chat_memory.keys()) if chat_memory else []
+    })
+
+@app.route('/test_chat_history')
+def test_chat_history():
+    chat_id = request.args.get('chat_id') or session.get('chat_id')
+    if not chat_id:
+        return jsonify({'error': 'No active chat session'}), 400
+
+    history = get_chat_history(chat_id, max_messages=20)
+    return jsonify({
+        'chat_id': chat_id,
+        'chat_history': history
     })
 
 # Error handlers
